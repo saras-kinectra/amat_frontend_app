@@ -1,0 +1,15 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+
+  .card-header{
+
+    text-align: center;
+    background-color: #339e7e;
+    color: azure;
+    }
