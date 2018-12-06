@@ -1,0 +1,94 @@
+<div class="container">
+  <mat-card class="card">
+    <div class="matContainer">
+      <mat-form-field class="chip-list">
+
+        <label class="label">Select Chambers</label>
+
+        <mat-chip-list #chipList>
+          <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="chamberSelectable"
+            [removable]="removable" (removed)="chambersRemove(chamber)">
+            {{chamber.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+
+          <input #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"  [(ngModel)]="term">
+
+            <mat-icon [hidden]="isErrorLabelHidden" class="matIcon">close</mat-icon>
+          </mat-chip-list>
+
+
+
+
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="chamberOptionSelected($event)">
+
+
+            <mat-option *ngFor="let chamber of chambersList | filter:term;let i = index" [value]="chamber">
+
+                {{chamber.name}}
+              </mat-option>
+            <!-- <div *ngIf="isChamberSelected; else chambersSelected">
+                  
+
+                <mat-option *ngFor="let chamber of chambersList | filter:term;let i = index" [value]="chamber">
+
+                    {{chamber.name}}
+                  </mat-option>
+              </div>
+  
+              <ng-template #chambersSelected>
+
+                <mat-option *ngFor="let chamber of compatibilityChambersList | filter:term;let i = index" [value]="chamber">
+
+                      {{chamber.name}}
+                </mat-option>
+              </ng-template> -->
+        </mat-autocomplete>
+      
+      </mat-form-field>
+      <label [hidden]="isErrorLabelHidden" class="errorLabel"> You've exceeded the maximum number of chambers by 1 </label>  <br>
+
+      <div class="matContainer comapatableChambersList">
+      <p class="chamberNames" *ngFor="let chambers of chambersList; let i = index" [class.active]="selectedIndex === i"
+        (click)="filterChambersByID(chambers._id)">
+        <a>{{ chambers.name }}</a>
+      </p>
+      </div>
+    </div>
+
+    <div class="matContainer" [hidden]="!isRnDSelected">
+
+      <label class="incompatableChambers">Incompatable Chambers</label> <br>
+
+      <p class="inCompatableChamberNames" *ngFor="let chambers of inCompatibilityChambersList; let i = index">
+        {{ chambers.name }}
+      </p>
+
+    </div>
+
+
+    <div class="matContainerproductsList matContainer">
+      <p class="chamberNames" *ngFor="let chambers of productsList">
+        <a>{{ chambers.name }}</a>
+      </p>
+    </div>
+
+    <!-- <mat-slide-toggle (change)="onChange($event)" 
+      [(ngModel)]="device" 
+      (click)="onActiveHomeboxP(item.homeboxpackage_id)">
+				</mat-slide-toggle> -->
+
+    <hr>
+    <div class="row matActions">
+
+      <div class="row col-md-4 toggleRow">
+        R&D Build <mat-slide-toggle class="col-md-4 toggle" (change)="onRnDChangeEvent($event)"></mat-slide-toggle>
+      </div>
+      <mat-card-actions class="text-right col-md-8">
+        <button type="button" class="btn custom-button-width" (click)="backButton()">BACK</button>
+        <button type="button" class="btn custom-button-width" (click)="nextButton()">NEXT</button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>

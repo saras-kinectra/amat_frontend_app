@@ -1,0 +1,145 @@
+.mat-form-field {
+
+    margin-bottom: -20px;
+
+}
+.mat_chip{
+
+    background-color: #83c4de;
+    /* padding: 5px; */
+    /* padding: 58px; */
+    font-size: 11px;
+    border-radius: 16px;
+    min-height: 28px;
+
+}
+.inCompatableChamberNames{
+
+
+    background-color: rgb(226, 226, 226);
+    float: left;
+    padding: 5px;
+    font-size: 11px;
+    position: relative;
+    margin: 5px;
+    border-radius: 16px;
+    color: black;
+    cursor: not-allowed;
+
+}
+
+.chamberNames{
+
+background-color: rgb(171, 210, 225);
+float: left;
+padding: 5px;
+font-size: 11px;
+position: relative;
+margin: 5px;
+border-radius: 16px;
+color: black;
+cursor: pointer;
+
+
+}
+
+.chamberContainer{
+
+    display: contents;
+
+}
+
+.matContainer{
+
+    display: table;
+    width: 100%;
+
+}
+
+.chip-list {
+    width: 100%;
+  }
+
+.label{
+
+font-size: 14px;
+
+}
+
+.card{
+
+    padding: 20px;
+
+}
+
+.btn{
+  
+    background-color: #4e90ac;
+    width: 14%;
+    margin-top: 2%;
+    margin-right: 15px;
+  }
+
+  .toggle{
+
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+  }
+
+  .toggleRow{
+
+    margin-left: 5px;
+    align-items: center;
+
+  }
+
+  .incompatableChambers{
+
+    
+    padding-left:  8px;
+    padding-top: 30px;
+   
+
+  }
+
+
+.matActions{
+
+widows: 100%;
+
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 3px solid rgb(161, 161, 161);
+}
+.card>hr {
+    margin-right: -20px;
+    margin-left: -20px;
+}
+.matContainerproductsList{
+
+    background-color: rgb(28, 128, 58);
+
+}
+
+.errorLabel{
+
+    margin-left: 0px;
+    margin-top: -45px;
+    font-size: 12px;
+    color: rgb(185, 43, 43);
+}
+.matIcon{
+
+    color: rgb(185, 43, 43);
+
+}
+.comapatableChambersList{
+
+margin-top: 20px;
+
+}

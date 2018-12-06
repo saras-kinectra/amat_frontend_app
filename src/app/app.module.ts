@@ -1,21 +1,20 @@
-import { HomeModule } from './Components/home/home.module';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SubModule } from './Components/sub.module';
 
-
-
-
+import { SelectModule } from 'ng2-select';
+import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
   declarations: [
     AppComponent
   ],
 
   imports: [
-    BrowserModule,BrowserAnimationsModule,HomeModule,AppRoutingModule
+    BrowserModule,ReactiveFormsModule,FormsModule,SelectModule,BrowserAnimationsModule,MatChipsModule,AppRoutingModule, SubModule,
   ],
 
   providers: [],

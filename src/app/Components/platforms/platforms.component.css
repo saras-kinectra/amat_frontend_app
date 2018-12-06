@@ -1,0 +1,32 @@
+
+
+.opId{
+
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.selectPlatform{
+
+  margin-top: 15px;
+}
+
+inner{
+
+  margin-right:20px;
+  margin-left:20px;
+}
+
+.btn{
+  
+  /* background-color: #4e90ac; */
+  width: 14%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-right: 15px;
+}
+
+
+@media screen and (max-width: 550px) {
+
+}
