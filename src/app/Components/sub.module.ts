@@ -25,6 +25,9 @@ import 'hammerjs';
 import { PlatFormsComponent } from './platforms/platforms.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {MatMenuModule} from '@angular/material/menu';
+
+
 @NgModule({
   declarations: [
 
@@ -37,7 +40,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     BrowserModule,FormsModule,SelectModule,BrowserAnimationsModule, ReactiveFormsModule, HttpClientModule,
     SubRoutingModule,MatAutocompleteModule, MatButtonModule, MatSelectModule,MatSlideToggleModule,
     MatFormFieldModule, MatInputModule,OverlayModule,OverlayPanelModule,MatCardModule,
-    MatRippleModule,AccordionModule,MatChipsModule,MatIconModule,Ng2SearchPipeModule
+    MatRippleModule,AccordionModule,MatChipsModule,MatIconModule,Ng2SearchPipeModule,MatMenuModule
 
   ],
 

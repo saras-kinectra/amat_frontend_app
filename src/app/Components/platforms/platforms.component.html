@@ -1,16 +1,21 @@
 <div class="container">
     <mat-card class="card">
-
         <div class="inner">
             <form [formGroup]="form">
-                <mat-form-field class="example-full-width col-md-4">
+               
+                <mat-form-field class="example-full-width col-md-5">
+
                     <label for="postal-code">Input OP ID</label>
-                    <input class="opId" #opIdInput matInput formControlName="opID">
+
+                    <input class="opId" #opIdInput matInput formControlName="opID"><span class="info"><mat-icon matSuffix>info</mat-icon></span>
+
+                    
                 </mat-form-field>
+               
 
                 <br>
 
-                <mat-form-field class="col-md-4">
+                <mat-form-field class="col-md-5">
                     <label for="postal-code">Select PlatForm</label>
                     <mat-select class="selectPlatform" [(value)]="platForm_ID" (ngValueChange)="onPlatFormListChange($event)"
                         formControlName="platForm">
@@ -18,38 +23,15 @@
                         <mat-option *ngFor="let type of platformsList" [value]="type._id">{{type.name}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
-
-
-                <!-- <div [hidden]="ishidden" class="form-group col-md-2">
-                <label for="options">Select Chamber:</label>
-                <div *ngFor="let option of chambersList">
-                    <label>
-                        <input type="checkbox" name="options" value="{{option.name}}" [(ngModel)]="option.checked" />
-                        {{option.name}}
-                    </label>
-                </div>
-            </div> -->
-
-                <!-- <div [hidden]="ishiddenProduct">
-                <label for="postal-code">Select Product</label>
-                <select class="form-control bgcolor textcolor col-md-2" name="id" (ngModelChange)="onProductChange($event)"
-                    #productType="ngModel" [(ngModel)]="two" required>
-                    <option [value]="undefined" selected [disabled]="true">--Select Id--</option>
-                    <option *ngFor="let value of productsList" [ngValue]="value">
-                        {{value.name}}
-                    </option>
-                </select><br>
-            </div> -->
             </form>
         </div>
-        <br>
+        <br><br> <br><br>
 
-        <div class="col-md-12 text-right">
+        <!-- <div class="col-md-12 text-right">
 
             <div *ngIf="!form.valid; else enable">
 
                 <button type="button" [disabled]="!form.valid" class="btn custom-button-width" (click)="next()">NEXT</button>
-                
             </div>
 
             <ng-template #enable>
@@ -57,6 +39,24 @@
                     (click)="next()">NEXT</button>
             </ng-template>
 
+        </div> -->
+
+
+        <hr>
+        <div class="row matActions">
+          <mat-card-actions class="text-right col-md-12">
+
+                <div *ngIf="!form.valid; else enable">
+
+                        <button type="button"  [disabled]="!form.valid" class="btn custom-button-width col-sm-2" (click)="next()">SUBMIT</button>
+                    </div>
+        
+                    <ng-template #enable>
+                        <button type="button"  style="background-color:#d3e5ec ; color: #2e849e" [disabled]="!form.valid" class="btn custom-button-width col-sm-2"
+                            (click)="next()">SUBMIT</button>
+                    </ng-template>
+                    
+        </mat-card-actions>
         </div>
 
     </mat-card>

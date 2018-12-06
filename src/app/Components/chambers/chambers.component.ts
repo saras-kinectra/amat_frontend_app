@@ -256,6 +256,7 @@ export class ChamberComponent implements OnInit {
     if (this.selectedChambersList.length > 9) {
 
       this.isErrorLabelHidden = false;
+    
 
     } else {
 

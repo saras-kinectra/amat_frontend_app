@@ -16,3 +16,23 @@
 .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
     background-color: #4e90ac;
 }
+
+.mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple {
+    height: 2px;
+    background: #4599c3;
+  }
+
+  .mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+    background: #4599c3;
+}
+/* .mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+    background-color: #4e4b4b;
+} */
+.mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
+    color: #080808;
+  }
+
+  .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+    caret-color: black;
+}
+

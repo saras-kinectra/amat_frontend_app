@@ -3,7 +3,7 @@
     <div class="matContainer">
       <mat-form-field class="chip-list">
 
-        <label class="label">Select Chambers</label>
+        <label class="selectChambersName">Select Chambers</label>
 
         <mat-chip-list #chipList>
           <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="chamberSelectable"
@@ -29,8 +29,6 @@
                 {{chamber.name}}
               </mat-option>
             <!-- <div *ngIf="isChamberSelected; else chambersSelected">
-                  
-
                 <mat-option *ngFor="let chamber of chambersList | filter:term;let i = index" [value]="chamber">
 
                     {{chamber.name}}
@@ -65,7 +63,7 @@
         {{ chambers.name }}
       </p>
 
-    </div>
+    </div> <br><br><br>
 
 
     <div class="matContainerproductsList matContainer">
@@ -86,8 +84,16 @@
         R&D Build <mat-slide-toggle class="col-md-4 toggle" (change)="onRnDChangeEvent($event)"></mat-slide-toggle>
       </div>
       <mat-card-actions class="text-right col-md-8">
-        <button type="button" class="btn custom-button-width" (click)="backButton()">BACK</button>
-        <button type="button" class="btn custom-button-width" (click)="nextButton()">NEXT</button>
+
+         
+
+        <!-- <button type="button" class="btn custom-button-width" (click)="backButton()">BACK</button> -->
+        <button type="button"  style="margin-right: 25px;" class="btn  col-sm-2"
+        (click)="backButton()">BACK</button>
+
+        <button type="button"  style="background-color:#d3e5ec ; color: #2e849e; margin-right: 25px;" class="btn custom-button-width col-sm-2"
+        (click)="nextButton()">SUBMIT</button>
+        <!-- <button type="button" class="btn custom-button-width" (click)="nextButton()">NEXT</button> -->
       </mat-card-actions>
     </div>
   </mat-card>
