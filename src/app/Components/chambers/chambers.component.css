@@ -32,7 +32,7 @@
     margin: 5px;
     border-radius: 16px;
     color: black;
-    cursor: not-allowed;
+    cursor: pointer;
 
 }
 
@@ -107,7 +107,12 @@ font-size: 14px;
     
     padding-left:  8px;
     padding-top: 30px;
-   
+    font-size: 12px;
+
+  }
+  .matchingChambersLabel{
+
+    font-size: 12px;
 
   }
 
@@ -136,11 +141,15 @@ hr {
 
 .errorLabel{
 
+    position: absolute;
+    display: contents;
+    margin-bottom: 0px;
     margin-left: 0px;
     margin-top: -45px;
     font-size: 12px;
     color: rgb(185, 43, 43);
 }
+
 .matIcon{
 
     color: rgb(185, 43, 43);
@@ -148,18 +157,23 @@ hr {
 }
 .comapatableChambersList{
 
-margin-top: 20px;
+margin-top: 16px;
 
 }
 
 .mat-input-element {
     caret-color: #000000;
 }
-.text-right{
 
+.text-right{
     display: block;
     margin-bottom: 0px;
-  
+  }
+
+  .errorLabelClose{
+
+    float: right;
+
   }
 
   .mat-card-content>:last-child:not(.mat-card-footer), .mat-card>:last-child:not(.mat-card-footer) {

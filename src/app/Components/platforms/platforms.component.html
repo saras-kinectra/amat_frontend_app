@@ -3,11 +3,13 @@
         <div class="inner">
             <form [formGroup]="form">
                
-                <mat-form-field class="example-full-width col-md-5">
+                <mat-form-field class="opIDField example-full-width col-md-5">
 
-                    <label for="postal-code">Input OP ID</label>
-
-                    <input class="opId" #opIdInput matInput formControlName="opID"><span class="info"><mat-icon matSuffix>info</mat-icon></span>
+                    <label class="label1" for="postal-code">Input OP ID</label>
+                  
+                    <input class="opId" #opIdInput matInput formControlName="opID" ><span class="info" pInputText maxlength="35" 
+                    pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged." tooltipPosition="right" hideDelay="300"
+                    ><mat-icon class="hover" matSuffix>info</mat-icon></span>
 
                     
                 </mat-form-field>
@@ -15,12 +17,12 @@
 
                 <br>
 
-                <mat-form-field class="col-md-5">
-                    <label for="postal-code">Select PlatForm</label>
-                    <mat-select class="selectPlatform" [(value)]="platForm_ID" (ngValueChange)="onPlatFormListChange($event)"
+                <mat-form-field class="platformField col-md-5">
+                    <label class="label2" for="postal-code">Select PlatForm</label>
+                    <mat-select class="selectPlatform" [(value)]="i" (ngValueChange)="onPlatFormListChange($event,i)"
                         formControlName="platForm">
-                        <mat-option [value]="undefined" selected [disabled]="true">--Select Platform--</mat-option>
-                        <mat-option *ngFor="let type of platformsList" [value]="type._id">{{type.name}}</mat-option>
+                        <!-- <mat-option [value]="undefined" selected [disabled]="true">--Select Platform--</mat-option> -->
+                        <mat-option  class="matOptions" *ngFor="let type of platformsList;let i=index" [value]="i">{{type.name}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
             </form>

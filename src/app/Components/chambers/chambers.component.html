@@ -13,9 +13,9 @@
           </mat-chip>
 
           <input #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"  [(ngModel)]="term">
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"  [(ngModel)]="term"><span class="errorLabelClose" [hidden]="isErrorLabelHidden"> <mat-icon  class="matIcon" >close</mat-icon></span>
 
-            <mat-icon [hidden]="isErrorLabelHidden" class="matIcon">close</mat-icon>
+           
           </mat-chip-list>
 
 
@@ -44,22 +44,23 @@
               </ng-template> -->
         </mat-autocomplete>
       
-      </mat-form-field>
-      <label [hidden]="isErrorLabelHidden" class="errorLabel"> You've exceeded the maximum number of chambers by 1 </label>  <br>
+      </mat-form-field><br>
+      <label [hidden]="isErrorLabelHidden" class="errorLabel"> You've exceeded the maximum number of chambers by 1 </label> 
 
       <div class="matContainer comapatableChambersList">
+          <label class="matchingChambersLabel" [hidden]="!isChamberSelected">Known Matching Chambers</label> <br>
       <p class="chamberNames" *ngFor="let chambers of chambersList; let i = index" [class.active]="selectedIndex === i"
         (click)="filterChambersByID(chambers._id)">
         <a>{{ chambers.name }}</a>
       </p>
       </div>
     </div>
+   
+    <div class="matContainer" [hidden]="!isChamberSelected">
 
-    <div class="matContainer" [hidden]="!isRnDSelected">
+      <label class="incompatableChambers">R&D Only Chambers</label> <br>
 
-      <label class="incompatableChambers">Incompatable Chambers</label> <br>
-
-      <p class="inCompatableChamberNames" *ngFor="let chambers of inCompatibilityChambersList; let i = index">
+      <p class="inCompatableChamberNames" *ngFor="let chambers of rndOnlyChambersList; let i = index">
         {{ chambers.name }}
       </p>
 
@@ -72,29 +73,12 @@
       </p>
     </div>
 
-    <!-- <mat-slide-toggle (change)="onChange($event)" 
-      [(ngModel)]="device" 
-      (click)="onActiveHomeboxP(item.homeboxpackage_id)">
-				</mat-slide-toggle> -->
-
     <hr>
-    <div class="row matActions">
-
-      <div class="row col-md-4 toggleRow">
-        R&D Build <mat-slide-toggle class="col-md-4 toggle" (change)="onRnDChangeEvent($event)"></mat-slide-toggle>
+    <div  class="row matActions">
+        <mat-card-actions  class="text-right col-md-12 mat-card-actions">
+          <button  class="btn  col-sm-2"style="margin-right: 25px;" type="button"(click)="backButton()">BACK</button>
+            <button  class="btn custom-button-width col-sm-2"style="background-color:#d3e5ec ; color: #2e849e; margin-right: 25px;" type="button" (click)="nextButton()">SUBMIT</button>
+          </mat-card-actions>
       </div>
-      <mat-card-actions class="text-right col-md-8">
-
-         
-
-        <!-- <button type="button" class="btn custom-button-width" (click)="backButton()">BACK</button> -->
-        <button type="button"  style="margin-right: 25px;" class="btn  col-sm-2"
-        (click)="backButton()">BACK</button>
-
-        <button type="button"  style="background-color:#d3e5ec ; color: #2e849e; margin-right: 25px;" class="btn custom-button-width col-sm-2"
-        (click)="nextButton()">SUBMIT</button>
-        <!-- <button type="button" class="btn custom-button-width" (click)="nextButton()">NEXT</button> -->
-      </mat-card-actions>
-    </div>
   </mat-card>
 </div>

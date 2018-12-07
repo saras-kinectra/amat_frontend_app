@@ -14,7 +14,6 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule,
   MAT_CHIPS_DEFAULT_OPTIONS} from '@angular/material';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OverlayModule } from '@angular/cdk/overlay';
-import {AccordionModule} from 'primeng/accordion'; 
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
@@ -26,7 +25,8 @@ import { PlatFormsComponent } from './platforms/platforms.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {MatMenuModule} from '@angular/material/menu';
-
+import {AccordionModule} from 'primeng/accordion'; 
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import {MatMenuModule} from '@angular/material/menu';
 
     BrowserModule,FormsModule,SelectModule,BrowserAnimationsModule, ReactiveFormsModule, HttpClientModule,
     SubRoutingModule,MatAutocompleteModule, MatButtonModule, MatSelectModule,MatSlideToggleModule,
-    MatFormFieldModule, MatInputModule,OverlayModule,OverlayPanelModule,MatCardModule,
+    MatFormFieldModule, MatInputModule,OverlayModule,OverlayPanelModule,MatCardModule,AccordionModule,TooltipModule,
     MatRippleModule,AccordionModule,MatChipsModule,MatIconModule,Ng2SearchPipeModule,MatMenuModule
 
   ],

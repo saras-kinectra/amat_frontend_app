@@ -86,7 +86,7 @@ export class ApiService {
     }
 
 
-    findCompatibilityInfoForChamberIds(chamberIDs: any[], platFormID, isRnDSelected: boolean) {
+    findCompatibilityInfoForChamberIds(chamberIDs: any[], platFormID) {
 
         console.log("ApiService findCompatibilityInfoForChamberIds");
         console.log("ApiService platForm_ID");
@@ -96,8 +96,8 @@ export class ApiService {
         const bodyParams = {
 
             "platformId": platFormID,
-            "chamberIds": chamberIDs,
-            "includeRndTypeMatches": isRnDSelected
+            "chamberIds": chamberIDs
+            // "includeRndTypeMatches": isRnDSelected
         }
 
         console.log("ApiService findCompatibilityInfoForChamberIds bodyParams: ", JSON.stringify(bodyParams));

@@ -17,9 +17,9 @@ export class ChamberComponent implements OnInit {
 
   public term;
   checked: boolean;
-  isRnDSelected: boolean = false;
+  // isRnDSelected: boolean = true;
   isErrorLabelHidden: boolean = true;
-  public platForm_ID;
+  public PlatFormObject:any = {};
   chamberSelectable = true;
   removable = true;
   addOnBlur = true;
@@ -35,7 +35,7 @@ export class ChamberComponent implements OnInit {
 
   productsList: any[] = [];
   compatibilityChambersList: any = [];
-  inCompatibilityChambersList: any = [];
+  rndOnlyChambersList: any = [];
   isChamberSelected: boolean = false;
 
   constructor(private apiService: ApiService, private location: Location) { }
@@ -45,10 +45,12 @@ export class ChamberComponent implements OnInit {
 
     this.chamberInput.nativeElement.focus();
 
-    this.platForm_ID = localStorage.getItem('platForm_ID');
-    console.log("ngOnInit platForm_ID: ", this.platForm_ID);
+    this.PlatFormObject = JSON.parse(localStorage.getItem('PlatFormObject'));
+    console.log("ngOnInit PlatFormObjectparse: ", JSON.parse(localStorage.getItem('PlatFormObject')));
+   
+    console.log("ngOnInit PlatFormObjectname:", this.PlatFormObject._id);
 
-    this.apiService.getChambersByPlatformID(this.platForm_ID).subscribe(response => {
+    this.apiService.getChambersByPlatformID(this.PlatFormObject._id).subscribe(response => {
 
       console.log("ngOnInit getChambersByPlatformID response: ", response);
       this.chambersList = JSON.parse(JSON.stringify(response));
@@ -56,35 +58,37 @@ export class ChamberComponent implements OnInit {
   }
 
 
-  onRnDChangeEvent(value) {
+  // onRnDChangeEvent(value) {
 
-    if (value.checked === true) {
+  //   if (value.checked === true) {
 
-      this.isRnDSelected = true;
-    } else {
+  //     this.isRnDSelected = true;
+  //   } else {
 
-      this.isRnDSelected = false;
-    }
+  //     this.isRnDSelected = false;
+  //   }
 
-    var selectedChamberIDs: any = [];
-        for (let i = 0; i < this.selectedChambersList.length; i++) {
-          selectedChamberIDs.push(this.selectedChambersList[i]._id);
-        }
+  //   var selectedChamberIDs: any = [];
+  //       for (let i = 0; i < this.selectedChambersList.length; i++) {
+  //         selectedChamberIDs.push(this.selectedChambersList[i]._id);
+  //       }
 
-        console.log("selected Ids", selectedChamberIDs);
-        console.log("this.selectedChambersList:", this.selectedChambersList);
+  //       console.log("selected Ids", selectedChamberIDs);
+  //       console.log("this.selectedChambersList:", this.selectedChambersList);
 
-        this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.platForm_ID, this.isRnDSelected).subscribe(response => {
+  //       this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
 
-          console.log("findCompatibilityInfoForChamberIds response: ", response);
-          var responseList: any = JSON.parse(JSON.stringify(response));
-          console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-          console.log("this.compatibilityChambersList response Split: ", responseList.incompatibleChambers);
+  //         console.log("findCompatibilityInfoForChamberIds response: ", response);
+  //         var responseList: any = JSON.parse(JSON.stringify(response));
+  //         console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
+  //         console.log("this.rndOnlyChambers response Split: ", responseList.rndOnlyChambers);
 
-          this.compatibilityChambersList = responseList.compatibleChambers;
-          this.inCompatibilityChambersList = responseList.incompatibleChambers;
-        });
-  }
+  //         this.compatibilityChambersList = responseList.compatibleChambers;
+  //         this.rndOnlyChambersList = responseList.rndOnlyChambers;
+  //       });
+  // }
+
+
 
   chambersRemove(chamber: string): void {
 
@@ -114,15 +118,16 @@ export class ChamberComponent implements OnInit {
     console.log("selected Ids", selectedChamberIDs);
     console.log("this.selectedChambersList:", this.selectedChambersList);
 
-    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.platForm_ID, this.isRnDSelected).subscribe(response => {
+    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
 
       console.log("findCompatibilityInfoForChamberIds response: ", response);
       var responseList: any = JSON.parse(JSON.stringify(response));
       console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-      console.log("this.compatibilityChambersList response Split: ", responseList.incompatibleChambers);
+      console.log("this.rndOnlyChambers response Split: ", responseList.rndOnlyChambers);
 
       this.compatibilityChambersList = responseList.compatibleChambers;
-      this.inCompatibilityChambersList = responseList.incompatibleChambers;
+   
+      this.rndOnlyChambersList = responseList.rndOnlyChambers;
     });
 
     if (this.selectedChambersList.length === 0) {
@@ -167,22 +172,23 @@ export class ChamberComponent implements OnInit {
         console.log("selected Ids", selectedChamberIDs);
         console.log("this.selectedChambersList:", this.selectedChambersList);
 
-        this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.platForm_ID, this.isRnDSelected).subscribe(response => {
+        this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
 
           console.log("findCompatibilityInfoForChamberIds response: ", response);
           var responseList: any = JSON.parse(JSON.stringify(response));
           console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-          console.log("this.compatibilityChambersList response Split: ", responseList.incompatibleChambers);
+          console.log("this.incompatibilityChambersList response Split: ", responseList.rndOnlyChambers);
 
           this.compatibilityChambersList = responseList.compatibleChambers;
-          this.inCompatibilityChambersList = responseList.incompatibleChambers;
+          this.rndOnlyChambersList = responseList.rndOnlyChambers;
+          
+          this.chambersList = this.compatibilityChambersList;
 
+          console.log("refreshed this.chambersList: ", this.chambersList);
+          // this.isRnDSelected = false;
           this.isChamberSelected = true;
         });
-
-
         // console.log("filterChambersByID after selectedChambersList: ", this.selectedChambersList);
-
         this.chambersList.splice(i, 1);
       }
     }
@@ -216,15 +222,15 @@ export class ChamberComponent implements OnInit {
         console.log("selected Ids", selectedChamberIDs);
         console.log("this.selectedChambersList:", this.selectedChambersList);
 
-        this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.platForm_ID, this.isRnDSelected).subscribe(response => {
+        this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
 
           console.log("findCompatibilityInfoForChamberIds response: ", response);
           var responseList: any = JSON.parse(JSON.stringify(response));
           console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-          console.log("this.compatibilityChambersList response Split: ", responseList.incompatibleChambers);
+          console.log("this.compatibilityChambersList response Split: ", responseList.rndOnlyChambers);
 
           this.compatibilityChambersList = responseList.compatibleChambers;
-          this.inCompatibilityChambersList = responseList.incompatibleChambers;
+          this.rndOnlyChambersList = responseList.rndOnlyChambers;
 
           this.isChamberSelected = true;
         });

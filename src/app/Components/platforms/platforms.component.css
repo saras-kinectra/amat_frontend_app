@@ -2,7 +2,7 @@
 label{
 
   display: block;
-  color: #4599C3;
+  color: black;
   font-size: 12px;
 
 }
@@ -24,27 +24,26 @@ inner{
 }
 
 .btn{
-  
   /* background-color: #4e90ac; */
   margin-right: 25px;
-
   /* margin-top: 2%;
   margin-bottom: 2%;
   margin-right: 15px; */
 }
 .info{
-
   color: rgba(134, 128, 128, 0.87);
   float: right;
   margin-right: -35px;
   padding-top: 4px;
+  
+}
 
+span:hover{
+ color: #4599C3;
 }
 
 .matActions{
-
   widows: 100%;
-  
   }
   
   hr {
@@ -66,6 +65,13 @@ inner{
 
 }
 
+.opIDField:focus-within .label1 {
+  color: #4599C3;
+}
+
+.platformField:focus-within .label2 {
+  color: #4599C3;
+}
 
 @media screen and (max-width: 550px) {
 

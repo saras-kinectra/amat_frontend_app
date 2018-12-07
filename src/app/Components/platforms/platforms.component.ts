@@ -20,6 +20,7 @@ export class PlatFormsComponent implements OnInit {
   public chambersList: any[];
   public productsList:any[];
   platForm_ID;
+  i;
   public form: FormGroup;
   
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
@@ -37,19 +38,9 @@ export class PlatFormsComponent implements OnInit {
 
 
 
-  // get selectedOptions() {
-  //   return this.chambersList
-  //             .filter(opt => opt.checked)
-  //             .map(opt => opt._id)
-  // }
-
-
   ngOnInit() {
 
-
-
     this.form = this.fb.group({
-      opID: [null, [Validators.required ]],
       platForm: [null, [Validators.required ]]
 
     });
@@ -67,48 +58,23 @@ export class PlatFormsComponent implements OnInit {
 
   }
 
-  onPlatFormListChange(event) {
+  onPlatFormListChange(event,index) {
 
   // this.platForm_ID = event._id;
-  console.log("console",event._id);
-
+  console.log("onPlatFormListChange",event._id,index);
 
 
   }
 
-  // onChambersListChange(event) {
-
-
-  //   var chamberIDs = new Array<string>();
-  //   chamberIDs.push(event._id);
-
-  // console.log("Response - chambers: ", chamberIDs);
-
-  //   this.apiService.findProductByChamberIDs(chamberIDs).subscribe(response => {
-
-  //     console.log("Response - findProductByChamberIDs: ", response);
-
-  //     this.productsList = JSON.parse(JSON.stringify(response));
-
-  //     console.log("Response - findProductByChamberIDs: length: ", this.platformsList.length);
-  //     console.log("Response - findProductByChamberIDs: json: ", this.platformsList);
-  //   });
-
-  // }
-
-
-
 
     next() {
 
-
-    localStorage.setItem("platForm_ID",this.platForm_ID);
-
+      console.log("onPlatFormListChange",this.i);
+      localStorage.setItem("PlatFormObject", JSON.stringify(this.platformsList[this.i]));
+    //localStorage.setItem("PlatFormObject",this.platformsList[this.i]);
+    console.log("onPlatFormListChange",this.platformsList[this.i]);
     this.router.navigate(['chambers'], { relativeTo: this.route });
 
-
-
-   
   }
 
 
