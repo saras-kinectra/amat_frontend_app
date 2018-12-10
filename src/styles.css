@@ -45,15 +45,16 @@
     color: #080808;
   }
 
-  .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+  /* .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
     caret-color: #9a8f8f;
 }
 .mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
     background-color: #9a8f8f;
-}
+} */
 .mat-form-field.mat-focused .mat-form-field-ripple {
     background-color: #4599C3;
   }
+  
   .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
     color: black;
 }

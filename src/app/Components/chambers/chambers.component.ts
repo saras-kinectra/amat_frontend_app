@@ -1,9 +1,9 @@
 import { Model } from './../../models/model';
 import { ApiService } from 'src/app/Services/api.service';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
-import { MatAutocomplete } from '@angular/material';
+import { FormControl, Validators } from '@angular/forms';
+import { MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 
 import { Location } from '@angular/common';
 
@@ -15,278 +15,350 @@ import { Location } from '@angular/common';
 })
 export class ChamberComponent implements OnInit {
 
-  public term;
-  checked: boolean;
-  // isRnDSelected: boolean = true;
-  isErrorLabelHidden: boolean = true;
-  public PlatFormObject:any = {};
+  public PlatFormObject: any = {};
   chamberSelectable = true;
+  public term;
   removable = true;
   addOnBlur = true;
   chamberFormControl = new FormControl();
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  chambersList: any[] = [];
-  selectedChambersList: any[] = [];
-
   @ViewChild('chamberInput') chamberInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  productsList: any[] = [];
+  dropDownChambersList: any[] = [];
+  chambersList: any[] = [];
   compatibilityChambersList: any = [];
   rndOnlyChambersList: any = [];
-  isChamberSelected: boolean = false;
+  
+  selectedChambersList: any[] = [];
 
-  constructor(private apiService: ApiService, private location: Location) { }
+  isRnDChambersEnabled: boolean = false;
+
+  showChambersList: boolean = true;
+  showCompatibilityChambersTitle: boolean = false;
+  showCompatibilityChambersList: boolean = false;
+  showRnDChamberTitle: boolean = false;
+  showRnDChamberList: boolean = false;
+
+  isChamberSelected: boolean = false;
+  showSelectedChambersClearButton: boolean = false;
+
+  showSelectChamberTitle: boolean = true;
+  isCrossLabelCondition = false;
+  showErrorLabelCondition: boolean = true;
+
+  finalProductsList: any[] = [];
+  
+  constructor(private apiService: ApiService, private location: Location, public dialog: MatDialog) { }
 
   ngOnInit() {
-
 
     this.chamberInput.nativeElement.focus();
 
     this.PlatFormObject = JSON.parse(localStorage.getItem('PlatFormObject'));
     console.log("ngOnInit PlatFormObjectparse: ", JSON.parse(localStorage.getItem('PlatFormObject')));
-   
+
     console.log("ngOnInit PlatFormObjectname:", this.PlatFormObject._id);
 
     this.apiService.getChambersByPlatformID(this.PlatFormObject._id).subscribe(response => {
 
       console.log("ngOnInit getChambersByPlatformID response: ", response);
+      
       this.chambersList = JSON.parse(JSON.stringify(response));
+      this.dropDownChambersList = this.chambersList;
     });
   }
-
-
-  // onRnDChangeEvent(value) {
-
-  //   if (value.checked === true) {
-
-  //     this.isRnDSelected = true;
-  //   } else {
-
-  //     this.isRnDSelected = false;
-  //   }
-
-  //   var selectedChamberIDs: any = [];
-  //       for (let i = 0; i < this.selectedChambersList.length; i++) {
-  //         selectedChamberIDs.push(this.selectedChambersList[i]._id);
-  //       }
-
-  //       console.log("selected Ids", selectedChamberIDs);
-  //       console.log("this.selectedChambersList:", this.selectedChambersList);
-
-  //       this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
-
-  //         console.log("findCompatibilityInfoForChamberIds response: ", response);
-  //         var responseList: any = JSON.parse(JSON.stringify(response));
-  //         console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-  //         console.log("this.rndOnlyChambers response Split: ", responseList.rndOnlyChambers);
-
-  //         this.compatibilityChambersList = responseList.compatibleChambers;
-  //         this.rndOnlyChambersList = responseList.rndOnlyChambers;
-  //       });
-  // }
-
-
 
   chambersRemove(chamber: string): void {
 
     const index = this.selectedChambersList.indexOf(chamber);
 
-    this.chambersList.push(this.selectedChambersList[index]);
-
     this.selectedChambersList.splice(index, 1);
-    console.log("this.SelectedChambers", this.selectedChambersList.length);
-
-    if (this.selectedChambersList.length > 9) {
-
-      this.isErrorLabelHidden = false;
-
-
-    } else {
-
-      this.isErrorLabelHidden = true;
-
-    }
-
-    var selectedChamberIDs: any = [];
-    for (let i = 0; i < this.selectedChambersList.length; i++) {
-      selectedChamberIDs.push(this.selectedChambersList[i]._id);
-    }
-
-    console.log("selected Ids", selectedChamberIDs);
-    console.log("this.selectedChambersList:", this.selectedChambersList);
-
-    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
-
-      console.log("findCompatibilityInfoForChamberIds response: ", response);
-      var responseList: any = JSON.parse(JSON.stringify(response));
-      console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-      console.log("this.rndOnlyChambers response Split: ", responseList.rndOnlyChambers);
-
-      this.compatibilityChambersList = responseList.compatibleChambers;
-   
-      this.rndOnlyChambersList = responseList.rndOnlyChambers;
-    });
+    console.log("chambersRemove SelectedChambers", this.selectedChambersList.length);
 
     if (this.selectedChambersList.length === 0) {
 
-      this.isChamberSelected = false;
+      this.clearAllSelectedChambers();
     } else {
 
-      this.isChamberSelected = true;
+      this.findCompatibilityInfoForChamberIds();
     }
   }
 
   chamberOptionSelected(event) {
 
+    console.log("chamberOptionSelected event.option.value._id: ", event.option.value._id);
+    console.log("chamberOptionSelected this.isChamberSelected: ", this.isChamberSelected);
+    console.log("chamberOptionSelected this.isRnDChambersEnabled: ", this.isRnDChambersEnabled);
+
+    var chamber;
+
     if (this.isChamberSelected) {
 
-      this.filterCompatibleChambersByID(event.option.value._id);
+      if(this.isRnDChambersEnabled) {
+
+        chamber = this.getChamberByID(event.option.value._id, this.rndOnlyChambersList);
+      } else {
+
+        chamber = this.getChamberByID(event.option.value._id, this.compatibilityChambersList);
+      }
     } else {
 
-      this.filterChambersByID(event.option.value._id);
+      chamber = this.getChamberByID(event.option.value._id, this.chambersList);
+    }
+
+    console.log("getChamberByID selectedChamber: ", chamber);
+
+    this.filterChambersByID(chamber);
+  }
+
+  getChamberByID(chamberID, chamberList) {
+
+    for (let i = 0; i < chamberList.length; i++) {
+
+      console.log("getChamberByID chamberID: ", chamberID);
+      console.log("getChamberByID chamberList: ", i,  chamberList[i]);
+
+      if (chamberList[i]._id === chamberID) {
+
+        return chamberList[i];
+      }
     }
   }
 
-  filterChambersByID(id) {
+  filterChambersByID(chamber) {
 
-    for (let i = 0; i < this.chambersList.length; i++) {
+    console.log('filterChambersByID selectedChamber: ', chamber);
 
-      // console.log("filterChambersByID before selectedChambersList for _id: ", i , this.chambersList[i]._id);
-      // console.log("filterChambersByID after chambersList: ", i,  this.chambersList[i]._id );
+    this.selectedChambersList.push(chamber);
+    this.findCompatibilityInfoForChamberIds();
+  }
 
-      if (this.chambersList[i]._id === id) {
+  filterRnDChambersByID(rnDChamber) {
 
-        // console.log("filterChambersByID before selectedChambersList for _id: ", i, this.chambersList[i]._id);
-        // console.log("filterChambersByID event.option.viewValue: ", event.option.value._id);
+    console.log('filterRndChambersByID selectedChamber: ', rnDChamber);
 
-        this.selectedChambersList.push(this.chambersList[i]);
+    if (this.isRnDChambersEnabled) {
 
-        var selectedChamberIDs: any = [];
-        for (let i = 0; i < this.selectedChambersList.length; i++) {
-          selectedChamberIDs.push(this.selectedChambersList[i]._id);
+      this.filterRnDChambers(rnDChamber);
+    } else {
+
+      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+
+        width: '350px',
+        height: '215px',
+        data: { isEnable: this.isRnDChambersEnabled }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+        var isFrom = localStorage.getItem('IsFrom');
+
+        console.log('filterRnDChambersByID dialogRef.afterClosed isFrom', isFrom);
+        console.log('filterRnDChambersByID dialogRef.afterClosed', this.isRnDChambersEnabled);
+
+        if (isFrom === "EnableButton") {
+
+          this.isRnDChambersEnabled = JSON.parse(localStorage.getItem('IsRnDEnable'));
+
+          this.filterRnDChambers(rnDChamber);
+        } else {
+
         }
-
-        console.log("selected Ids", selectedChamberIDs);
-        console.log("this.selectedChambersList:", this.selectedChambersList);
-
-        this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
-
-          console.log("findCompatibilityInfoForChamberIds response: ", response);
-          var responseList: any = JSON.parse(JSON.stringify(response));
-          console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-          console.log("this.incompatibilityChambersList response Split: ", responseList.rndOnlyChambers);
-
-          this.compatibilityChambersList = responseList.compatibleChambers;
-          this.rndOnlyChambersList = responseList.rndOnlyChambers;
-          
-          this.chambersList = this.compatibilityChambersList;
-
-          console.log("refreshed this.chambersList: ", this.chambersList);
-          // this.isRnDSelected = false;
-          this.isChamberSelected = true;
-        });
-        // console.log("filterChambersByID after selectedChambersList: ", this.selectedChambersList);
-        this.chambersList.splice(i, 1);
-      }
+      });
     }
-
-    // console.log("filterChambersByID selectedChambersList length: ", this.selectedChambersList.length);
-    // console.log("filterChambersByID chambersList length: ", this.chambersList.length);
 
     this.chamberInput.nativeElement.value = '';
     this.chamberFormControl.setValue(null);
   }
 
-  filterCompatibleChambersByID(id) {
+  filterRnDChambers(rnDChamber) {
+    
+    console.log('filterRnDChambers selectedChamber: ', rnDChamber);
 
-    for (let i = 0; i < this.compatibilityChambersList.length; i++) {
+    this.selectedChambersList.push(rnDChamber);
+    this.findCompatibilityInfoForChamberIds();
+  }
 
-      // console.log("filterCompatibleChambersByID before selectedChambersList for _id: ", i , this.chambersList[i]._id);
-      // console.log("filterCompatibleChambersByID after chambersList: ", i,  this.chambersList[i]._id );
+  findCompatibilityInfoForChamberIds() {
 
-      if (this.compatibilityChambersList[i]._id === id) {
+    console.log('findCompatibilityInfoForChamberIds facetsCount: ', this.PlatFormObject.facetsCount);
+    console.log('findCompatibilityInfoForChamberIds selectedChambersList.length: ', this.selectedChambersList.length);
 
-        // console.log("filterCompatibleChambersByID before selectedChambersList for _id: ", i, this.chambersList[i]._id);
-        // console.log("filterCompatibleChambersByID event.option.viewValue: ", event.option.value._id);
+    if(this.selectedChambersList.length > 0) {
 
-        this.selectedChambersList.push(this.compatibilityChambersList[i]);
+      this.showSelectedChambersClearButton = true;
+    } else {
 
-        var selectedChamberIDs: any = [];
-        for (let i = 0; i < this.selectedChambersList.length; i++) {
-          selectedChamberIDs.push(this.selectedChambersList[i]._id);
-        }
-
-        console.log("selected Ids", selectedChamberIDs);
-        console.log("this.selectedChambersList:", this.selectedChambersList);
-
-        this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
-
-          console.log("findCompatibilityInfoForChamberIds response: ", response);
-          var responseList: any = JSON.parse(JSON.stringify(response));
-          console.log("this.compatibilityChambersList response Split: ", responseList.compatibleChambers);
-          console.log("this.compatibilityChambersList response Split: ", responseList.rndOnlyChambers);
-
-          this.compatibilityChambersList = responseList.compatibleChambers;
-          this.rndOnlyChambersList = responseList.rndOnlyChambers;
-
-          this.isChamberSelected = true;
-        });
-
-
-        // console.log("filterCompatibleChambersByID after selectedChambersList: ", this.selectedChambersList);
-
-        this.compatibilityChambersList.splice(i, 1);
-      }
+      this.showSelectedChambersClearButton = false;
     }
 
-    // console.log("filterCompatibleChambersByID selectedChambersList length: ", this.selectedChambersList.length);
-    // console.log("filterCompatibleChambersByID chambersList length: ", this.chambersList.length);
+    if (this.selectedChambersList.length > this.PlatFormObject.facetsCount) {
+
+      this.showErrorLabelCondition = false;
+      this.showSelectChamberTitle = false;
+      this.isCrossLabelCondition = true;
+    } else {
+      
+      this.showErrorLabelCondition = true;
+      this.showSelectChamberTitle = true;
+      this.isCrossLabelCondition = false;
+    }
+
+    var selectedChamberIDs: any = [];
+    for (let i = 0; i < this.selectedChambersList.length; i++) {
+
+      selectedChamberIDs.push(this.selectedChambersList[i]._id);
+    }
+
+    console.log("filterRnDChambers Selected Ids", selectedChamberIDs);
+    console.log("filterRnDChambers SelectedChambersList:", this.selectedChambersList);
+
+    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
+
+      console.log("filterCompatibleChambersByID response: ", response);
+
+      var responseList: any = JSON.parse(JSON.stringify(response));
+
+      this.compatibilityChambersList = responseList.compatibleChambers;
+      this.rndOnlyChambersList = responseList.rndOnlyChambers;
+
+      console.log("filterCompatibleChambersByID compatibilityChambersList: ", this.compatibilityChambersList);
+      console.log("filterCompatibleChambersByID incompatibilityChambersList: ", this.rndOnlyChambersList);
+
+      this.showChambersList = false;
+      this.showCompatibilityChambersTitle = true;
+      this.showCompatibilityChambersList = true;
+      this.showRnDChamberTitle = true;
+      this.showRnDChamberList = true;
+      this.isChamberSelected = true;
+      
+      if (this.isChamberSelected) {
+
+        if(this.isRnDChambersEnabled) {
+
+          this.dropDownChambersList = this.rndOnlyChambersList;
+        } else {
+
+          this.dropDownChambersList = this.compatibilityChambersList;
+        }
+      }
+
+      if(this.compatibilityChambersList.length > 0) {
+
+        this.showCompatibilityChambersTitle = true;
+        this.showCompatibilityChambersList = true;
+      } else {
+
+        this.showCompatibilityChambersTitle = false;
+        this.showCompatibilityChambersList = false;
+      }
+
+      if(this.isRnDChambersEnabled) {
+
+        this.showCompatibilityChambersTitle = false;
+        this.showCompatibilityChambersList = false;
+      } else {
+
+        this.showRnDChamberTitle = true;
+        this.showRnDChamberList = true;
+      }
+
+      if(this.rndOnlyChambersList.length > 0) {
+
+        this.showRnDChamberTitle = true;
+        this.showRnDChamberList = true;
+      } else {
+
+        this.showRnDChamberTitle = false;
+        this.showRnDChamberList = false;
+      }
+
+      
+    });
 
     this.chamberInput.nativeElement.value = '';
     this.chamberFormControl.setValue(null);
   }
 
+  clearAllSelectedChambers() {
 
-  
+    this.selectedChambersList = [];
+    this.showErrorLabelCondition = true;
+    this.showSelectChamberTitle = true;
+
+    this.showChambersList = true;
+    this.showCompatibilityChambersTitle = false;
+    this.showCompatibilityChambersList = false;
+    this.showRnDChamberTitle = false;
+    this.showRnDChamberList = false;
+    this.isChamberSelected = false;
+    this.showSelectedChambersClearButton = false;
+
+    this.isRnDChambersEnabled = false;
+
+    console.log("clearAllSelectedChambers Platform ID:", this.PlatFormObject._id);
+
+    this.apiService.getChambersByPlatformID(this.PlatFormObject._id).subscribe(response => {
+
+      console.log("clearAllSelectedChambers getChambersByPlatformID response: ", response);
+
+      this.chambersList = JSON.parse(JSON.stringify(response));
+      this.dropDownChambersList = this.chambersList;
+    });
+  }
+
   backButton() {
 
     this.location.back();
-
   }
 
   nextButton() {
 
-    if (this.selectedChambersList.length > 9) {
+    var selectedChamberIDs: any = [];
 
-      this.isErrorLabelHidden = false;
-    
+    for (let i = 0; i < this.selectedChambersList.length; i++) {
 
-    } else {
+      selectedChamberIDs.push(this.selectedChambersList[i]._id);
 
-      // this.isErrorLabelHidden = true;
-
-      var selectedChamberIDs: any = [];
-
-      for (let i = 0; i < this.selectedChambersList.length; i++) {
-
-        selectedChamberIDs.push(this.selectedChambersList[i]._id);
-
-      }
-
-      console.log("selected Ids", selectedChamberIDs);
-
-      this.apiService.findProductByChamberIDs(selectedChamberIDs).subscribe(response => {
-
-        console.log("Response - findProductByChamberIDs: ", response);
-
-        this.productsList = JSON.parse(JSON.stringify(response));
-
-        console.log("Response - findProductByChamberIDs: length: ", this.productsList.length);
-        console.log("Response - findProductByChamberIDs: json: ", this.productsList);
-      });
     }
+
+    console.log("selected Ids", selectedChamberIDs);
+
+    this.apiService.findProductByChamberIDs(selectedChamberIDs).subscribe(response => {
+
+      console.log("Response - findProductByChamberIDs: ", response);
+
+      this.finalProductsList = JSON.parse(JSON.stringify(response));
+
+      console.log("Response - findProductByChamberIDs: length: ", this.finalProductsList.length);
+      console.log("Response - findProductByChamberIDs: json: ", this.finalProductsList);
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'r&d_enable_dialog.html',
+})
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+  ) { }
+
+  rndCancel(): void {
+    localStorage.setItem('IsFrom', 'CancelButton');
+    this.dialogRef.close();
+  }
+
+  rndEnable() {
+
+    localStorage.setItem('IsFrom', 'EnableButton');
+    localStorage.setItem('IsRnDEnable', 'true');
+    console.log("rndEnableClose");
+    this.dialogRef.close();
   }
 }

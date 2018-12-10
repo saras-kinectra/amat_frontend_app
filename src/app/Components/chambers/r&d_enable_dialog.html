@@ -1,0 +1,34 @@
+
+<style>
+
+.dialogButton{
+
+  text-align: right;
+  margin-top: -15px;
+}
+  
+
+</style>
+
+
+
+
+<div class="">
+
+        <h6 style="font-size:16px; font-weight: bold;" mat-dialog-title>Enable R&D Options?</h6> 
+    <div>
+      <p style="font-size:14px ;  margin-top:-16px">Enabling R&D options allows any combination of chambers to be selected. This should only be enabled when a custom build is the only possible way to satisfy customer demands.</p>
+     
+    </div>
+    <div mat-dialog-actions>
+
+            <div class="col-md-12 dialogButton">
+                
+                <label style="font-size:14px;cursor: pointer;" (click)=rndCancel()>CANCEL</label>
+                <label style="margin-left:15px; color:#328afb;cursor: pointer;" (click)=rndEnable()>ENABLE</label>
+            
+            </div>
+    </div>
+    </div>
+
+ 

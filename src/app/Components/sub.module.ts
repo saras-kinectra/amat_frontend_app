@@ -1,4 +1,4 @@
-import { ChamberComponent } from './chambers/chambers.component';
+import { ChamberComponent, DialogOverviewExampleDialog } from './chambers/chambers.component';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SubRoutingModule } from './sub-routing.module';
 import { StorageService } from '../Services/storage.service';
@@ -27,11 +27,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {MatMenuModule} from '@angular/material/menu';
 import {AccordionModule} from 'primeng/accordion'; 
 import {TooltipModule} from 'primeng/tooltip';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
 
-    DashboardComponent, PlatFormsComponent,ChamberComponent
+    DashboardComponent, PlatFormsComponent,ChamberComponent,DialogOverviewExampleDialog
 
   ],
 
@@ -41,11 +42,12 @@ import {TooltipModule} from 'primeng/tooltip';
     SubRoutingModule,MatAutocompleteModule, MatButtonModule, MatSelectModule,MatSlideToggleModule,
     MatFormFieldModule, MatInputModule,OverlayModule,OverlayPanelModule,MatCardModule,AccordionModule,TooltipModule,
     MatRippleModule,AccordionModule,MatChipsModule,MatIconModule,Ng2SearchPipeModule,MatMenuModule
-
+    ,MatDialogModule
   ],
 
   providers: [ApiService, StorageService,
   ],
+  entryComponents: [DialogOverviewExampleDialog ],
   bootstrap: []
 })
 export class SubModule { }
