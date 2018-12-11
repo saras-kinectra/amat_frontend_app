@@ -1,8 +1,9 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Model } from './../../models/model';
 import { ApiService } from 'src/app/Services/api.service';
 import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 
 import { Location } from '@angular/common';
@@ -47,13 +48,24 @@ export class ChamberComponent implements OnInit {
 
   showSelectChamberTitle: boolean = true;
   isCrossLabelCondition = false;
+  isButtonLabelCondition = false;
   showErrorLabelCondition: boolean = true;
 
   finalProductsList: any[] = [];
   
-  constructor(private apiService: ApiService, private location: Location, public dialog: MatDialog) { }
+  public form: FormGroup;
+
+  constructor(private apiService: ApiService, private location: Location, public dialog: MatDialog,
+    private fb:FormBuilder,private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+
+    this.form = this.fb.group({
+
+      chamberInputForm: [null, [Validators.required ]],
+     
+    });
 
     this.chamberInput.nativeElement.focus();
 
@@ -133,6 +145,7 @@ export class ChamberComponent implements OnInit {
     console.log('filterChambersByID selectedChamber: ', chamber);
 
     this.selectedChambersList.push(chamber);
+
     this.findCompatibilityInfoForChamberIds();
   }
 
@@ -163,6 +176,9 @@ export class ChamberComponent implements OnInit {
 
           this.isRnDChambersEnabled = JSON.parse(localStorage.getItem('IsRnDEnable'));
 
+          this.showCompatibilityChambersTitle = false;
+          this.showCompatibilityChambersList = false;
+
           this.filterRnDChambers(rnDChamber);
         } else {
 
@@ -190,9 +206,11 @@ export class ChamberComponent implements OnInit {
     if(this.selectedChambersList.length > 0) {
 
       this.showSelectedChambersClearButton = true;
+      this.isButtonLabelCondition = true;
     } else {
 
       this.showSelectedChambersClearButton = false;
+      this.isButtonLabelCondition = false;
     }
 
     if (this.selectedChambersList.length > this.PlatFormObject.facetsCount) {
@@ -200,11 +218,13 @@ export class ChamberComponent implements OnInit {
       this.showErrorLabelCondition = false;
       this.showSelectChamberTitle = false;
       this.isCrossLabelCondition = true;
+      this.isButtonLabelCondition = false;
     } else {
       
       this.showErrorLabelCondition = true;
       this.showSelectChamberTitle = true;
       this.isCrossLabelCondition = false;
+      this.isButtonLabelCondition = true;
     }
 
     var selectedChamberIDs: any = [];
@@ -299,6 +319,8 @@ export class ChamberComponent implements OnInit {
 
     this.isRnDChambersEnabled = false;
 
+    this.isButtonLabelCondition = false;
+
     console.log("clearAllSelectedChambers Platform ID:", this.PlatFormObject._id);
 
     this.apiService.getChambersByPlatformID(this.PlatFormObject._id).subscribe(response => {
@@ -315,7 +337,11 @@ export class ChamberComponent implements OnInit {
     this.location.back();
   }
 
-  nextButton() {
+  submitButton() {
+
+   // this.router.navigate(['overview']);
+//  this.router.navigate(['overview'], { relativeTo: this.route });
+
 
     var selectedChamberIDs: any = [];
 
@@ -336,6 +362,8 @@ export class ChamberComponent implements OnInit {
       console.log("Response - findProductByChamberIDs: length: ", this.finalProductsList.length);
       console.log("Response - findProductByChamberIDs: json: ", this.finalProductsList);
     });
+
+
   }
 }
 

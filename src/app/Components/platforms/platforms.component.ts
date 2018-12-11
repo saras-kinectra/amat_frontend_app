@@ -22,6 +22,8 @@ export class PlatFormsComponent implements OnInit {
   platForm_ID;
   i;
   public form: FormGroup;
+
+  imgSrc: string = "assets/Icon-Info-Inactive@1x.png";
   
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
 
@@ -41,7 +43,8 @@ export class PlatFormsComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
-      platForm: [null, [Validators.required ]]
+      platForm: [null, [Validators.required ]],
+     
 
     });
 
@@ -64,6 +67,16 @@ export class PlatFormsComponent implements OnInit {
   console.log("onPlatFormListChange",event._id,index);
 
 
+  }
+
+  onMouseOver(): void {
+    this.imgSrc = "assets/info_icon@1x.png";
+  }
+
+  onMouseOut(): void {
+
+    this.imgSrc = "assets/Icon-Info-Inactive@1x.png";
+    
   }
 
 

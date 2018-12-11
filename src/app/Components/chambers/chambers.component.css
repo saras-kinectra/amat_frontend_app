@@ -29,7 +29,8 @@
     padding: 5px;
     font-size: 11px;
     position: relative;
-    margin: 5px;
+    margin-right: 5px;
+    margin-bottom: 6px;
     border-radius: 16px;
     color: black;
     cursor: pointer;
@@ -43,7 +44,8 @@ float: left;
 padding: 5px;
 font-size: 11px;
 position: relative;
-margin: 5px;
+margin-right: 5px;
+margin-bottom: 6px;
 border-radius: 16px;
 color: black;
 cursor: pointer;
@@ -95,18 +97,22 @@ font-size: 14px;
 
   }
 
-  .toggleRow{
+  .isRnDChambersTopMarginLow{
 
-    margin-left: 5px;
-    align-items: center;
+    margin-top: 10px;
+  }
+
+  .isRnDChambersTopMarginHigh{
+
+    margin-top: -23px;
 
   }
 
   .incompatableChambers{
 
     
-    padding-left:  8px;
-    padding-top: 30px;
+    /* padding-left:  8px; */
+    /* padding-top: 30px; */
     font-size: 12px;
 
   }
@@ -191,6 +197,23 @@ margin-top: 20px;
     background-color: rgb(233, 14, 149);
 }
 
+
+.submitButtonEnableColor{
+
+    color: #2e849e;
+    background-color:#d3e5ec;
+
+}
+
+.submitButtonDisabledColor{
+    background-color: #dadada;
+    color: #000000;
+    }
+    .mat-form-field-custom {
+
+        margin-top: -12px;
+ 
+    }
 
   .mat-card-content>:last-child:not(.mat-card-footer), .mat-card>:last-child:not(.mat-card-footer) {
     margin-bottom: 0;

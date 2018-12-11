@@ -9,9 +9,9 @@
                   
                     <input class="opId" #opIdInput matInput formControlName="opID" ><span class="info" pInputText maxlength="35" 
                     pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged." tooltipPosition="right" hideDelay="200"
-                    ><img class="info_icon" src="assets/info_icon@1x.png"></span>
+                    ><img class="info_icon" [src]="imgSrc" (mouseover)="onMouseOver()" (mouseout)="onMouseOut()"></span>
 
-                    <!-- <mat-icon class="hover" matSuffix>info</mat-icon></span> -->
+                  
                     
                 </mat-form-field>
                

@@ -44,6 +44,10 @@ inner{
 
 }
 
+span:hover{
+ color: #4599C3;
+}
+
 .matActions{
   widows: 100%;
   }

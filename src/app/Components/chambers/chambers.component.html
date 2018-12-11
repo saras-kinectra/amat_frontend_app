@@ -1,9 +1,14 @@
+
+
+<router-outlet></router-outlet>
+
 <div class="container">
   <mat-card class="card">
     <div class="matContainer">
-      <mat-form-field class="chip-list">
+      <mat-form-field class="chip-list  mat-form-field-custom ">
 
         <div *ngIf="showSelectChamberTitle; else enable">
+        
           <label class="selectChambersName">Select Chambers</label>
         </div>
 
@@ -34,8 +39,6 @@
         </mat-autocomplete>
       </mat-form-field>
       
-      <br>
-
       <label [hidden]="showErrorLabelCondition" class="errorLabel">You've exceeded the maximum number of chambers by 1</label>
 
       <div class="matContainer comapatableChambersList">
@@ -56,15 +59,15 @@
 
     <div class="matContainer">
 
+      <div [ngClass]="{'isRnDChambersTopMarginHigh' : isRnDChambersEnabled == true, 'isRnDChambersTopMarginLow' : isRnDChambersEnabled == false }">
       <label class="incompatableChambers" [hidden]="!showRnDChamberTitle">R&D Only Chambers</label> <br>
 
       <p class="inCompatableChamberNames" [hidden]="!showRnDChamberList" *ngFor="let chambers of rndOnlyChambersList; let i = index" [class.active]="selectedIndex === i"
         (click)="filterRnDChambersByID(chambers)">
         {{ chambers.name }}
       </p>
-
-    </div> <br><br><br>
-
+      </div>
+    </div> 
 
     <div class="matContainerproductsList matContainer">
       <p class="chamberNames" *ngFor="let chambers of finalProductsList">
@@ -75,9 +78,17 @@
     <hr>
     <div class="row matActions">
       <mat-card-actions class="text-right col-md-12 mat-card-actions">
+
+
         <button class="btn  col-sm-2" style="margin-right: 25px;" type="button" (click)="backButton()">BACK</button>
-        <button class="btn custom-button-width col-sm-2" style="background-color:#d3e5ec ; color: #2e849e; margin-right: 25px;"
-          type="button" (click)="nextButton()">SUBMIT</button>
+        <button class="btn custom-button-width col-sm-2" style="margin-right: 25px;" [disabled]="!isButtonLabelCondition"
+        [ngClass]="{'submitButtonEnableColor' : isButtonLabelCondition == true, 'submitButtonDisabledColor' : isButtonLabelCondition == false }"
+          type="button" (click)="submitButton()">SUBMIT</button>
+
+         <!-- <button class="btn custom-button-width col-sm-2"
+          style="background-color:#d3e5ec ; color: #2e849e; margin-right: 25px;"
+            type="button" (click)="nextButton()">SUBMIT</button>  -->
+
       </mat-card-actions>
     </div>
   </mat-card>

@@ -1,3 +1,4 @@
+import { ProductsComponent } from './chambers/products/products.component';
 import { ChamberComponent, DialogOverviewExampleDialog } from './chambers/chambers.component';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SubRoutingModule } from './sub-routing.module';
@@ -5,7 +6,7 @@ import { StorageService } from '../Services/storage.service';
 import { ApiService } from 'src/app/Services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,8 +33,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
 
-    DashboardComponent, PlatFormsComponent,ChamberComponent,DialogOverviewExampleDialog
-
+    DashboardComponent, PlatFormsComponent,ChamberComponent,DialogOverviewExampleDialog,
+    ProductsComponent
+    
   ],
 
   imports: [
@@ -42,11 +44,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     SubRoutingModule,MatAutocompleteModule, MatButtonModule, MatSelectModule,MatSlideToggleModule,
     MatFormFieldModule, MatInputModule,OverlayModule,OverlayPanelModule,MatCardModule,AccordionModule,TooltipModule,
     MatRippleModule,AccordionModule,MatChipsModule,MatIconModule,Ng2SearchPipeModule,MatMenuModule
-    ,MatDialogModule
+    ,MatDialogModule,
   ],
 
-  providers: [ApiService, StorageService,
-  ],
+  providers: [ApiService, StorageService,],
   entryComponents: [DialogOverviewExampleDialog ],
   bootstrap: []
 })
