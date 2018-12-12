@@ -13,7 +13,7 @@
 }
 .mat_chip{
 
-    background-color: #aec67d;
+    /* background-color: #aec67d; */
     /* padding: 5px; */
     /* padding: 58px; */
     font-size: 11px;
@@ -21,6 +21,12 @@
     min-height: 28px;
 
 }
+
+.mat-chip.mat-standard-chip {
+    background: rgba(132,189,0,0.40);
+    color: rgba(0,0,0,.87);
+}
+
 .inCompatableChamberNames{
 
 
@@ -155,12 +161,12 @@ hr {
     margin-left: 0px;
     /* margin-top: -45px; */
     font-size: 12px;
-    color: rgb(185, 43, 43);
+    color: #D22630;
 }
 
 .matIcon{
 
-    color: rgb(185, 43, 43);
+    color: #D22630;
 
 }
 .comapatableChambersList{
@@ -186,17 +192,12 @@ margin-top: 20px;
 
 
   .red {
-    color: red; 
+    color: #D22630;
 }
 
 .blue {
     color: #4599C3;
 }
-
-.mat-form-field-underline {
-    background-color: rgb(233, 14, 149);
-}
-
 
 .submitButtonEnableColor{
 
@@ -214,6 +215,13 @@ margin-top: 20px;
         margin-top: -12px;
  
     }
+
+    .formFiledUnderLineColor .mat-form-field-underline {
+   background-color: red !important; 
+    /* border: 1.5px solid #D22630; */
+    
+  }
+
 
   .mat-card-content>:last-child:not(.mat-card-footer), .mat-card>:last-child:not(.mat-card-footer) {
     margin-bottom: 0;

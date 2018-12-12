@@ -5,7 +5,7 @@
 <div class="container">
   <mat-card class="card">
     <div class="matContainer">
-      <mat-form-field class="chip-list  mat-form-field-custom ">
+      <mat-form-field class="chip-list  mat-form-field-custom " [ngClass]="{'formFiledUnderLineColor': !formFiledUnderLine}">
 
         <div *ngIf="showSelectChamberTitle; else enable">
         
@@ -13,7 +13,7 @@
         </div>
 
         <ng-template #enable>
-          <label class="selectChambersName" style="color: rgb(185, 43, 43);">Select Chambers</label>
+          <label class="selectChambersName" style="color:#D22630;;">Select Chambers</label>
         </ng-template>
 
         <mat-chip-list #chipList>

@@ -86,7 +86,7 @@ export class PlatFormsComponent implements OnInit {
       localStorage.setItem("PlatFormObject", JSON.stringify(this.platformsList[this.i]));
     //localStorage.setItem("PlatFormObject",this.platformsList[this.i]);
     console.log("onPlatFormListChange",this.platformsList[this.i]);
-    this.router.navigate(['chambers'], { relativeTo: this.route });
+    this.router.navigate(['platform/chambers'], { relativeTo: this.route });
 
   }
 

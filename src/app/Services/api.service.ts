@@ -6,7 +6,7 @@ import { String, StringBuilder } from 'typescript-string-operations';
 
 @Injectable()
 export class ApiService {
-
+   
     public static BASE_URL: string = "http://ec2-107-21-8-219.compute-1.amazonaws.com:3000/";
 
     // old_URL = http://ec2-35-153-211-44.compute-1.amazonaws.com:3000/

@@ -1,0 +1,64 @@
+<div class="container">
+  <mat-card class="card">
+
+      <div class="row col-xs-12 mainBlock">
+         
+      <div class="col-md-8 leftBlock">
+          <mat-icon id="test" class="SVGIconCSS" svgIcon="thumbs-up"></mat-icon>
+      </div>
+
+
+      <div class="col-md-4  rightBlock container-fluid">
+
+        <div class="row col-xs-12">
+          <div class="col-md-6">
+            <h6 style="font-size: 14px;color: #000000;font-family: Roboto-Regular;">Endura2</h6> 
+            <h6 style="font-family: Roboto-Regular;font-size: 12px;color: #999999;">Platform</h6>
+          </div>
+
+               <div class="col-md-6">
+                  <h6 style="font-size: 14px;color: #000000;font-family: Roboto-Regular;">013842</h6> 
+                  <h6 style="font-family: Roboto-Regular;font-size: 12px;color: #999999;">OP ID</h6>
+          </div>
+        </div><br>
+
+        <div class="row col-xs-12">
+            <div class="col-md-6">
+                <h6 style="font-family: Roboto-Black;font-size: 22px;color: #000000;">2168</h6> 
+                <h6 style="font-family: Roboto-Regular;font-size: 12px;color: #999999;">Product ID</h6>
+              </div>
+            <div class="col-md-6">
+                <h6 style="font-family: Roboto-Black;font-size: 14px;color: #000000;">New Memories</h6> 
+                <h6 style="font-family: Roboto-Regular;font-size: 12px;color: #999999;">G3 Name</h6>
+            </div>
+          </div><br>
+
+          <mat-list *ngFor="let products of finalProductsList;let i=index">
+              <mat-divider></mat-divider>
+              <mat-list-item class="matListItem">{{i+1}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{products.name}}</mat-list-item>
+            </mat-list>
+
+      </div>
+
+
+      </div>
+      <br>
+      <hr>
+    <div class="row matActions">
+      <mat-card-actions class="text-right col-md-12 mat-card-actions">
+
+
+        <button class="btn  col-sm-2" style="margin-right: 25px;background: #EAEAEA;;
+        border-radius: 3px;" type="button" (click)="backButton()">BACK</button>
+
+        <button class="btn  col-sm-2" style="margin-right: 25px;background: rgba(69,153,195,0.20);
+        border-radius: 3px;color: #4599C3"(click)="submitButton()" type="button">DONE</button>
+
+         <!-- <button class="btn custom-button-width col-sm-2"
+          style="background-color:#d3e5ec ; color: #2e849e; margin-right: 25px;"
+            type="button" (click)="nextButton()">SUBMIT</button>  -->
+
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>

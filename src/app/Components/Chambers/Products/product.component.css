@@ -1,0 +1,27 @@
+
+.rightBlock{
+
+    margin-top: 25px;
+
+}
+
+.SVGIconCSS {
+  
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    height: 75%;
+    width: 50%;
+}
+
+.matListItem{
+
+    margin-left: -16px;
+    font-size: 14px;
+    color:#65A7C4;
+
+}
+.card>hr {
+    margin-right: -18px;
+    margin-left: -18px;
+}

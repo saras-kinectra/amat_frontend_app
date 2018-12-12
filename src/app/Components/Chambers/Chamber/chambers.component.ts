@@ -1,7 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { Model } from './../../models/model';
 import { ApiService } from 'src/app/Services/api.service';
-import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, ViewEncapsulation } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
@@ -12,7 +11,8 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-chambers',
   templateUrl: './chambers.component.html',
-  styleUrls: ['./chambers.component.css']
+  styleUrls: ['./chambers.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ChamberComponent implements OnInit {
 
@@ -52,7 +52,7 @@ export class ChamberComponent implements OnInit {
   showErrorLabelCondition: boolean = true;
 
   finalProductsList: any[] = [];
-  
+  formFiledUnderLine: boolean = false;
   public form: FormGroup;
 
   constructor(private apiService: ApiService, private location: Location, public dialog: MatDialog,
@@ -219,12 +219,14 @@ export class ChamberComponent implements OnInit {
       this.showSelectChamberTitle = false;
       this.isCrossLabelCondition = true;
       this.isButtonLabelCondition = false;
+      this.formFiledUnderLine = false;
     } else {
       
       this.showErrorLabelCondition = true;
       this.showSelectChamberTitle = true;
       this.isCrossLabelCondition = false;
       this.isButtonLabelCondition = true;
+      this.formFiledUnderLine = true ;
     }
 
     var selectedChamberIDs: any = [];
@@ -308,6 +310,7 @@ export class ChamberComponent implements OnInit {
     this.selectedChambersList = [];
     this.showErrorLabelCondition = true;
     this.showSelectChamberTitle = true;
+    this.formFiledUnderLine = true;
 
     this.showChambersList = true;
     this.showCompatibilityChambersTitle = false;
@@ -335,35 +338,38 @@ export class ChamberComponent implements OnInit {
   backButton() {
 
     this.location.back();
+    
   }
 
   submitButton() {
 
-   // this.router.navigate(['overview']);
-//  this.router.navigate(['overview'], { relativeTo: this.route });
+    // this.router.navigate(['overview']);
+    //this.router.navigate(['overview'], { relativeTo: this.route });
 
 
-    var selectedChamberIDs: any = [];
+this.router.navigate(['product'], { relativeTo: this.route });
 
-    for (let i = 0; i < this.selectedChambersList.length; i++) {
+  var selectedChamberIDs: any = [];
 
-      selectedChamberIDs.push(this.selectedChambersList[i]._id);
+  for (let i = 0; i < this.selectedChambersList.length; i++) {
 
-    }
+   selectedChamberIDs.push(this.selectedChambersList[i]._id);
 
-    console.log("selected Ids", selectedChamberIDs);
+   }
 
-    this.apiService.findProductByChamberIDs(selectedChamberIDs).subscribe(response => {
+   localStorage.setItem("SelectedChambersIDObject", JSON.stringify(selectedChamberIDs));
 
-      console.log("Response - findProductByChamberIDs: ", response);
+    // console.log("selected Ids", selectedChamberIDs);
 
-      this.finalProductsList = JSON.parse(JSON.stringify(response));
+    // this.apiService.findProductByChamberIDs(selectedChamberIDs).subscribe(response => {
 
-      console.log("Response - findProductByChamberIDs: length: ", this.finalProductsList.length);
-      console.log("Response - findProductByChamberIDs: json: ", this.finalProductsList);
-    });
+    //   console.log("Response - findProductByChamberIDs: ", response);
 
+    //   this.finalProductsList = JSON.parse(JSON.stringify(response));
 
+    //   console.log("Response - findProductByChamberIDs: length: ", this.finalProductsList.length);
+    //   console.log("Response - findProductByChamberIDs: json: ", this.finalProductsList);
+    // });
   }
 }
 

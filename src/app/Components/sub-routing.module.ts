@@ -1,32 +1,33 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ChamberComponent } from './chambers/chambers.component';
+ 
 import { PlatFormsComponent } from './platforms/platforms.component';
-import { ProductsComponent } from './chambers/products/products.component';
-
-
+import { LoginComponent } from './login/login.component';
+import { ChamberMainModule } from '../Components/Chambers/chamber.module';
+import { ChamberMainComponent } from '../Components/Chambers/chambermain.component';
 
 const routes: Routes = [
 
 
-  {path:'', redirectTo:'/dashboard', pathMatch: 'full'} ,
 
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'login', component: LoginComponent },
+ 
+  {
+    path: 'dashboard', component: DashboardComponent,
 
-  { path:'dashboard', component:DashboardComponent ,
+    children: [
 
-    children:[  
-
+      
       { path: '', component: PlatFormsComponent },
-      { path:'chambers', component:ChamberComponent ,
 
-    //   children : [
-        
-    //     { path: 'overview', component: ProductsComponent },
-    
-    // ]
+      { path: 'platform/chambers', component: ChamberMainComponent,
+      loadChildren: () => ChamberMainModule
+    },
+
+    ]
   }
-] }
 
 ];
 
