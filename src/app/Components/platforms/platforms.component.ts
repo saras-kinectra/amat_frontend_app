@@ -1,12 +1,13 @@
-import { StorageService } from './../../Services/storage.service';
-import { ApiService } from './../../Services/api.service';
-import { Model } from './../../models/model';
 
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { StorageService } from './../../Services/storage.service';
+import { ApiService } from './../../Services/api.service';
 
 @Component({
+
   selector: 'app-platforms',
   templateUrl: './platforms.component.html',
   styleUrls: ['./platforms.component.css']
@@ -14,38 +15,23 @@ import { FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 
 export class PlatFormsComponent implements OnInit {
 
-  title = 'Applied Materials';
-  public model: Model;
   public platformsList: any[];
-  public chambersList: any[];
-  public productsList:any[];
-  platForm_ID;
-  i;
+  selectedPosition;
   public form: FormGroup;
 
-  imgSrc: string = "assets/Icon-Info-Inactive@1x.png";
-  
+  toolTipIcon: string = "assets/Icon-Info-Inactive@1x.png";
+
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
 
-
-
-  constructor(private apiService: ApiService, 
-    private storageService: StorageService, 
-    private router: Router, private route: ActivatedRoute,private fb:FormBuilder) {
-
-    this.model = new Model;
-    this.model.companyName = "Applied Materials";
+  constructor(private apiService: ApiService, private storageService: StorageService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
 
   }
 
-
-
   ngOnInit() {
 
-    this.form = this.fb.group({
-      platForm: [null, [Validators.required ]],
-     
+    this.form = this.formBuilder.group({
 
+      platform: [null, [Validators.required]],
     });
 
     this.opIdInput.nativeElement.focus();
@@ -58,37 +44,32 @@ export class PlatFormsComponent implements OnInit {
 
       console.log("Response - getPlatforms: json: ", this.platformsList);
     });
-
   }
 
-  onPlatFormListChange(event,index) {
+  onPlatFormListChange(event, index) {
 
-  // this.platForm_ID = event._id;
-  console.log("onPlatFormListChange",event._id,index);
-
-
+    console.log("onPlatFormListChange", event._id, index);
   }
 
-  onMouseOver(): void {
-    this.imgSrc = "assets/info_icon@1x.png";
+  onToolTipMouseOver(): void {
+
+    this.toolTipIcon = "assets/info_icon@1x.png";
   }
 
-  onMouseOut(): void {
+  onToolTipMouseOut(): void {
 
-    this.imgSrc = "assets/Icon-Info-Inactive@1x.png";
-    
+    this.toolTipIcon = "assets/Icon-Info-Inactive@1x.png";
   }
 
+  next() {
 
-    next() {
+    console.log("next selectedPosition: ", this.selectedPosition);
 
-      console.log("onPlatFormListChange",this.i);
-      localStorage.setItem("PlatFormObject", JSON.stringify(this.platformsList[this.i]));
-    //localStorage.setItem("PlatFormObject",this.platformsList[this.i]);
-    console.log("onPlatFormListChange",this.platformsList[this.i]);
+    localStorage.setItem("SelectedPlatform", JSON.stringify(this.platformsList[this.selectedPosition]));
+    //localStorage.setItem("SelectedPlatform",this.platformsList[this.selectedPosition]);
+
+    console.log("next selected platform: ", this.platformsList[this.selectedPosition]);
+
     this.router.navigate(['platform/chambers'], { relativeTo: this.route });
-
   }
-
-
 }

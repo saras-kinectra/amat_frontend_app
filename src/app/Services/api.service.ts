@@ -7,9 +7,9 @@ import { String, StringBuilder } from 'typescript-string-operations';
 @Injectable()
 export class ApiService {
    
-    public static BASE_URL: string = "http://ec2-107-21-8-219.compute-1.amazonaws.com:3000/";
-
-    // old_URL = http://ec2-35-153-211-44.compute-1.amazonaws.com:3000/
+    // public static BASE_URL: string = "ec2-18-209-103-144.compute-1.amazonaws.com:3000/";
+    /* 13-12-2018*/
+    public static BASE_URL: string = "http://ec2-18-209-103-144.compute-1.amazonaws.com:3000/";
 
     public httpHeaders = new HttpHeaders({
 
@@ -56,7 +56,6 @@ export class ApiService {
     findProductByChamberIDs(chamberIDs: any[]) {
 
         console.log("ApiService getChambersByPlatformID");
-
         console.log("ApiService getChambersByPlatformID messages: ", chamberIDs);
 
         const bodyParams = {
@@ -72,7 +71,7 @@ export class ApiService {
     addOpportunities(opID: string, productId: String) {
 
         console.log("ApiService addOpportunities");
-
+        
         console.log("ApiService addOpportunities opID: " + opID);
         console.log("ApiService addOpportunities productId: " + productId);
 
@@ -84,7 +83,6 @@ export class ApiService {
 
         return this.httpClient.post(this.ADD_OPPORTUNITIES, bodyParams, { headers: this.httpHeaders });
     }
-
 
     findCompatibilityInfoForChamberIds(chamberIDs: any[], platFormID) {
 
@@ -104,5 +102,4 @@ export class ApiService {
 
         return this.httpClient.post(this.FIND_COMPATABILITY_INFO_FOR_CHAMBER_IDS, JSON.stringify(bodyParams), { headers: this.httpHeaders });
     }
-
 }

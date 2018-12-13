@@ -103,7 +103,7 @@ font-size: 14px;
 
   }
 
-  .isRnDChambersTopMarginLow{
+  /* .isRnDChambersTopMarginLow{
 
     margin-top: 10px;
   }
@@ -112,13 +112,14 @@ font-size: 14px;
 
     margin-top: -23px;
 
-  }
+  } */
 
   .incompatableChambers{
 
     
     /* padding-left:  8px; */
     /* padding-top: 30px; */
+    margin-top: 10px;
     font-size: 12px;
 
   }

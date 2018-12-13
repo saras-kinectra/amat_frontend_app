@@ -9,14 +9,16 @@ import { Location } from '@angular/common';
 
 
 @Component({
+
   selector: 'app-chambers',
   templateUrl: './chambers.component.html',
   styleUrls: ['./chambers.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class ChamberComponent implements OnInit {
 
-  public PlatFormObject: any = {};
+  public selectedPlatform: any = {};
   chamberSelectable = true;
   public term;
   removable = true;
@@ -56,25 +58,23 @@ export class ChamberComponent implements OnInit {
   public form: FormGroup;
 
   constructor(private apiService: ApiService, private location: Location, public dialog: MatDialog,
-    private fb:FormBuilder,private router: Router, private route: ActivatedRoute) { }
+  private fb:FormBuilder,private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-
 
     this.form = this.fb.group({
 
       chamberInputForm: [null, [Validators.required ]],
-     
     });
 
     this.chamberInput.nativeElement.focus();
 
-    this.PlatFormObject = JSON.parse(localStorage.getItem('PlatFormObject'));
-    console.log("ngOnInit PlatFormObjectparse: ", JSON.parse(localStorage.getItem('PlatFormObject')));
+    this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
+    console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
 
-    console.log("ngOnInit PlatFormObjectname:", this.PlatFormObject._id);
+    console.log("ngOnInit selectedPlatformname:", this.selectedPlatform._id);
 
-    this.apiService.getChambersByPlatformID(this.PlatFormObject._id).subscribe(response => {
+    this.apiService.getChambersByPlatformID(this.selectedPlatform._id).subscribe(response => {
 
       console.log("ngOnInit getChambersByPlatformID response: ", response);
       
@@ -200,7 +200,7 @@ export class ChamberComponent implements OnInit {
 
   findCompatibilityInfoForChamberIds() {
 
-    console.log('findCompatibilityInfoForChamberIds facetsCount: ', this.PlatFormObject.facetsCount);
+    console.log('findCompatibilityInfoForChamberIds facetsCount: ', this.selectedPlatform.facetsCount);
     console.log('findCompatibilityInfoForChamberIds selectedChambersList.length: ', this.selectedChambersList.length);
 
     if(this.selectedChambersList.length > 0) {
@@ -213,7 +213,7 @@ export class ChamberComponent implements OnInit {
       this.isButtonLabelCondition = false;
     }
 
-    if (this.selectedChambersList.length > this.PlatFormObject.facetsCount) {
+    if (this.selectedChambersList.length > this.selectedPlatform.facetsCount) {
 
       this.showErrorLabelCondition = false;
       this.showSelectChamberTitle = false;
@@ -238,7 +238,7 @@ export class ChamberComponent implements OnInit {
     console.log("filterRnDChambers Selected Ids", selectedChamberIDs);
     console.log("filterRnDChambers SelectedChambersList:", this.selectedChambersList);
 
-    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.PlatFormObject._id).subscribe(response => {
+    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.selectedPlatform._id).subscribe(response => {
 
       console.log("filterCompatibleChambersByID response: ", response);
 
@@ -297,8 +297,6 @@ export class ChamberComponent implements OnInit {
         this.showRnDChamberTitle = false;
         this.showRnDChamberList = false;
       }
-
-      
     });
 
     this.chamberInput.nativeElement.value = '';
@@ -324,9 +322,9 @@ export class ChamberComponent implements OnInit {
 
     this.isButtonLabelCondition = false;
 
-    console.log("clearAllSelectedChambers Platform ID:", this.PlatFormObject._id);
+    console.log("clearAllSelectedChambers Platform ID:", this.selectedPlatform._id);
 
-    this.apiService.getChambersByPlatformID(this.PlatFormObject._id).subscribe(response => {
+    this.apiService.getChambersByPlatformID(this.selectedPlatform._id).subscribe(response => {
 
       console.log("clearAllSelectedChambers getChambersByPlatformID response: ", response);
 
@@ -338,24 +336,18 @@ export class ChamberComponent implements OnInit {
   backButton() {
 
     this.location.back();
-    
   }
 
   submitButton() {
 
-    // this.router.navigate(['overview']);
-    //this.router.navigate(['overview'], { relativeTo: this.route });
+    this.router.navigate(['product'], { relativeTo: this.route });
 
+    var selectedChamberIDs: any = [];
 
-this.router.navigate(['product'], { relativeTo: this.route });
+    for (let i = 0; i < this.selectedChambersList.length; i++) {
 
-  var selectedChamberIDs: any = [];
-
-  for (let i = 0; i < this.selectedChambersList.length; i++) {
-
-   selectedChamberIDs.push(this.selectedChambersList[i]._id);
-
-   }
+      selectedChamberIDs.push(this.selectedChambersList[i]._id);
+    }
 
    localStorage.setItem("SelectedChambersIDObject", JSON.stringify(selectedChamberIDs));
 
@@ -374,16 +366,19 @@ this.router.navigate(['product'], { relativeTo: this.route });
 }
 
 @Component({
+
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'r&d_enable_dialog.html',
 })
+
 export class DialogOverviewExampleDialog {
 
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-  ) { }
+  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>) { 
+
+  }
 
   rndCancel(): void {
+
     localStorage.setItem('IsFrom', 'CancelButton');
     this.dialogRef.close();
   }

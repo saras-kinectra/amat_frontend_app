@@ -12,6 +12,7 @@ export class ProductComponent implements OnInit {
 
   selectedChamberIDs:any[] = [];
   finalProductsList:any[] = [];
+  indexPositionArray:any[] = [];
   
   title = 'Test-SVG';
 
@@ -24,11 +25,18 @@ export class ProductComponent implements OnInit {
 
     var id = document.getElementById("Layer_1");
     console.log("constructor id", id);
+
+      this.indexPositionArray=[
+        {number:"1"}, {number:"2"}, {number:"3"}, {number:"4"}, {number:"5"},
+        {number:"C"}, {number:"D"}, {number:"E"}, {number:"F"}
+      ]
+
   }
 
   ngOnInit() {
     
 
+    
     var id = document.getElementById("Layer_1");
     console.log("constructor id", id);
 

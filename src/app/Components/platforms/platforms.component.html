@@ -2,65 +2,40 @@
     <mat-card class="card">
         <div class="inner">
             <form [formGroup]="form">
-               
                 <mat-form-field class="opIDField example-full-width col-md-5">
-
                     <label class="label1" for="postal-code">Input OP ID</label>
-                  
-                    <input class="opId" #opIdInput matInput formControlName="opID" ><span class="info" pInputText maxlength="35" 
-                    pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged." tooltipPosition="right" hideDelay="200"
-                    ><img class="info_icon" [src]="imgSrc" (mouseover)="onMouseOver()" (mouseout)="onMouseOut()"></span>
 
-                  
-                    
+                    <input class="opId" #opIdInput matInput><span class="info" pInputText
+                        maxlength="35" pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged."
+                        tooltipPosition="right" hideDelay="200"><img class="info_icon" [src]="toolTipIcon" (mouseover)="onToolTipMouseOver()" (mouseout)="onToolTipMouseOut()"></span>
                 </mat-form-field>
-               
 
                 <br>
 
                 <mat-form-field class="platformField col-md-5">
                     <label class="label2" for="postal-code">Select PlatForm</label>
-                    <mat-select class="selectPlatform" [(value)]="i" (ngValueChange)="onPlatFormListChange($event,i)"
-                        formControlName="platForm">
+
+                    <mat-select class="selectPlatform" [(value)]="selectedPosition" (ngValueChange)="onPlatFormListChange($event, selectedPosition)" formControlName="platform">
                         <!-- <mat-option [value]="undefined" selected [disabled]="true">--Select Platform--</mat-option> -->
-                        <mat-option  class="matOptions" *ngFor="let type of platformsList;let i=index" [value]="i">{{type.name}}</mat-option>
+                        <mat-option class="matOptions" *ngFor="let type of platformsList;let selectedPosition=index" [value]="selectedPosition">{{type.name}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
             </form>
         </div>
         <br><br> <br><br>
 
-        <!-- <div class="col-md-12 text-right">
-
-            <div *ngIf="!form.valid; else enable">
-
-                <button type="button" [disabled]="!form.valid" class="btn custom-button-width" (click)="next()">NEXT</button>
-            </div>
-
-            <ng-template #enable>
-                <button type="button" style="background-color:#d3e5ec ; color: #2e849e" [disabled]="!form.valid" class="btn custom-button-width"
-                    (click)="next()">NEXT</button>
-            </ng-template>
-
-        </div> -->
-
-
         <hr>
         <div class="row matActions">
-          <mat-card-actions class="text-right col-md-12">
-
+            <mat-card-actions class="text-right col-md-12">
                 <div *ngIf="!form.valid; else enable">
+                    <button type="button" [disabled]="!form.valid" class="btn custom-button-width col-sm-2" (click)="next()">SUBMIT</button>
+                </div>
 
-                        <button type="button"  [disabled]="!form.valid" class="btn custom-button-width col-sm-2" (click)="next()">SUBMIT</button>
-                    </div>
-        
-                    <ng-template #enable>
-                        <button type="button"  style="background-color:#d3e5ec ; color: #2e849e" [disabled]="!form.valid" class="btn custom-button-width col-sm-2"
-                            (click)="next()">SUBMIT</button>
-                    </ng-template>
-                    
-        </mat-card-actions>
+                <ng-template #enable>
+                    <button type="button" style="background-color:#d3e5ec ; color: #2e849e" [disabled]="!form.valid"
+                        class="btn custom-button-width col-sm-2" (click)="next()">SUBMIT</button>
+                </ng-template>
+            </mat-card-actions>
         </div>
-
     </mat-card>
 </div>

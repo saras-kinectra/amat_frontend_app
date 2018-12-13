@@ -1,12 +1,12 @@
 import { StorageService } from './../../Services/storage.service';
 import { ApiService } from './../../Services/api.service';
-import { Model } from './../../models/model';
 
 import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
+
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   labelError: boolean = false;
   submitted: boolean = false;
   constructor(private apiService: ApiService, private storageService: StorageService, private router: Router, private route: ActivatedRoute) {
-  
+
   }
 
   ngOnInit() {
@@ -48,10 +48,14 @@ export class LoginComponent implements OnInit {
 
       console.log('FailureCase');
 
-      this.disableLoginButton = true;
-      // this.showLoginErrorMessage = true;
-     
+      this.disableLoginButton = true;     
     }
+  }
+  onFocus() {
+
+    this.showLoginErrorMessage = false;
+    this.labelError = false;
+    this.submitted = false;
   }
 
   login(): void {
@@ -60,13 +64,17 @@ export class LoginComponent implements OnInit {
     console.log("login password: ", this.password);
 
     if (this.userName === 'abc' && this.password === 'abc') {
+
       this.router.navigate(['/dashboard']);
+
       console.log('login Success');
+
       this.disableLoginButton = false;
       this.showLoginErrorMessage = false;
     } else {
 
       console.log('login Failure');
+
       this.disableLoginButton = true;
       this.showLoginErrorMessage = true;
       this.labelError = true;

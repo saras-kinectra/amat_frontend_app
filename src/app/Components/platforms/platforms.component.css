@@ -1,77 +1,81 @@
-
-label{
+label {
 
   display: block;
   color: black;
   font-size: 12px;
-
 }
-.opId{
+
+.opId {
 
   margin-top: 10px;
   font-size: 20px;
 }
 
-.selectPlatform{
+.selectPlatform {
 
   margin-top: 15px;
 }
 
-inner{
+inner {
 
   margin-right:20px;
   margin-left:20px;
 }
 
-.btn{
+.btn {
+  
   /* background-color: #4e90ac; */
   margin-right: 25px;
   /* margin-top: 2%;
   margin-bottom: 2%;
   margin-right: 15px; */
 }
-.info{
+
+.info {
+
   color: rgba(134, 128, 128, 0.87);
   float: right;
   margin-right: -35px;
   padding-top: 4px;
-  
 }
 
-.info_icon{
+.info_icon {
 
   margin-right: 15px;
-
 }
 
-.matActions{
-  widows: 100%;
-  }
-  
-  hr {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      border: 0;
-      border-top: 1px solid rgb(161, 161, 161);
-  }
-  .card>hr {
-    margin-right: -16px;
-    margin-left: -16px;
-  }
+.matActions {
 
+  widows: 100%;
+}
+  
+hr {
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgb(161, 161, 161);
+}
+
+.card>hr {
+
+  margin-right: -16px;
+  margin-left: -16px;
+}
 
 .text-right{
 
   display: block;
   margin-bottom: 0px;
-
 }
 
 .opIDField:focus-within .label1 {
+
   color: #4599C3;
 }
 
 .platformField:focus-within .label2 {
+
   color: #4599C3;
 }
 

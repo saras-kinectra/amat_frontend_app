@@ -1,5 +1,4 @@
-
-.container-fluid{
+.container-fluid {
 
     background-color: #4599C3;
     position: relative;
@@ -7,13 +6,13 @@
     height: 100px;
 }
 
-.btn{
+.btn {
 
     background-color: #4e90ac;
     width: 20%;
 }
 
-.page-header{
+.page-header {
 
     position: absolute;
     top: 0px;
@@ -25,7 +24,7 @@
     font-size: 20px;
 }
 
-.row{
+.row {
 
     color: white;
     margin-top: 20px;
@@ -42,15 +41,14 @@
     
     padding: 20
 }
-.g3ProductIDTool{
+
+.g3ProductIDTool {
 
     margin-left: 15px;
     font-size: 15px;
-
 }
 
-.logoImage{
+.logoImage {
 
     display: flow-root;
-
 }

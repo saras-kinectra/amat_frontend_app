@@ -1,16 +1,24 @@
 
 .rightBlock{
 
-    margin-top: 25px;
+    margin-top: 20px;
+
+}
+.leftBlock{
+
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
 
 }
 
 .SVGIconCSS {
   
-    display: flex;
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    height: 75%;
+    height: 50%;
     width: 50%;
 }
 
@@ -19,9 +27,26 @@
     margin-left: -16px;
     font-size: 14px;
     color:#65A7C4;
+    
 
 }
 .card>hr {
     margin-right: -18px;
     margin-left: -18px;
 }
+.productIDTopMargin{
+
+    margin-top: 10px;
+
+}
+
+.indexPosition{
+
+    margin-right: 15px;
+    font-family: Roboto-Medium;
+    font-size: 16px;
+    color: rgba(0,0,0,0.87);
+
+}
+
+
