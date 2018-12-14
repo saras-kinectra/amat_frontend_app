@@ -9,8 +9,6 @@ import { ChamberMainComponent } from '../Components/Chambers/chambermain.compone
 
 const routes: Routes = [
 
-
-
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent },
  
@@ -19,20 +17,19 @@ const routes: Routes = [
 
     children: [
 
-      
       { path: '', component: PlatFormsComponent },
 
       { path: 'platform/chambers', component: ChamberMainComponent,
       loadChildren: () => ChamberMainModule
     },
-
     ]
   }
-
 ];
 
 @NgModule({
+
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class SubRoutingModule { }

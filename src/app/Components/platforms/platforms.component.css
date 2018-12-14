@@ -63,20 +63,26 @@ hr {
   margin-left: -16px;
 }
 
-.text-right{
+.text-right {
 
   display: block;
   margin-bottom: 0px;
 }
 
-.opIDField:focus-within .label1 {
+.opIDField:focus-within .inputOPIDLabel {
 
   color: #4599C3;
 }
 
-.platformField:focus-within .label2 {
+.platformField:focus-within .selectPlatformLabel {
 
   color: #4599C3;
+}
+
+.mat-card-actions {
+
+  margin-bottom: 8px !important;
+  margin-top: 0px !important;
 }
 
 @media screen and (max-width: 550px) {

@@ -9,7 +9,9 @@ export class ApiService {
    
     // public static BASE_URL: string = "ec2-18-209-103-144.compute-1.amazonaws.com:3000/";
     /* 13-12-2018*/
-    public static BASE_URL: string = "http://ec2-18-209-103-144.compute-1.amazonaws.com:3000/";
+    // public static BASE_URL: string = "http://ec2-18-209-103-144.compute-1.amazonaws.com:3000/";
+    /* 14-12-2018*/
+    public static BASE_URL: string = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/api/";
 
     public httpHeaders = new HttpHeaders({
 
@@ -27,7 +29,7 @@ export class ApiService {
     //POST METHODS
     public FIND_PRODUCT_BY_CHAMBER_IDS: string = ApiService.BASE_URL + "Chambers/FindProductsByChamberIDs";
 
-    public FIND_COMPATABILITY_INFO_FOR_CHAMBER_IDS: string = ApiService.BASE_URL + "Chambers/FindCompatibilityInfoForChamberIds";
+    public FIND_COMPATABILITY_INFO_FOR_CHAMBERS: string = ApiService.BASE_URL + "Chambers/FindCompatibilityInfoForChambers";
 
     public ADD_OPPORTUNITIES: string = ApiService.BASE_URL + "Opportunities";
 
@@ -51,6 +53,25 @@ export class ApiService {
         console.log("ApiService getChambersByPlatformID getChambersByPlatformIDURL: " + getChambersByPlatformIDURL);
 
         return this.httpClient.get(getChambersByPlatformIDURL, { headers: this.httpHeaders });
+    }
+
+    findCompatibilityInfoForChamberIds(chamberIDs: any[], platFormID) {
+
+        console.log("ApiService findCompatibilityInfoForChamberIds");
+        console.log("ApiService platForm_ID");
+
+        console.log("ApiService findCompatibilityInfoForChamberIds messages: ", chamberIDs);
+
+        const bodyParams = {
+
+            "platformId": platFormID,
+            "chamberIds": chamberIDs
+            // "includeRndTypeMatches": isRnDSelected
+        }
+
+        console.log("ApiService findCompatibilityInfoForChamberIds bodyParams: ", JSON.stringify(bodyParams));
+
+        return this.httpClient.post(this.FIND_COMPATABILITY_INFO_FOR_CHAMBERS, JSON.stringify(bodyParams), { headers: this.httpHeaders });
     }
 
     findProductByChamberIDs(chamberIDs: any[]) {
@@ -82,24 +103,5 @@ export class ApiService {
         };
 
         return this.httpClient.post(this.ADD_OPPORTUNITIES, bodyParams, { headers: this.httpHeaders });
-    }
-
-    findCompatibilityInfoForChamberIds(chamberIDs: any[], platFormID) {
-
-        console.log("ApiService findCompatibilityInfoForChamberIds");
-        console.log("ApiService platForm_ID");
-
-        console.log("ApiService findCompatibilityInfoForChamberIds messages: ", chamberIDs);
-
-        const bodyParams = {
-
-            "platformId": platFormID,
-            "chamberIds": chamberIDs
-            // "includeRndTypeMatches": isRnDSelected
-        }
-
-        console.log("ApiService findCompatibilityInfoForChamberIds bodyParams: ", JSON.stringify(bodyParams));
-
-        return this.httpClient.post(this.FIND_COMPATABILITY_INFO_FOR_CHAMBER_IDS, JSON.stringify(bodyParams), { headers: this.httpHeaders });
     }
 }

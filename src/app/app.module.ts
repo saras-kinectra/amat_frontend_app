@@ -10,17 +10,29 @@ import { SubRoutingModule} from './Components/sub-routing.module';
 
 import { SelectModule } from 'ng2-select';
 import { MatChipsModule } from '@angular/material/chips';
+
 @NgModule({
+
   declarations: [
+
     AppComponent
   ],
 
   imports: [
-    BrowserModule, ReactiveFormsModule, FormsModule, SelectModule, BrowserAnimationsModule, MatChipsModule,
-     AppRoutingModule, SubModule,HttpClientModule
+    
+    BrowserModule, 
+    ReactiveFormsModule, 
+    FormsModule, 
+    SelectModule, 
+    BrowserAnimationsModule, 
+    MatChipsModule,
+    AppRoutingModule, 
+    SubModule,
+    HttpClientModule
   ],
 
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

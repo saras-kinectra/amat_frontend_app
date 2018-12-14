@@ -1,20 +1,18 @@
-
-.rightBlock{
+.rightBlock {
 
     margin-top: 20px;
-
 }
-.leftBlock{
+
+.leftBlock {
 
     margin-left: auto;
     margin-top: auto;
     margin-bottom: auto;
     margin-right: auto;
-
 }
 
 .SVGIconCSS {
-  
+
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -22,31 +20,43 @@
     width: 50%;
 }
 
-.matListItem{
+.matListItem {
 
     margin-left: -16px;
     font-size: 14px;
     color:#65A7C4;
-    
+}
 
+.borderLine {
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgb(161, 161, 161);
 }
+
 .card>hr {
-    margin-right: -18px;
-    margin-left: -18px;
+
+    margin-right: 0px;
+    margin-left: 0px;
 }
-.productIDTopMargin{
+
+.productIDTopMargin {
 
     margin-top: 10px;
-
 }
 
-.indexPosition{
+.indexPosition {
 
     margin-right: 15px;
     font-family: Roboto-Medium;
     font-size: 16px;
     color: rgba(0,0,0,0.87);
-
 }
 
+.matCardTopMargin {
 
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}

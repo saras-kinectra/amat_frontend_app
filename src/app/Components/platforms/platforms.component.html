@@ -3,7 +3,7 @@
         <div class="inner">
             <form [formGroup]="form">
                 <mat-form-field class="opIDField example-full-width col-md-5">
-                    <label class="label1" for="postal-code">Input OP ID</label>
+                    <label class="inputOPIDLabel" for="postal-code">Input OP ID</label>
 
                     <input class="opId" #opIdInput matInput><span class="info" pInputText
                         maxlength="35" pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged."
@@ -12,8 +12,8 @@
 
                 <br>
 
-                <mat-form-field class="platformField col-md-5">
-                    <label class="label2" for="postal-code">Select PlatForm</label>
+                <mat-form-field class="platformField col-md-5" style="margin-top: 1.5%;">
+                    <label class="selectPlatformLabel" for="postal-code">Select PlatForm</label>
 
                     <mat-select class="selectPlatform" [(value)]="selectedPosition" (ngValueChange)="onPlatFormListChange($event, selectedPosition)" formControlName="platform">
                         <!-- <mat-option [value]="undefined" selected [disabled]="true">--Select Platform--</mat-option> -->

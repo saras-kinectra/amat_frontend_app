@@ -1,17 +1,15 @@
-.selectChambersName{
+.selectChambersName {
 
     color: #4599C3;;
     font-size: 12px;
-
 } 
-
 
 .mat-form-field {
 
     margin-bottom: -20px;
-
 }
-.mat_chip{
+
+.mat_chip {
 
     /* background-color: #aec67d; */
     /* padding: 5px; */
@@ -19,16 +17,15 @@
     font-size: 11px;
     border-radius: 16px;
     min-height: 28px;
-
 }
 
 .mat-chip.mat-standard-chip {
+
     background: rgba(132,189,0,0.40);
     color: rgba(0,0,0,.87);
 }
 
-.inCompatableChamberNames{
-
+.inCompatableChamberNames {
 
     background-color: rgb(226, 226, 226);
     float: left;
@@ -40,99 +37,91 @@
     border-radius: 16px;
     color: black;
     cursor: pointer;
-
 }
 
-.chamberNames{
+.chamberNames {
 
-background-color: #abd6e4 ;
-float: left;
-padding: 5px;
-font-size: 11px;
-position: relative;
-margin-right: 5px;
-margin-bottom: 6px;
-border-radius: 16px;
-color: black;
-cursor: pointer;
-
-
+    background-color: #abd6e4 ;
+    float: left;
+    padding: 5px;
+    font-size: 11px;
+    position: relative;
+    margin-right: 5px;
+    margin-bottom: 6px;
+    border-radius: 16px;
+    color: black;
+    cursor: pointer;
 }
 
-.chamberContainer{
+.chamberContainer {
 
     display: contents;
-
 }
 
-.matContainer{
+.matContainer {
 
     display: table;
     width: 100%;
-
 }
 
 .chip-list {
+
     width: 100%;
-  }
-
-.label{
-
-font-size: 14px;
-
 }
 
-.card{
+.label {
+
+    font-size: 14px;
+}
+
+.card {
 
     padding: 20px;
-
 }
 
-.btn{
+.btn {
   
-    /* background-color: #4e90ac;
-    width: 14%;
-    margin-top: 2%;
-    margin-right: 15px; */
-  }
+/* background-color: #4e90ac;
+width: 14%;
+margin-top: 2%;
+margin-right: 15px; */
+}
 
-  .toggle{
+.toggle {
 
     margin-top: 2%;
     margin-bottom: 2%;
+}
 
-  }
+/* .isRnDChambersTopMarginLow{
 
-  /* .isRnDChambersTopMarginLow{
+margin-top: 10px;
+}
 
-    margin-top: 10px;
-  }
+.isRnDChambersTopMarginHigh{
 
-  .isRnDChambersTopMarginHigh{
+margin-top: -23px;
 
-    margin-top: -23px;
+} */
 
-  } */
+.incompatableChambers {
 
-  .incompatableChambers{
-
-    
     /* padding-left:  8px; */
     /* padding-top: 30px; */
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 12px;
+    margin-bottom: 10px;
+}
 
-  }
-  .matchingChambersLabel{
+.matchingChambersLabel {
 
     font-size: 12px;
+    margin-bottom: 10px;
+}
 
-  }
+.matActions {
 
-
-.matActions{
-
-widows: 100%;
+    widows: 100%;
 
 }
 
@@ -142,17 +131,19 @@ hr {
     border: 0;
     border-top: 3px solid rgb(161, 161, 161);
 }
+
 .card>hr {
+
     margin-right: -20px;
     margin-left: -20px;
 }
-.matContainerproductsList{
+
+.matContainerproductsList {
 
     background-color: rgb(183, 119, 201);
-
 }
 
-.errorLabel{
+.errorLabel {
 
     /* position: absolute;
     display: contents; */
@@ -165,66 +156,72 @@ hr {
     color: #D22630;
 }
 
-.matIcon{
+.matIcon {
 
     color: #D22630;
-
 }
-.comapatableChambersList{
 
-margin-top: 20px;
+.comapatableChambersList {
 
+    margin-top: 20px;
 }
 
 .mat-input-element {
+
     caret-color: #000000;
 }
 
-.text-right{
+.text-right {
+    
     display: block;
     margin-bottom: 0px;
-  }
+}
 
-  .errorLabelClose{
+.errorLabelClose {
 
     float: right;
+}
 
-  }
+.red {
 
-
-  .red {
     color: #D22630;
 }
 
 .blue {
+
     color: #4599C3;
 }
 
-.submitButtonEnableColor{
+.submitButtonEnableColor {
 
     color: #2e849e;
     background-color:#d3e5ec;
-
 }
 
-.submitButtonDisabledColor{
+.submitButtonDisabledColor {
+
     background-color: #dadada;
     color: #000000;
-    }
-    .mat-form-field-custom {
+}
 
-        margin-top: -12px;
- 
-    }
+.mat-form-field-custom {
 
-    .formFiledUnderLineColor .mat-form-field-underline {
+    margin-top: -12px;
+}
+
+.formFiledUnderLineColor .mat-form-field-underline {
+
    background-color: red !important; 
     /* border: 1.5px solid #D22630; */
-    
   }
 
-
-  .mat-card-content>:last-child:not(.mat-card-footer), .mat-card>:last-child:not(.mat-card-footer) {
+/* .mat-card-content>:last-child:not(.mat-card-footer), .mat-card>:last-child:not(.mat-card-footer) {
     margin-bottom: 0;
     display: -webkit-box;
+} */
+
+.mat-card-actions {
+    
+    margin-bottom: 8px !important;
+    margin-top: 0px !important;
 }

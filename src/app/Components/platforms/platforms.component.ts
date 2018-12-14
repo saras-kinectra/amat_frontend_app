@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -10,7 +10,8 @@ import { ApiService } from './../../Services/api.service';
 
   selector: 'app-platforms',
   templateUrl: './platforms.component.html',
-  styleUrls: ['./platforms.component.css']
+  styleUrls: ['./platforms.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class PlatFormsComponent implements OnInit {

@@ -14,20 +14,20 @@
     <div class="container">
         <mat-card class="card">
             <div class="inner"> 
-                <mat-form-field class="abcd eml example-full-width col-md-5" [ngClass]="{'form-unsubmitted': submitted}">
+                <mat-form-field class="userName example-full-width col-md-5" [ngClass]="{'form-unsubmitted': submitted}">
                     <mat-label [ngClass]="{
-                        'label1': !labelError,
-                        'label11': labelError
+                        'userNameLabelOne': !labelError,
+                        'userNameLabelTwo': labelError
                       }">Username/Email</mat-label>
                     <input matInput (keyup)="onKeyUp($event)" (focus)="onFocus()" [(ngModel)]="userName" name="email">
                 </mat-form-field>
 
                 <br>
 
-                <mat-form-field class="cdab psw example-full-width col-md-5" [ngClass]="{'form-unsubmitted': submitted}">
+                <mat-form-field class="password psw example-full-width col-md-5" [ngClass]="{'form-unsubmitted': submitted}">
                     <mat-label [ngClass]="{
-                        'label1': !labelError,
-                        'label11': labelError
+                        'userNameLabelOne': !labelError,
+                        'userNameLabelTwo': labelError
                       }">Password</mat-label>
                     <input matInput type="password" (keyup)="onKeyUp($event)" (focus)="onFocus()" [(ngModel)]="password" name="password">
                 </mat-form-field>

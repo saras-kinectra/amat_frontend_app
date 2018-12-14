@@ -1,6 +1,5 @@
 import { StorageService } from './../../Services/storage.service';
 import { DialogOverviewExampleDialog } from './Chamber/chambers.component';
-
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ApiService } from 'src/app/Services/api.service';
@@ -32,30 +31,60 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule,
 import { ProductComponent } from './Products/product.component';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
 
   declarations: [
-    ChamberMainComponent, ChamberComponent,DialogOverviewExampleDialog,ProductComponent
+
+    ChamberMainComponent,
+    ChamberComponent,
+    DialogOverviewExampleDialog,
+    ProductComponent
   ],
 
   imports: [
 
-    CommonModule, FormsModule, RouterModule,ChamberMainRoutingModule,MatDividerModule
-    ,MatChipsModule,MatButtonModule,MatSelectModule,AccordionModule,MatListModule,
-    SelectModule,MatFormFieldModule,MatInputModule,OverlayModule,OverlayPanelModule,
-    MatIconModule,Ng2SearchPipeModule,MatMenuModule,MatDialogModule,MatAutocompleteModule,
-    MatSlideToggleModule,MatCardModule,TooltipModule,MatRippleModule,ReactiveFormsModule
-
-    // ,SelectModule,BrowserAnimationsModule,ReactiveFormsModule, HttpClientModule,
-    // ,MatAutocompleteModule, MatButtonModule, MatSelectModule,MatSlideToggleModule,
-    // MatFormFieldModule, MatInputModule,OverlayModule,OverlayPanelModule,MatCardModule,AccordionModule,
-    // TooltipModule,MatRippleModule,MatChipsModule,MatIconModule,Ng2SearchPipeModule,MatMenuModule
-    // ,MatDialogModule,
-
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    ChamberMainRoutingModule,
+    MatDividerModule
+    ,MatChipsModule,
+    MatButtonModule,
+    MatSelectModule,
+    AccordionModule,
+    MatListModule,
+    SelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    OverlayModule,
+    OverlayPanelModule,
+    MatIconModule,
+    Ng2SearchPipeModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    TooltipModule,
+    MatRippleModule,
+    ReactiveFormsModule,
+    MatTabsModule
   ],
-  providers: [ApiService, StorageService,],
-  entryComponents: [DialogOverviewExampleDialog],
+
+  providers: [
+    
+    ApiService, 
+    StorageService
+  ],
+
+  entryComponents: [
+    
+    DialogOverviewExampleDialog
+  ],
+
   bootstrap: []
 })
+
 export class ChamberMainModule { }

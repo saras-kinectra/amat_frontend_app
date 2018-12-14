@@ -9,5 +9,4 @@ export class Model {
   // createdAt;
   // updatedAt;
   // __v;
-
 }

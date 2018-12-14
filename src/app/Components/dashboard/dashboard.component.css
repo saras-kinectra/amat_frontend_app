@@ -6,11 +6,11 @@
     height: 100px;
 }
 
-.btn {
+/* .btn {
 
     background-color: #4e90ac;
     width: 20%;
-}
+} */
 
 .page-header {
 
@@ -32,7 +32,7 @@
 
 .menuButton {
 
-    text-align: right;
+    text-align: center;
     float: right;
     margin-right: -10px;
 }

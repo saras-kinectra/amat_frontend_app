@@ -72,9 +72,9 @@ export class ChamberComponent implements OnInit {
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
     console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
 
-    console.log("ngOnInit selectedPlatformname:", this.selectedPlatform._id);
+    console.log("ngOnInit selectedPlatformname:", this.selectedPlatform.id);
 
-    this.apiService.getChambersByPlatformID(this.selectedPlatform._id).subscribe(response => {
+    this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
 
       console.log("ngOnInit getChambersByPlatformID response: ", response);
       
@@ -101,7 +101,7 @@ export class ChamberComponent implements OnInit {
 
   chamberOptionSelected(event) {
 
-    console.log("chamberOptionSelected event.option.value._id: ", event.option.value._id);
+    console.log("chamberOptionSelected event.option.value.id: ", event.option.value.id);
     console.log("chamberOptionSelected this.isChamberSelected: ", this.isChamberSelected);
     console.log("chamberOptionSelected this.isRnDChambersEnabled: ", this.isRnDChambersEnabled);
 
@@ -111,14 +111,14 @@ export class ChamberComponent implements OnInit {
 
       if(this.isRnDChambersEnabled) {
 
-        chamber = this.getChamberByID(event.option.value._id, this.rndOnlyChambersList);
+        chamber = this.getChamberByID(event.option.value.id, this.rndOnlyChambersList);
       } else {
 
-        chamber = this.getChamberByID(event.option.value._id, this.compatibilityChambersList);
+        chamber = this.getChamberByID(event.option.value.id, this.compatibilityChambersList);
       }
     } else {
 
-      chamber = this.getChamberByID(event.option.value._id, this.chambersList);
+      chamber = this.getChamberByID(event.option.value.id, this.chambersList);
     }
 
     console.log("getChamberByID selectedChamber: ", chamber);
@@ -133,7 +133,7 @@ export class ChamberComponent implements OnInit {
       console.log("getChamberByID chamberID: ", chamberID);
       console.log("getChamberByID chamberList: ", i,  chamberList[i]);
 
-      if (chamberList[i]._id === chamberID) {
+      if (chamberList[i].id === chamberID) {
 
         return chamberList[i];
       }
@@ -213,7 +213,7 @@ export class ChamberComponent implements OnInit {
       this.isButtonLabelCondition = false;
     }
 
-    if (this.selectedChambersList.length > this.selectedPlatform.facetsCount) {
+    if (this.selectedChambersList.length > this.selectedPlatform.facets_count) {
 
       this.showErrorLabelCondition = false;
       this.showSelectChamberTitle = false;
@@ -232,13 +232,13 @@ export class ChamberComponent implements OnInit {
     var selectedChamberIDs: any = [];
     for (let i = 0; i < this.selectedChambersList.length; i++) {
 
-      selectedChamberIDs.push(this.selectedChambersList[i]._id);
+      selectedChamberIDs.push(this.selectedChambersList[i].id);
     }
 
     console.log("filterRnDChambers Selected Ids", selectedChamberIDs);
     console.log("filterRnDChambers SelectedChambersList:", this.selectedChambersList);
 
-    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.selectedPlatform._id).subscribe(response => {
+    this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.selectedPlatform.id).subscribe(response => {
 
       console.log("filterCompatibleChambersByID response: ", response);
 
@@ -322,9 +322,9 @@ export class ChamberComponent implements OnInit {
 
     this.isButtonLabelCondition = false;
 
-    console.log("clearAllSelectedChambers Platform ID:", this.selectedPlatform._id);
+    console.log("clearAllSelectedChambers Platform ID:", this.selectedPlatform.id);
 
-    this.apiService.getChambersByPlatformID(this.selectedPlatform._id).subscribe(response => {
+    this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
 
       console.log("clearAllSelectedChambers getChambersByPlatformID response: ", response);
 
@@ -346,22 +346,10 @@ export class ChamberComponent implements OnInit {
 
     for (let i = 0; i < this.selectedChambersList.length; i++) {
 
-      selectedChamberIDs.push(this.selectedChambersList[i]._id);
+      selectedChamberIDs.push(this.selectedChambersList[i].id);
     }
 
-   localStorage.setItem("SelectedChambersIDObject", JSON.stringify(selectedChamberIDs));
-
-    // console.log("selected Ids", selectedChamberIDs);
-
-    // this.apiService.findProductByChamberIDs(selectedChamberIDs).subscribe(response => {
-
-    //   console.log("Response - findProductByChamberIDs: ", response);
-
-    //   this.finalProductsList = JSON.parse(JSON.stringify(response));
-
-    //   console.log("Response - findProductByChamberIDs: length: ", this.finalProductsList.length);
-    //   console.log("Response - findProductByChamberIDs: json: ", this.finalProductsList);
-    // });
+    localStorage.setItem("SelectedChambersIDObject", JSON.stringify(selectedChamberIDs));
   }
 }
 
@@ -375,6 +363,7 @@ export class DialogOverviewExampleDialog {
 
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>) { 
 
+    localStorage.setItem('IsFrom', 'CancelButton');
   }
 
   rndCancel(): void {

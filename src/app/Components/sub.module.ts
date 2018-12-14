@@ -1,5 +1,3 @@
-
-
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SubRoutingModule } from './sub-routing.module';
 import { StorageService } from '../Services/storage.service';
@@ -15,7 +13,7 @@ import {
   MatSelectModule,
   MAT_CHIPS_DEFAULT_OPTIONS
 } from '@angular/material';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent, ExitDialog } from './dashboard/dashboard.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MatCardModule } from '@angular/material/card';
@@ -37,22 +35,52 @@ import { ChamberMainModule } from '../Components/Chambers/chamber.module';
 @NgModule({
   declarations: [
 
-    DashboardComponent, PlatFormsComponent, LoginComponent
-
+    DashboardComponent,
+    PlatFormsComponent,
+    LoginComponent,
+    ExitDialog
   ],
 
   imports: [
 
-    BrowserModule, FormsModule, SelectModule, ReactiveFormsModule,
-    SubRoutingModule, MatAutocompleteModule, MatButtonModule, MatSelectModule, MatSlideToggleModule,
-    MatFormFieldModule, MatInputModule, OverlayModule, OverlayPanelModule, MatCardModule, AccordionModule, TooltipModule,
-    MatRippleModule, AccordionModule, MatChipsModule, MatIconModule, Ng2SearchPipeModule, MatMenuModule
-    ,MatDialogModule,ChamberMainModule
+    BrowserModule, 
+    FormsModule, 
+    SelectModule, 
+    ReactiveFormsModule,
+    SubRoutingModule, 
+    MatAutocompleteModule, 
+    MatButtonModule, 
+    MatSelectModule, 
+    MatSlideToggleModule,
+    MatFormFieldModule, 
+    MatInputModule, 
+    OverlayModule, 
+    OverlayPanelModule, 
+    MatCardModule, 
+    AccordionModule, 
+    TooltipModule,
+    MatRippleModule, 
+    AccordionModule, 
+    MatChipsModule, 
+    MatIconModule, 
+    Ng2SearchPipeModule, 
+    MatMenuModule,
+    MatDialogModule,
+    ChamberMainModule
   ],
 
-  providers: [ApiService, StorageService,
+  providers: [
+    
+    ApiService, 
+    StorageService,
+  ],
+
+  entryComponents: [
+    
+    ExitDialog
   ],
 
   bootstrap: []
 })
+
 export class SubModule { }
