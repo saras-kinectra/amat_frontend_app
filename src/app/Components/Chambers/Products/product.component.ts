@@ -3,6 +3,8 @@ import { ApiService } from 'src/app/Services/api.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatAutocomplete, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 
 @Component({
 
@@ -24,7 +26,7 @@ export class ProductComponent implements OnInit {
 
   selectedTab: any;
 
-  constructor( private apiService: ApiService, private location: Location,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private elem: ElementRef) {
+  constructor( private apiService: ApiService, private location: Location,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
 
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
     console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
@@ -35,10 +37,8 @@ export class ProductComponent implements OnInit {
 
     iconRegistry.addSvgIcon(
         'thumbs-up',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/ssssss2.svg'));
+        sanitizer.bypassSecurityTrustResourceUrl('assets/endura-diagram-01.svg'));
         
-        // sanitizer.bypassSecurityTrustResourceUrl('assets/endura-diagram-01.svg'));
-
     this.dummyConfigurationArray = [
       {number:"1"}, {number:"2"}, {number:"3"}, {number:"4"}, {number:"5"},
       {number:"C"}, {number:"D"}, {number:"E"}, {number:"F"}
@@ -46,9 +46,6 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    var id = document.getElementById("Layer_1");
-    console.log("constructor id", id);
   
     this.apiService.findProductsForChambers(this.selectedPlatform.id, this.selectedChamberIDs).subscribe(response => {
 
@@ -63,45 +60,6 @@ export class ProductComponent implements OnInit {
 
       this.configurationArray = this.finalProductsList[this.selectedTab].configuration;
       console.log("getSelectedTab configurationArray: ", this.configurationArray);
-
-      let id = document.getElementById("enduraplatform");
-      console.log("getElementsByTagName id", id);
-
-      // document.getElementById('enduraplatform').style.display = 'none';
-
-      document.getElementById("onehover").style.background = 'red';
-      document.getElementById("twoactive").style.background = 'red';
-
-      // var id = document.getElementsByTagName("g");
-      // console.log("getElementsByTagName id", id);
-
-      // var id: any = <HTMLScriptElement>document.getElementsByTagName("g");
-      // var id = (<HTMLCollection<SVGGElement>)document.getElementsByTagName("g");
-      // console.log("getElementsByTagName id", id);
-      // console.log("getElementsByTagName id", id.length);
-
-      // for (var i = 0; i < id.length; i++) {
-      //   console.log("getElementsByTagName: " , id[i].tagName + "<br>");
-      // }
-
-    //   var script: HTMLScriptElement = document.getElementsByTagName('g');
-    // alert(script.type);
-
-    // var x = document.getElementById("myDIV").querySelectorAll('g');
-    // console.log("getElementsByTagName x", x);
-    // x[5].style.backgroundColor = "red";  
-
-    // document.getElementById('_x3C_chamber1hover_x3E_').setAttribute("height", "10px");
-    // document.getElementById('oneactive').setAttribute("height", "500px");
-    // document.querySelector(".svgClass").getSVGDocument().getElementById("svgInternalID").setAttribute("fill", "red")
-
-    // var a = document.getElementById("alphasvg");
-
-    //get the inner DOM of alpha.svg
-    // var svgDoc = a.contentDocument;
-
-    //get the inner element by id
-    // var delta = svgDoc.getElementById("delta");
     });
   }
 
@@ -129,16 +87,53 @@ export class ProductComponent implements OnInit {
     var opportunityProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
     console.log("getSelectedTab opportunitiProduct: ", opportunityProduct);
 
-    var opID = localStorage.getItem('SelectedOPID')
+    var opID: string = localStorage.getItem('SelectedOPID');
+    console.log("getSelectedTab opID: ", opID);
 
-    this.apiService.addOpportunities(opID, opportunityProduct).subscribe(response => {
+    if(opID === '') {
 
-      console.log("Response - addOpportunities: ", response);
+      console.log('showOPIDDialog');
 
-      // this.finalProductsList = JSON.parse(JSON.stringify(response));
+      const dialogRef = this.dialog.open(OPIDDialog, {
 
-      // console.log("Response - addOpportunities: length: ", this.finalProductsList.length);
-      // console.log("Response - addOpportunities: json: ", this.finalProductsList);
-    });
+        width: '350px',
+        height: '170px',
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+        console.log('showOPIDDialog dialogRef.afterClosed isFrom');
+      });
+    } else {
+
+      this.apiService.addOpportunities(opID, opportunityProduct).subscribe(response => {
+
+        console.log("Response - addOpportunities: ", response);
+  
+        localStorage.clear();
+        this.router.navigate(['/dashboard']);
+      });
+    }
+  }
+}
+
+@Component({
+
+  selector: 'opid-dialog',
+  templateUrl: 'opid_dialog.html',
+})
+
+export class OPIDDialog {
+
+  constructor(public dialogRef: MatDialogRef<OPIDDialog>) { 
+  }
+
+  dialogOK() {
+    
+    console.log("Dialog Exit");
+    this.dialogRef.close();
+
+    // localStorage.clear();
+    // this.router.navigate(['/dashboard']);
   }
 }

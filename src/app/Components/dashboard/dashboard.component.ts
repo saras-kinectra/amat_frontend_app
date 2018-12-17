@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
   }
 }
 
-
 @Component({
 
   selector: 'exit-dialog',
@@ -64,6 +63,6 @@ export class ExitDialog {
     this.dialogRef.close();
 
     localStorage.clear();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/dashboard']);
   }
 }

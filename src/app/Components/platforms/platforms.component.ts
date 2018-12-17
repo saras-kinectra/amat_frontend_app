@@ -20,8 +20,6 @@ export class PlatFormsComponent implements OnInit {
   selectedPosition;
   public form: FormGroup;
 
-  selectOPID: string = "";
-
   toolTipIcon: string = "assets/Icon-Info-Inactive@1x.png";
 
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
@@ -67,10 +65,10 @@ export class PlatFormsComponent implements OnInit {
   next() {
 
     console.log("next selectedPosition: ", this.selectedPosition);
-    console.log("next opID: ", this.selectOPID);
+    console.log("next opID: ", this.opIdInput.nativeElement.value);
 
     localStorage.setItem("SelectedPlatform", JSON.stringify(this.platformsList[this.selectedPosition]));
-    localStorage.setItem("SelectedOPID", this.selectOPID);
+    localStorage.setItem("SelectedOPID", this.opIdInput.nativeElement.value);
 
     console.log("next selected platform: ", this.platformsList[this.selectedPosition]);
 

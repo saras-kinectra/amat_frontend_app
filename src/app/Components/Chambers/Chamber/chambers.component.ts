@@ -206,11 +206,9 @@ export class ChamberComponent implements OnInit {
     if(this.selectedChambersList.length > 0) {
 
       this.showSelectedChambersClearButton = true;
-      this.isButtonLabelCondition = true;
     } else {
 
       this.showSelectedChambersClearButton = false;
-      this.isButtonLabelCondition = false;
     }
 
     if (this.selectedChambersList.length > this.selectedPlatform.facets_count) {
@@ -225,8 +223,16 @@ export class ChamberComponent implements OnInit {
       this.showErrorLabelCondition = true;
       this.showSelectChamberTitle = true;
       this.isCrossLabelCondition = false;
-      this.isButtonLabelCondition = true;
+      // this.isButtonLabelCondition = true;
       this.formFiledUnderLine = true ;
+
+      if(this.selectedChambersList.length > 3) {
+
+        this.isButtonLabelCondition = true;
+      } else {
+  
+        this.isButtonLabelCondition = false;
+      }
     }
 
     var selectedChamberIDs: any = [];

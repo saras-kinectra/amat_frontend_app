@@ -28,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule, 
   MatSelectModule, 
   MAT_CHIPS_DEFAULT_OPTIONS} from '@angular/material';
-import { ProductComponent } from './Products/product.component';
+import { ProductComponent, OPIDDialog } from './Products/product.component';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -40,7 +40,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ChamberMainComponent,
     ChamberComponent,
     DialogOverviewExampleDialog,
-    ProductComponent
+    ProductComponent,
+    OPIDDialog
   ],
 
   imports: [
@@ -81,7 +82,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 
   entryComponents: [
     
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    OPIDDialog
   ],
 
   bootstrap: []

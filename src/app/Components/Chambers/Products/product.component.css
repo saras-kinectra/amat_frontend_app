@@ -52,6 +52,7 @@
     font-family: Roboto-Medium;
     font-size: 16px;
     color: rgba(0,0,0,0.87);
+    font-weight: bold;
 }
 
 .matCardTopMargin {
@@ -61,8 +62,7 @@
     padding-right: 0px;
 }
 
-.onehover {
-
-    background: rgb(141, 29, 53);
-    background-color: rgb(141, 29, 53);
+.mat-list .mat-list-item .mat-list-item-content, .mat-list .mat-list-option .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-option .mat-list-item-content, .mat-selection-list .mat-list-item .mat-list-item-content, .mat-selection-list .mat-list-option .mat-list-item-content {
+    
+    width: 100%;
 }

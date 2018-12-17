@@ -94,7 +94,7 @@ export class ApiService {
 
         console.log("ApiService addOpportunities");
         
-        // console.log("ApiService addOpportunities opID: " + opID);
+        console.log("ApiService addOpportunities opID: " + opID);
         console.log("ApiService addOpportunities opportunityProduct: " + JSON.stringify(opportunityProduct));
 
         const bodyParams = {
@@ -107,8 +107,8 @@ export class ApiService {
             'configuration': opportunityProduct.configuration,
         };
 
-        console.log("ApiService addOpportunities bodyParams: " + bodyParams);
+        console.log("ApiService addOpportunities bodyParams: " + JSON.stringify(bodyParams));
 
-        return this.httpClient.post(this.ADD_OPPORTUNITIES, JSON.stringify(opportunityProduct), { headers: this.httpHeaders });
+        return this.httpClient.post(this.ADD_OPPORTUNITIES, bodyParams, { headers: this.httpHeaders });
     }
 }
