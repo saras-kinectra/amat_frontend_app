@@ -9,8 +9,8 @@ import { ChamberMainComponent } from '../Components/Chambers/chambermain.compone
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  // { path: 'login', component: LoginComponent },
  
   {
     path: 'dashboard', component: DashboardComponent,

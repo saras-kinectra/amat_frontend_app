@@ -5,7 +5,7 @@
                 <mat-form-field class="opIDField example-full-width col-md-5">
                     <label class="inputOPIDLabel" for="postal-code">Input OP ID</label>
 
-                    <input class="opId" #opIdInput matInput><span class="info" pInputText
+                    <input class="opId" [(ngModel)]="selectOPID"  #opIdInput matInput><span class="info" pInputText
                         maxlength="35" pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged."
                         tooltipPosition="right" hideDelay="200"><img class="info_icon" [src]="toolTipIcon" (mouseover)="onToolTipMouseOver()" (mouseout)="onToolTipMouseOut()"></span>
                 </mat-form-field>

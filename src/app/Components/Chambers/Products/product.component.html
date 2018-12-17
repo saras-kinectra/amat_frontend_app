@@ -1,18 +1,18 @@
 <div class="container">
 
   <mat-card class="card matCardTopMargin">
-    <mat-tab-group class="mainBlock">
-      <mat-tab  *ngFor="let tabnames of tabMenuList" [label]="tabnames.name">
+    <mat-tab-group class="mainBlock" (selectedTabChange)="getSelectedTab($event)">
+      <mat-tab  *ngFor="let product of finalProductsList; let i = index" [label]="product.product_code">
         
       <div class="row col-xs-12 ">
         <div class="col-md-8 leftBlock">
-            <mat-icon id="test" class="SVGIconCSS" svgIcon="thumbs-up"></mat-icon>
+            <mat-icon id="myDIV" class="SVGIconCSS" svgIcon="thumbs-up"></mat-icon>
         </div>
 
         <div class="col-md-4  rightBlock">
           <div class="row col-xs-12">
             <div class="col-md-6">
-              <h6 style="font-size: 14px;color: #000000;">Endura2</h6> 
+              <h6 style="font-size: 14px;color: #000000;">{{product.platform_name}}</h6> 
               <h6 style="font-size: 12px;color: #999999;">Platform</h6>
             </div>
 
@@ -23,11 +23,11 @@
           </div>
           <div class="row col-xs-12 productIDTopMargin">
             <div class="col-md-6 ">
-              <h6 style="font-size: 22px;color: #000000;">2168</h6> 
+              <h6 style="font-size: 22px;color: #000000;">{{product.product_code}}</h6> 
               <h6 style="font-size: 12px;color: #999999;">Product ID</h6>
             </div>
             <div class="col-md-6">
-              <h6 style="font-size: 14px;color: #000000;">New Memories</h6> 
+              <h6 style="font-size: 14px;color: #000000;">{{product.product_name}}</h6> 
               <h6 style="font-size: 12px;color: #999999;">G3 Name</h6>
             </div>
           </div>
@@ -38,24 +38,23 @@
 
           <div style="position: relative">
             <div style="position: absolute;">
-              <mat-list class="" *ngFor="let products of finalProductsList| slice:0:9;let i=index">
+              <mat-list class="" *ngFor="let configuration of configurationArray; let i=index">
                 <mat-list-item class="matListItem">
 
                   <div class="indexPosition">
-                    {{indexPositionArray[i].number}}
+                    {{configuration.facet_name}}
                   </div>
 
                   <div style="margin-right: 100px">
-                    {{products.name}}
+                    {{configuration.chamber_name}}
                   </div>
-
                   <mat-divider></mat-divider>
               </mat-list-item>
             </mat-list>
           </div>
 
           <div>
-            <mat-list *ngFor="let products of indexPositionArray">
+            <mat-list *ngFor="let products of dummyConfigurationArray">
               <mat-list-item class="matListItem"></mat-list-item>
             </mat-list>
           </div>
