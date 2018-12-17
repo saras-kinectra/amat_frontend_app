@@ -27,7 +27,7 @@ export class ApiService {
 
 
     //POST METHODS
-    public FIND_PRODUCT_BY_CHAMBER_IDS: string = ApiService.BASE_URL + "Chambers/FindProductsByChamberIDs";
+    public FIND_PRODUCTS_FOR_CHAMBERS: string = ApiService.BASE_URL + "Chambers/FindProductsForChambers";
 
     public FIND_COMPATABILITY_INFO_FOR_CHAMBERS: string = ApiService.BASE_URL + "Chambers/FindCompatibilityInfoForChambers";
 
@@ -74,34 +74,41 @@ export class ApiService {
         return this.httpClient.post(this.FIND_COMPATABILITY_INFO_FOR_CHAMBERS, JSON.stringify(bodyParams), { headers: this.httpHeaders });
     }
 
-    findProductByChamberIDs(chamberIDs: any[]) {
+    findProductsForChambers(platFormID, chamberIDs: any[]) {
 
         console.log("ApiService getChambersByPlatformID");
         console.log("ApiService getChambersByPlatformID messages: ", chamberIDs);
 
         const bodyParams = {
 
+            'platformId' : platFormID, 
             'chamberIds': chamberIDs,
         }
 
         console.log("ApiService getChambersByPlatformID bodyParams: ", JSON.stringify(bodyParams));
 
-        return this.httpClient.post(this.FIND_PRODUCT_BY_CHAMBER_IDS, JSON.stringify(bodyParams), { headers: this.httpHeaders });
+        return this.httpClient.post(this.FIND_PRODUCTS_FOR_CHAMBERS, JSON.stringify(bodyParams), { headers: this.httpHeaders });
     }
 
-    addOpportunities(opID: string, productId: String) {
+    addOpportunities(opID: string, opportunityProduct: any) {
 
         console.log("ApiService addOpportunities");
         
-        console.log("ApiService addOpportunities opID: " + opID);
-        console.log("ApiService addOpportunities productId: " + productId);
+        // console.log("ApiService addOpportunities opID: " + opID);
+        console.log("ApiService addOpportunities opportunityProduct: " + JSON.stringify(opportunityProduct));
 
         const bodyParams = {
 
-            'opId': opID,
-            'productId': productId,
+            'op_id' : opID, 
+            'product_name': opportunityProduct.product_name,
+            'product_code' : opportunityProduct.product_code, 
+            'nearest_product_config_name': opportunityProduct.nearest_product_config_name,
+            'platform_name' : opportunityProduct.platform_name, 
+            'configuration': opportunityProduct.configuration,
         };
 
-        return this.httpClient.post(this.ADD_OPPORTUNITIES, bodyParams, { headers: this.httpHeaders });
+        console.log("ApiService addOpportunities bodyParams: " + bodyParams);
+
+        return this.httpClient.post(this.ADD_OPPORTUNITIES, JSON.stringify(opportunityProduct), { headers: this.httpHeaders });
     }
 }
