@@ -26,7 +26,10 @@ export class ProductComponent implements OnInit {
 
   selectedTab: any;
 
-  constructor( private apiService: ApiService, private location: Location,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
+  imageURL: string = "";
+  selectedOPID: string = "";
+
+  constructor( private apiService: ApiService, private location: Location, public iconRegistry: MatIconRegistry, public sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
 
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
     console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
@@ -35,15 +38,13 @@ export class ProductComponent implements OnInit {
     this.selectedChamberIDs = JSON.parse(localStorage.getItem('SelectedChambersIDObject'));
     console.log("Products_Onint_ChamberIDList", localStorage.getItem('SelectedChambersIDObject'));
 
-    iconRegistry.addSvgIcon(
-        'thumbs-up',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/endura-diagram-01.svg'));
-        
     this.dummyConfigurationArray = [
       {number:"1"}, {number:"2"}, {number:"3"}, {number:"4"}, {number:"5"},
       {number:"C"}, {number:"D"}, {number:"E"}, {number:"F"}
-    ]
+    ];
   }
+
+  @ViewChild('tabGroup') tabGroup;
 
   ngOnInit() {
   
@@ -56,10 +57,51 @@ export class ProductComponent implements OnInit {
       console.log("Response - findProductsForChambers: length: ", this.finalProductsList.length);
       console.log("Response - findProductsForChambers: json: ", this.finalProductsList);
 
+      this.selectedOPID = localStorage.getItem('SelectedOPID');
+      console.log("getSelectedTab opID: ", this.selectedOPID);
+
+      if(this.selectedOPID === '') {
+
+        this.selectedOPID = '----';
+      }
+
       this.selectedTab = 0;
+
+      this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura.svg";
+
+      this.iconRegistry.addSvgIcon('productImageIcon', this.sanitizer.bypassSecurityTrustResourceUrl(this.imageURL));
+
+      // console.log("querySelector", document.querySelector('object'));
+      // document.querySelector('object').addEventListener('load', function() {
+
+      //   var tagsList = this.ownerDocument.documentElement.querySelectorAll('g');
+      //   console.log("querySelector", tagsList);
+      //   tagsList[9].style.visibility ='hidden';
+      //   console.log("querySelector", tagsList[12]);
+      // });
 
       this.configurationArray = this.finalProductsList[this.selectedTab].configuration;
       console.log("getSelectedTab configurationArray: ", this.configurationArray);
+
+      // console.log("querySelector", document.querySelector('object'));
+      // document.querySelector('object').addEventListener('load', function() {
+
+      //   var tagsList = this.ownerDocument.documentElement.querySelectorAll('g');
+      //   console.log(tagsList);
+      //   tagsList[9].style.visibility ='hidden';
+      //   console.log(tagsList[12]);
+      // });
+
+      // for(var i = 0; i < this.configurationArray.length; i++) {
+
+      //   if(this.configurationArray[i].chamber_name === '') {
+
+          
+      //   } else {
+
+
+      //   }
+      // }
     });
   }
 
@@ -87,10 +129,7 @@ export class ProductComponent implements OnInit {
     var opportunityProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
     console.log("getSelectedTab opportunitiProduct: ", opportunityProduct);
 
-    var opID: string = localStorage.getItem('SelectedOPID');
-    console.log("getSelectedTab opID: ", opID);
-
-    if(opID === '') {
+    if(this.selectedOPID === '' || this.selectedOPID === '----') {
 
       console.log('showOPIDDialog');
 
@@ -106,7 +145,7 @@ export class ProductComponent implements OnInit {
       });
     } else {
 
-      this.apiService.addOpportunities(opID, opportunityProduct).subscribe(response => {
+      this.apiService.addOpportunities(this.selectedOPID, opportunityProduct).subscribe(response => {
 
         console.log("Response - addOpportunities: ", response);
   

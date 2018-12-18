@@ -1,8 +1,18 @@
-label {
+/* label {
 
   display: block;
   color: black;
   font-size: 12px;
+} */
+
+.inputOPIDLabel {
+
+  font-size: 14px;
+}
+
+.selectPlatformLabel {
+
+  font-size: 14px;
 }
 
 .opId {

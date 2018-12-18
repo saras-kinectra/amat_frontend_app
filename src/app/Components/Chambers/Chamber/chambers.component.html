@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
 
 <div class="container">
-  <mat-card class="card">
+  <mat-card class="card"  style="padding:16px">
     <div class="matContainer">
       <mat-form-field class="chip-list  mat-form-field-custom " [ngClass]="{'formFiledUnderLineColor': !formFiledUnderLine}">
 
@@ -43,14 +43,14 @@
 
         <p class="chamberNames" [hidden]="!showChambersList" *ngFor="let chambers of chambersList; let i = index"
           [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
-          <a>{{ chambers.name }}</a>
+          <a style="padding:5px">{{ chambers.name }}</a>
         </p>
 
         <p class="matchingChambersLabel" [hidden]="!showCompatibilityChambersTitle">Known Matching Chambers</p>
 
         <p class="chamberNames" [hidden]="!showCompatibilityChambersList" *ngFor="let chambers of compatibilityChambersList; let i = index"
           [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
-          <a>{{ chambers.name }}</a>
+          <a style="padding:5px">{{ chambers.name }}</a>
         </p>
       </div>
     </div>
@@ -62,14 +62,14 @@
 
         <p class="inCompatableChamberNames" [hidden]="!showRnDChamberList" *ngFor="let chambers of rndOnlyChambersList; let i = index"
           [class.active]="selectedIndex === i" (click)="filterRnDChambersByID(chambers)">
-          {{ chambers.name }}
+          <a style="padding:5px">{{ chambers.name }}</a>
         </p>
       </div>
     </div>
 
     <div class="matContainerproductsList matContainer">
       <p class="chamberNames" *ngFor="let chambers of finalProductsList">
-        <a>{{ chambers.name }}</a>
+        <a style="padding:5px">{{ chambers.name }}</a>
       </p>
     </div>
 

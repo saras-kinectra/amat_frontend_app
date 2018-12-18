@@ -11,7 +11,7 @@ export class ApiService {
     /* 13-12-2018*/
     // public static BASE_URL: string = "http://ec2-18-209-103-144.compute-1.amazonaws.com:3000/";
     /* 14-12-2018*/
-    public static BASE_URL: string = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/api/";
+    public static BASE_URL: string = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/api/";   
 
     public httpHeaders = new HttpHeaders({
 

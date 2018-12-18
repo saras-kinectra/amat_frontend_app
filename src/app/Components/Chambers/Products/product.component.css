@@ -37,8 +37,8 @@
 
 .card>hr {
 
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: -16px;
+    margin-left: -16px;
 }
 
 .productIDTopMargin {
@@ -55,12 +55,12 @@
     font-weight: bold;
 }
 
-.matCardTopMargin {
+/* .matCardTopMargin {
 
     padding-top: 0px;
     padding-left: 0px;
     padding-right: 0px;
-}
+} */
 
 .mat-list .mat-list-item .mat-list-item-content, .mat-list .mat-list-option .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-option .mat-list-item-content, .mat-selection-list .mat-list-item .mat-list-item-content, .mat-selection-list .mat-list-option .mat-list-item-content {
     
