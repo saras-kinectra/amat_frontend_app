@@ -29,6 +29,8 @@ export class ProductComponent implements OnInit {
   imageURL: string = "";
   selectedOPID: string = "";
 
+  domIDsList;
+
   constructor( private apiService: ApiService, private location: Location, public iconRegistry: MatIconRegistry, public sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
 
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
@@ -44,10 +46,8 @@ export class ProductComponent implements OnInit {
     ];
   }
 
-  @ViewChild('tabGroup') tabGroup;
-
   ngOnInit() {
-  
+
     this.apiService.findProductsForChambers(this.selectedPlatform.id, this.selectedChamberIDs).subscribe(response => {
 
       console.log("Response - findProductsForChambers: ", response);
@@ -67,42 +67,59 @@ export class ProductComponent implements OnInit {
 
       this.selectedTab = 0;
 
-      this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura.svg";
+      this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura2.svg";
+      // this.imageURL = "../../../../assets/endura.svg";
+      // this.imageURL = "../../../../assets/charger.svg";
 
       this.iconRegistry.addSvgIcon('productImageIcon', this.sanitizer.bypassSecurityTrustResourceUrl(this.imageURL));
 
-      // console.log("querySelector", document.querySelector('object'));
-      // document.querySelector('object').addEventListener('load', function() {
+      this.configurationArray = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab].configuration));
+      console.log("getSelectedTab configurationArray: ", this.configurationArray.length);
 
-      //   var tagsList = this.ownerDocument.documentElement.querySelectorAll('g');
-      //   console.log("querySelector", tagsList);
-      //   tagsList[9].style.visibility ='hidden';
-      //   console.log("querySelector", tagsList[12]);
-      // });
-
-      this.configurationArray = this.finalProductsList[this.selectedTab].configuration;
-      console.log("getSelectedTab configurationArray: ", this.configurationArray);
-
-      // console.log("querySelector", document.querySelector('object'));
-      // document.querySelector('object').addEventListener('load', function() {
-
-      //   var tagsList = this.ownerDocument.documentElement.querySelectorAll('g');
-      //   console.log(tagsList);
-      //   tagsList[9].style.visibility ='hidden';
-      //   console.log(tagsList[12]);
-      // });
-
-      // for(var i = 0; i < this.configurationArray.length; i++) {
-
-      //   if(this.configurationArray[i].chamber_name === '') {
-
-          
-      //   } else {
-
-
-      //   }
-      // }
+      this.loadSVGImage();
     });
+  }
+
+  loadSVGImage() {
+
+    var configurationArray2: any[] = this.configurationArray;
+    console.log("getSelectedTab configurationArray2: ", configurationArray2);
+
+    setTimeout(function() { 
+
+      this.domIDsList = document.querySelector('object').ownerDocument.documentElement.querySelectorAll('g');
+      console.log("setTimeout querySelector domIDsList: ", this.domIDsList);
+      
+      console.log("setTimeout querySelector domIDsList threeactive: ", this.domIDsList[4].id);
+      console.log("setTimeout configurationArray length: ", configurationArray2.length);
+
+      for(var i = 0; i < configurationArray2.length; i++) {
+
+        console.log("setTimeout configurationArray chamber_name: ", configurationArray2[i].chamber_name);
+
+        if(configurationArray2[i].chamber_name == '') {
+
+          for(var j = 0; j < this.domIDsList.length; j++) {
+            
+            if(this.domIDsList[j].id === configurationArray2[i].facet_name + '-active') {
+
+              this.domIDsList[j].style.visibility = 'hidden';
+            } else {
+
+            }
+
+            if(this.domIDsList[j].id === configurationArray2[i].facet_name + '-hover') {
+
+              this.domIDsList[j].style.visibility = 'hidden';
+            } else {
+
+            }
+          }
+        } else {
+  
+        }
+      }
+    }, 1000);
   }
 
   getSelectedTab(tabPosition) {
@@ -114,6 +131,47 @@ export class ProductComponent implements OnInit {
 
     this.configurationArray = this.finalProductsList[this.selectedTab].configuration;
     console.log("getSelectedTab configurationArray: ", this.configurationArray);
+
+    this.loadSVGImage();
+  }
+
+  productItemMouseOver(configuration, isMouseOver) {
+  
+    console.log("productItemMouseOver configuration", configuration);
+    console.log("productItemMouseOver isMouseOver", isMouseOver);
+
+    this.domIDsList = document.querySelector('object').ownerDocument.documentElement.querySelectorAll('g');
+    console.log("productItemMouseOver querySelector domIDsList: ", this.domIDsList);
+
+    for(var i = 0; i < this.domIDsList.length; i++) {
+            
+      if(this.domIDsList[i].id === configuration.facet_name + '-active') {
+
+        if(configuration.chamber_name == '') {
+
+          if(isMouseOver) {
+
+            this.domIDsList[i].style.visibility = 'visible';
+            this.domIDsList[i].style.visibility = 'visible';
+          } else {
+
+            this.domIDsList[i].style.visibility = 'hidden';
+            this.domIDsList[i].style.visibility = 'hidden';
+          }
+        } else {
+
+          if(isMouseOver) {
+
+            this.domIDsList[i].style.visibility = 'hidden';
+          } else {
+
+            this.domIDsList[i].style.visibility = 'visible';
+          }
+        }
+      } else {
+
+      }
+    }
   }
 
   backButton() {

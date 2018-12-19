@@ -57,6 +57,8 @@ export class ChamberComponent implements OnInit {
   formFiledUnderLine: boolean = false;
   public form: FormGroup;
 
+  isCalledServiceAPI: boolean = false;
+
   constructor(private apiService: ApiService, private location: Location, public dialog: MatDialog,
   private fb:FormBuilder,private router: Router, private route: ActivatedRoute) { }
 
@@ -85,45 +87,58 @@ export class ChamberComponent implements OnInit {
 
   chambersRemove(chamber: string): void {
 
-    const index = this.selectedChambersList.indexOf(chamber);
+    console.log("chambersRemove isCalledServiceAPI: ", this.isCalledServiceAPI);
 
-    this.selectedChambersList.splice(index, 1);
-    console.log("chambersRemove SelectedChambers", this.selectedChambersList.length);
+    if(this.isCalledServiceAPI) {
 
-    if (this.selectedChambersList.length === 0) {
-
-      this.clearAllSelectedChambers();
     } else {
+      const index = this.selectedChambersList.indexOf(chamber);
 
-      this.findCompatibilityInfoForChamberIds();
+      this.selectedChambersList.splice(index, 1);
+      console.log("chambersRemove SelectedChambers", this.selectedChambersList.length);
+
+      if (this.selectedChambersList.length === 0) {
+
+        this.clearAllSelectedChambers();
+      } else {
+
+        this.findCompatibilityInfoForChamberIds();
+      }
     }
   }
 
   chamberOptionSelected(event) {
 
-    console.log("chamberOptionSelected event.option.value.id: ", event.option.value.id);
-    console.log("chamberOptionSelected this.isChamberSelected: ", this.isChamberSelected);
-    console.log("chamberOptionSelected this.isRnDChambersEnabled: ", this.isRnDChambersEnabled);
+    console.log("chamberOptionSelected isCalledServiceAPI: ", this.isCalledServiceAPI);
 
-    var chamber;
+    if(this.isCalledServiceAPI) {
 
-    if (this.isChamberSelected) {
-
-      if(this.isRnDChambersEnabled) {
-
-        chamber = this.getChamberByID(event.option.value.id, this.rndOnlyChambersList);
-      } else {
-
-        chamber = this.getChamberByID(event.option.value.id, this.compatibilityChambersList);
-      }
     } else {
 
-      chamber = this.getChamberByID(event.option.value.id, this.chambersList);
+      console.log("chamberOptionSelected event.option.value.id: ", event.option.value.id);
+      console.log("chamberOptionSelected this.isChamberSelected: ", this.isChamberSelected);
+      console.log("chamberOptionSelected this.isRnDChambersEnabled: ", this.isRnDChambersEnabled);
+
+      var chamber;
+
+      if (this.isChamberSelected) {
+
+        if(this.isRnDChambersEnabled) {
+
+          chamber = this.getChamberByID(event.option.value.id, this.rndOnlyChambersList);
+        } else {
+
+          chamber = this.getChamberByID(event.option.value.id, this.compatibilityChambersList);
+        }
+      } else {
+
+        chamber = this.getChamberByID(event.option.value.id, this.chambersList);
+      }
+
+      console.log("getChamberByID selectedChamber: ", chamber);
+
+      this.filterChambersByID(chamber);
     }
-
-    console.log("getChamberByID selectedChamber: ", chamber);
-
-    this.filterChambersByID(chamber);
   }
 
   getChamberByID(chamberID, chamberList) {
@@ -142,48 +157,62 @@ export class ChamberComponent implements OnInit {
 
   filterChambersByID(chamber) {
 
-    console.log('filterChambersByID selectedChamber: ', chamber);
+    console.log("filterChambersByID isCalledServiceAPI: ", this.isCalledServiceAPI);
 
-    this.selectedChambersList.push(chamber);
+    if(this.isCalledServiceAPI) {
 
-    this.findCompatibilityInfoForChamberIds();
+    } else {
+      
+      console.log('filterChambersByID selectedChamber: ', chamber);
+
+      this.selectedChambersList.push(chamber);
+
+      this.findCompatibilityInfoForChamberIds();
+    }
   }
 
   filterRnDChambersByID(rnDChamber) {
 
-    console.log('filterRndChambersByID selectedChamber: ', rnDChamber);
+    console.log("filterRnDChambersByID isCalledServiceAPI: ", this.isCalledServiceAPI);
 
-    if (this.isRnDChambersEnabled) {
+    if(this.isCalledServiceAPI) {
 
-      this.filterRnDChambers(rnDChamber);
     } else {
 
-      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      console.log('filterRndChambersByID selectedChamber: ', rnDChamber);
 
-        width: '350px',
-        height: '215px',
-        data: { isEnable: this.isRnDChambersEnabled }
-      });
+      if (this.isRnDChambersEnabled) {
 
-      dialogRef.afterClosed().subscribe(result => {
+        this.filterRnDChambers(rnDChamber);
+      } else {
 
-        var isFrom = localStorage.getItem('IsFrom');
+        const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
 
-        console.log('filterRnDChambersByID dialogRef.afterClosed isFrom', isFrom);
-        console.log('filterRnDChambersByID dialogRef.afterClosed', this.isRnDChambersEnabled);
+          width: '350px',
+          height: '215px',
+          data: { isEnable: this.isRnDChambersEnabled }
+        });
 
-        if (isFrom === "EnableButton") {
+        dialogRef.afterClosed().subscribe(result => {
 
-          this.isRnDChambersEnabled = JSON.parse(localStorage.getItem('IsRnDEnable'));
+          var isFrom = localStorage.getItem('IsFrom');
 
-          this.showCompatibilityChambersTitle = false;
-          this.showCompatibilityChambersList = false;
+          console.log('filterRnDChambersByID dialogRef.afterClosed isFrom', isFrom);
+          console.log('filterRnDChambersByID dialogRef.afterClosed', this.isRnDChambersEnabled);
 
-          this.filterRnDChambers(rnDChamber);
-        } else {
+          if (isFrom === "EnableButton") {
 
-        }
-      });
+            this.isRnDChambersEnabled = JSON.parse(localStorage.getItem('IsRnDEnable'));
+
+            this.showCompatibilityChambersTitle = false;
+            this.showCompatibilityChambersList = false;
+
+            this.filterRnDChambers(rnDChamber);
+          } else {
+
+          }
+        });
+      }
     }
 
     this.chamberInput.nativeElement.value = '';
@@ -244,6 +273,8 @@ export class ChamberComponent implements OnInit {
     console.log("filterRnDChambers Selected Ids", selectedChamberIDs);
     console.log("filterRnDChambers SelectedChambersList:", this.selectedChambersList);
 
+    this.isCalledServiceAPI = true;
+
     this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.selectedPlatform.id).subscribe(response => {
 
       console.log("filterCompatibleChambersByID response: ", response);
@@ -262,15 +293,22 @@ export class ChamberComponent implements OnInit {
       this.showRnDChamberTitle = true;
       this.showRnDChamberList = true;
       this.isChamberSelected = true;
+
+      this.isCalledServiceAPI = false;
       
       if (this.isChamberSelected) {
 
-        if(this.isRnDChambersEnabled) {
-
-          this.dropDownChambersList = this.rndOnlyChambersList;
-        } else {
+        // if(this.isRnDChambersEnabled) {
+        if(this.compatibilityChambersList.length > 0) {
 
           this.dropDownChambersList = this.compatibilityChambersList;
+
+          this.isRnDChambersEnabled = false;
+        } else {
+
+          this.dropDownChambersList = this.rndOnlyChambersList;
+
+          this.isRnDChambersEnabled = true;
         }
       }
 
