@@ -95,6 +95,27 @@ hr {
   margin-top: 0px !important;
 }
 
+body .ui-tooltip .ui-tooltip-text {
+
+  background-color: #ffffff;
+  color: #000000;
+  padding: 0.429em;
+  width: 205px;
+  height: 72px;
+  margin-top: 2px;
+  margin-left: 4px;
+  width: 248px;
+  box-shadow: 0 0 17px 0 rgb(58, 60, 63);
+} 
+
+body .ui-tooltip.ui-tooltip-right .ui-tooltip-arrow {
+  
+  border-right-color: #ffffff;
+  margin-top: -7px;
+  font-size: xx-large;
+  padding: -82px;
+} 
+
 @media screen and (max-width: 550px) {
 
 }
