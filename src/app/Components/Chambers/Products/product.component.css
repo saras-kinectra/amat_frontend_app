@@ -16,7 +16,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    height: 50%;
+    height: 100%;
     width: 50%;
 }
 
@@ -55,6 +55,11 @@
     font-weight: bold;
 }
 
+/* .mat-list, .mat-nav-list, .mat-selection-list {
+
+    padding-top: 0px;
+} */
+
 /* .matCardTopMargin {
 
     padding-top: 0px;
@@ -66,3 +71,12 @@
     
     width: 100%;
 } */
+
+.mat-tab {
+
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    z-index: 1;
+    flex-grow: 1;
+}

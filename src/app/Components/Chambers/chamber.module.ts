@@ -1,5 +1,5 @@
 import { StorageService } from './../../Services/storage.service';
-import { DialogOverviewExampleDialog } from './Chamber/chambers.component';
+import { DialogOverviewExampleDialog, ChamberHttpErrorDialog } from './Chamber/chambers.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ApiService } from 'src/app/Services/api.service';
@@ -28,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule, 
   MatSelectModule, 
   MAT_CHIPS_DEFAULT_OPTIONS} from '@angular/material';
-import { ProductComponent, OPIDDialog } from './Products/product.component';
+import { ProductComponent, OPIDDialog, ProductHttpErrorDialog } from './Products/product.component';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -41,7 +41,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     ChamberComponent,
     DialogOverviewExampleDialog,
     ProductComponent,
-    OPIDDialog
+    OPIDDialog,
+    ChamberHttpErrorDialog,
+    ProductHttpErrorDialog
   ],
 
   imports: [
@@ -83,7 +85,9 @@ import {MatTabsModule} from '@angular/material/tabs';
   entryComponents: [
     
     DialogOverviewExampleDialog,
-    OPIDDialog
+    OPIDDialog,
+    ChamberHttpErrorDialog,
+    ProductHttpErrorDialog
   ],
 
   bootstrap: []

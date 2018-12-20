@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { StorageService } from './../../Services/storage.service';
 import { ApiService } from './../../Services/api.service';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
 
@@ -24,7 +25,7 @@ export class PlatFormsComponent implements OnInit {
 
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
 
-  constructor(private apiService: ApiService, private storageService: StorageService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private apiService: ApiService, private storageService: StorageService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog) {
 
   }
 
@@ -44,6 +45,20 @@ export class PlatFormsComponent implements OnInit {
       this.platformsList = JSON.parse(JSON.stringify(response));
 
       console.log("Response - getPlatforms: json: ", this.platformsList);
+    }, error => {
+      
+      console.log("error response",error);
+
+      const dialogRef = this.dialog.open(PlatformHttpErrorDialog, {
+
+        width: '360px',
+        height: '170px',
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+    
+        console.log('showPlatialog dialogRef.afterClosed isFrom');
+      });
     });
   }
 
@@ -73,5 +88,26 @@ export class PlatFormsComponent implements OnInit {
     console.log("next selected platform: ", this.platformsList[this.selectedPosition]);
 
     this.router.navigate(['platform/chambers'], { relativeTo: this.route });
+  }
+}
+
+@Component({
+
+  selector: 'platform-Http-Error-dialog',
+  templateUrl: 'patformHttpErrorDialog.html',
+})
+
+export class PlatformHttpErrorDialog {
+
+  constructor(public dialogRef: MatDialogRef<PlatformHttpErrorDialog>) { 
+  }
+
+  dialogOK() {
+    
+    console.log("Dialog Exit");
+    this.dialogRef.close();
+
+    // localStorage.clear();
+    // this.router.navigate(['/dashboard']);
   }
 }

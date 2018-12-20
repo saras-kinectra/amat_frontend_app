@@ -149,3 +149,9 @@ button.menuButton.mat-icon-button {
     outline: none;
     margin-right: -3%;
 }
+
+.mat-menu-panel {
+  
+    margin-left: -12%;
+    background-color: rgb(255, 255, 255);
+}  
