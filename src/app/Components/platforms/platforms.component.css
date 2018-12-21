@@ -114,7 +114,12 @@ body .ui-tooltip.ui-tooltip-right .ui-tooltip-arrow {
   margin-top: -7px;
   font-size: xx-large;
   padding: -82px;
-} 
+}
+
+/* .cdk-overlay-pane {
+  
+  display: block;
+} */
 
 @media screen and (max-width: 550px) {
 

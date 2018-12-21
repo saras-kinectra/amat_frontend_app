@@ -1,11 +1,11 @@
 
-import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { StorageService } from './../../Services/storage.service';
 import { ApiService } from './../../Services/api.service';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
 
@@ -47,12 +47,38 @@ export class PlatFormsComponent implements OnInit {
       console.log("Response - getPlatforms: json: ", this.platformsList);
     }, error => {
       
-      console.log("error response",error);
+      console.log("error response", error);
+      console.log("error status: ", error.status);
+      console.log("error message: ", error.message);
+      
+      var errorCode = error.status;
+      var errorMessage: string = '';
+
+      if(errorCode == '0') {
+
+        errorMessage = 'The server encountered an error. Please try again later';
+      } else if(errorCode == '401') {
+
+        errorMessage = 'You’re not authorized to access the resource that you requested';
+      } else if(errorCode == '404') {
+
+        errorMessage = 'The resource you’re looking for was not found';
+      } else if(errorCode == '500') {
+
+        errorMessage = 'The server encountered an error. Please try again later';
+      } else {
+
+        errorMessage = 'Something went wrong and we couldn\'t process your request';
+      }
+
+      console.log("error status after if: ", error.status);
+      console.log("error message after if: ", error.message);
 
       const dialogRef = this.dialog.open(PlatformHttpErrorDialog, {
 
-        width: '360px',
-        height: '170px',
+        width: '460px',
+        height: 'auto',
+        data: {errorMessage: errorMessage}
       });
     
       dialogRef.afterClosed().subscribe(result => {
@@ -99,7 +125,7 @@ export class PlatFormsComponent implements OnInit {
 
 export class PlatformHttpErrorDialog {
 
-  constructor(public dialogRef: MatDialogRef<PlatformHttpErrorDialog>) { 
+  constructor(public dialogRef: MatDialogRef<PlatformHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
   }
 
   dialogOK() {
@@ -110,4 +136,9 @@ export class PlatformHttpErrorDialog {
     // localStorage.clear();
     // this.router.navigate(['/dashboard']);
   }
+}
+
+export interface DialogData {
+
+  errorMessage: string;
 }

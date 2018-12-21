@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { ApiService } from 'src/app/Services/api.service';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation, Inject } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -30,6 +30,8 @@ export class ProductComponent implements OnInit {
   selectedOPID: string = "";
 
   domIDsList;
+
+  showSVGImage: boolean = true;
 
   constructor( private apiService: ApiService, private location: Location, public iconRegistry: MatIconRegistry, public sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
 
@@ -79,16 +81,7 @@ export class ProductComponent implements OnInit {
       this.loadSVGImage();
     }, error => {
       
-      const dialogRef = this.dialog.open(ProductHttpErrorDialog, {
-
-        width: '360px',
-        height: '170px',
-      });
-    
-      dialogRef.afterClosed().subscribe(result => {
-
-        this.location.back();
-      });
+      this.showHttpErrorDailog(error);
     });
   }
 
@@ -97,7 +90,9 @@ export class ProductComponent implements OnInit {
     var configurationArray2: any[] = this.configurationArray;
     console.log("getSelectedTab configurationArray2: ", configurationArray2);
 
-    setTimeout(function() { 
+    this.showSVGImage = true;
+
+    setTimeout(()=> { 
 
       this.domIDsList = document.querySelector('object').ownerDocument.documentElement.querySelectorAll('g');
       console.log("setTimeout querySelector domIDsList: ", this.domIDsList);
@@ -131,6 +126,8 @@ export class ProductComponent implements OnInit {
   
         }
       }
+
+      this.showSVGImage = false;
     }, 1000);
   }
 
@@ -186,6 +183,48 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  showHttpErrorDailog(error) {
+
+    console.log("error response", error);
+    console.log("error status: ", error.status);
+    console.log("error message: ", error.message);
+    
+    var errorCode = error.status;
+    var errorMessage: string = '';
+
+    if(errorCode == '0') {
+
+      errorMessage = 'The server encountered an error. Please try again later';
+    } else if(errorCode == '401') {
+
+      errorMessage = 'You’re not authorized to access the resource that you requested';
+    } else if(errorCode == '404') {
+
+      errorMessage = 'The resource you’re looking for was not found';
+    } else if(errorCode == '500') {
+
+      errorMessage = 'The server encountered an error. Please try again later';
+    } else {
+
+      errorMessage = 'Something went wrong and we couldn\'t process your request';
+    }
+
+    console.log("error status after if: ", error.status);
+    console.log("error message after if: ", error.message);
+
+    const dialogRef = this.dialog.open(ProductHttpErrorDialog, {
+
+      width: '460px',
+      height: 'auto',
+      data: {errorMessage: errorMessage}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+  
+      console.log('showPlatialog dialogRef.afterClosed isFrom');
+    });
+  }
+
   backButton() {
 
     this.location.back();
@@ -223,16 +262,7 @@ export class ProductComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       }, error => {
       
-        const dialogRef = this.dialog.open(ProductHttpErrorDialog, {
-  
-          width: '360px',
-          height: '170px',
-        });
-      
-        dialogRef.afterClosed().subscribe(result => {
-  
-          this.location.back();
-        });
+        this.showHttpErrorDailog(error);
       });
     }
   }
@@ -267,7 +297,7 @@ export class OPIDDialog {
 
 export class ProductHttpErrorDialog {
 
-  constructor(public dialogRef: MatDialogRef<ProductHttpErrorDialog>) { 
+  constructor(public dialogRef: MatDialogRef<ProductHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
   }
 
   dialogOK() {
@@ -278,4 +308,9 @@ export class ProductHttpErrorDialog {
     // localStorage.clear();
     // this.router.navigate(['/dashboard']);
   }
+}
+
+export interface DialogData {
+
+  errorMessage: string;
 }
