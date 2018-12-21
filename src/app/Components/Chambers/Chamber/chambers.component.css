@@ -29,7 +29,7 @@
 
     background-color: rgb(226, 226, 226);
     float: left;
-    padding: 5px;
+    padding: 8px;
     font-size: 12px;
     position: relative;
     margin-right: 5px;
@@ -43,7 +43,7 @@
 
     background-color: #abd6e4 ;
     float: left;
-    padding: 5px;
+    padding: 8px;
     font-size: 12px;
     position: relative;
     margin-right: 5px;
@@ -93,7 +93,7 @@ margin-right: 15px; */
     margin-bottom: 2%;
 } */
 
-/* .isRnDChambersTopMarginLow{
+.isRnDChambersTopMarginLow{
 
 margin-top: 10px;
 }
@@ -102,20 +102,20 @@ margin-top: 10px;
 
 margin-top: -23px;
 
-} */
+}
 
 .incompatableChambers {
 
     /* padding-left:  8px; */
     /* padding-top: 30px; */
     margin-top: 20px;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 10px;
 }
 
 .matchingChambersLabel {
 
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 10px;
 }
 
@@ -151,7 +151,7 @@ hr {
     display: table-caption;
     margin-bottom: 0px;
     margin-left: 0px;
-    /* margin-top: -45px; */
+    margin-top: -18px;
     font-size: 12px;
     color: #D22630;
 }
@@ -163,7 +163,7 @@ hr {
 
 .comapatableChambersList {
 
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .mat-input-element {

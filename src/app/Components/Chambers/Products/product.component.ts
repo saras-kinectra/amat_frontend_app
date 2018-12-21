@@ -77,6 +77,18 @@ export class ProductComponent implements OnInit {
       console.log("getSelectedTab configurationArray: ", this.configurationArray.length);
 
       this.loadSVGImage();
+    }, error => {
+      
+      const dialogRef = this.dialog.open(ProductHttpErrorDialog, {
+
+        width: '360px',
+        height: '170px',
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+
+        this.location.back();
+      });
     });
   }
 
@@ -209,6 +221,18 @@ export class ProductComponent implements OnInit {
   
         localStorage.clear();
         this.router.navigate(['/dashboard']);
+      }, error => {
+      
+        const dialogRef = this.dialog.open(ProductHttpErrorDialog, {
+  
+          width: '360px',
+          height: '170px',
+        });
+      
+        dialogRef.afterClosed().subscribe(result => {
+  
+          this.location.back();
+        });
       });
     }
   }
@@ -223,6 +247,27 @@ export class ProductComponent implements OnInit {
 export class OPIDDialog {
 
   constructor(public dialogRef: MatDialogRef<OPIDDialog>) { 
+  }
+
+  dialogOK() {
+    
+    console.log("Dialog Exit");
+    this.dialogRef.close();
+
+    // localStorage.clear();
+    // this.router.navigate(['/dashboard']);
+  }
+}
+
+@Component({
+
+  selector: 'product-Http-Error_Dialog',
+  templateUrl: 'productHttpErrorDialog.html',
+})
+
+export class ProductHttpErrorDialog {
+
+  constructor(public dialogRef: MatDialogRef<ProductHttpErrorDialog>) { 
   }
 
   dialogOK() {

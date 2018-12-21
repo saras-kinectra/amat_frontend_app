@@ -40,9 +40,9 @@
 
             <mat-divider></mat-divider>
 
-            <div style="position: relative">
-              <div style="position: absolute; width: 100%">
-                <mat-nav-list style="padding: 0px">
+            <div style="position: relative" height="70%">
+              <div>
+                <mat-nav-list class="matNavListPadding">
                   <mat-list-item class="matListItem" *ngFor="let configuration of configurationArray; let i=index" (mouseover)="productItemMouseOver(configuration, true)" (mouseleave)="productItemMouseOver(configuration, false)">
 
                     <div class="indexPosition">
@@ -57,11 +57,11 @@
                 </mat-nav-list>
               </div>
 
-              <div>
+              <!-- <div>
                 <mat-list *ngFor="let products of dummyConfigurationArray">
                   <mat-list-item class="matListItem"></mat-list-item>
                 </mat-list>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
