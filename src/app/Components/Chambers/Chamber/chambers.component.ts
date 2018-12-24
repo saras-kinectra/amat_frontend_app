@@ -59,6 +59,8 @@ export class ChamberComponent implements OnInit {
 
   isCalledServiceAPI: boolean = false;
 
+  extraSelectedChamberCount;
+
   constructor(private apiService: ApiService, private location: Location, public dialog: MatDialog,
   private fb:FormBuilder,private router: Router, private route: ActivatedRoute) { }
 
@@ -84,16 +86,7 @@ export class ChamberComponent implements OnInit {
       this.dropDownChambersList = this.chambersList;
     }, error => {
       
-      const dialogRef = this.dialog.open(ChamberHttpErrorDialog, {
-
-        width: '360px',
-        height: '170px',
-      });
-    
-      dialogRef.afterClosed().subscribe(result => {
-
-        this.location.back();
-      });
+      this.showHttpErrorDailog(error);
     });
   }
 
@@ -259,13 +252,15 @@ export class ChamberComponent implements OnInit {
       this.isCrossLabelCondition = true;
       this.isButtonLabelCondition = false;
       this.formFiledUnderLine = false;
+
+      this.extraSelectedChamberCount = this.selectedChambersList.length-this.selectedPlatform.facets_count;
     } else {
       
       this.showErrorLabelCondition = true;
       this.showSelectChamberTitle = true;
       this.isCrossLabelCondition = false;
       // this.isButtonLabelCondition = true;
-      this.formFiledUnderLine = true ;
+      this.formFiledUnderLine = true;
 
       if(this.selectedChambersList.length > 3) {
 
@@ -354,17 +349,8 @@ export class ChamberComponent implements OnInit {
         this.showRnDChamberList = false;
       }
     }, error => {
-      
-      const dialogRef = this.dialog.open(ChamberHttpErrorDialog, {
 
-        width: '360px',
-        height: '170px',
-      });
-    
-      dialogRef.afterClosed().subscribe(result => {
-
-        this.location.back();
-      });
+      this.showHttpErrorDailog(error);
     });
 
     this.chamberInput.nativeElement.value = '';
@@ -400,16 +386,49 @@ export class ChamberComponent implements OnInit {
       this.dropDownChambersList = this.chambersList;
     }, error => {
       
-      const dialogRef = this.dialog.open(ChamberHttpErrorDialog, {
+      this.showHttpErrorDailog(error);
+    });
+  }
 
-        width: '360px',
-        height: '170px',
-      });
+  showHttpErrorDailog(error) {
+
+    console.log("error response", error);
+    console.log("error status: ", error.status);
+    console.log("error message: ", error.message);
     
-      dialogRef.afterClosed().subscribe(result => {
-        
-        this.location.back();
-      });
+    var errorCode = error.status;
+    var errorMessage: string = '';
+
+    if(errorCode == '0') {
+
+      errorMessage = 'The server encountered an error. Please try again later';
+    } else if(errorCode == '401') {
+
+      errorMessage = 'You’re not authorized to access the resource that you requested';
+    } else if(errorCode == '404') {
+
+      errorMessage = 'The resource you’re looking for was not found';
+    } else if(errorCode == '500') {
+
+      errorMessage = 'The server encountered an error. Please try again later';
+    } else {
+
+      errorMessage = 'Something went wrong and we couldn\'t process your request';
+    }
+
+    console.log("error status after if: ", error.status);
+    console.log("error message after if: ", error.message);
+
+    const dialogRef = this.dialog.open(ChamberHttpErrorDialog, {
+
+      width: '460px',
+      height: 'auto',
+      data: {errorMessage: errorMessage}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+  
+      console.log('showPlatialog dialogRef.afterClosed isFrom');
     });
   }
 
@@ -469,7 +488,7 @@ export class DialogOverviewExampleDialog {
 
 export class ChamberHttpErrorDialog {
 
-  constructor(public dialogRef: MatDialogRef<ChamberHttpErrorDialog>) { 
+  constructor(public dialogRef: MatDialogRef<ChamberHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
   }
 
   dialogOK() {
@@ -480,4 +499,9 @@ export class ChamberHttpErrorDialog {
     // localStorage.clear();
     // this.router.navigate(['/dashboard']);
   }
+}
+
+export interface DialogData {
+
+  errorMessage: string;
 }

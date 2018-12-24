@@ -2,16 +2,17 @@
 
   <mat-card class="card matCardTopMargin"  style="padding:16px">
     <mat-tab-group class="mainBlock" (selectedTabChange)="getSelectedTab($event)">
-      <mat-tab *ngFor="let product of finalProductsList; let i = index" [label]="product.product_code">
+      <mat-tab [disabled]="showSVGImage" *ngFor="let product of finalProductsList; let i = index" [label]="product.product_code">
         
         <div class="row col-xs-12 ">
           <div class="col-md-8 leftBlock">
-            <mat-icon id="object" class="SVGIconCSS" svgIcon="productImageIcon">
+            
+            <mat-icon [hidden]="showSVGImage" id="object" class="SVGIconCSS" svgIcon="productImageIcon">
               <object data="imageURL" type="image/svg+xml" hidden></object>
             </mat-icon>
           </div>
 
-          <div class="col-md-4  rightBlock">
+          <div class="col-md-4 rightBlock">
             <div class="row col-xs-12">
               <div class="col-md-6">
                 <h6 style="font-size: 14px;color: #000000;">{{product.platform_name}}</h6> 
@@ -49,7 +50,7 @@
                       {{configuration.facet_name}}
                     </div>
 
-                    <div style="margin-right: 100px; color: #65A7C4;">
+                    <div style="color: #65A7C4;">
                       {{configuration.chamber_name}}
                     </div>
                     <mat-divider></mat-divider>
