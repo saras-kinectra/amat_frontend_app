@@ -45,20 +45,16 @@ export class ExitDialog {
 
   constructor(public dialogRef: MatDialogRef<ExitDialog>, private router: Router, private route: ActivatedRoute) { 
 
-    // localStorage.setItem('IsFrom', 'CancelButton');
   }
 
   dialogCancel(): void {
 
-    // localStorage.setItem('IsFrom', 'CancelButton');
     console.log("Dialog Exit");
     this.dialogRef.close();
   }
 
   dialogExit() {
 
-    // localStorage.setItem('IsFrom', 'EnableButton');
-    // localStorage.setItem('IsRnDEnable', 'true');
     console.log("Dialog Exit");
     this.dialogRef.close();
 

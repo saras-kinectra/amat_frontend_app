@@ -78,16 +78,29 @@ export class ChamberComponent implements OnInit {
 
     console.log("ngOnInit selectedPlatformname:", this.selectedPlatform.id);
 
-    this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
+    console.log("ngOnInit json selectedChambersList:", JSON.parse(localStorage.getItem('SelectedChambersList')));
+    var selectedChambersFromLocal: any[] = JSON.parse(localStorage.getItem('SelectedChambersList'));
+    console.log("ngOnInit selectedChambersFromLocal:", selectedChambersFromLocal);
 
-      console.log("ngOnInit getChambersByPlatformID response: ", response);
-      
-      this.chambersList = JSON.parse(JSON.stringify(response));
-      this.dropDownChambersList = this.chambersList;
-    }, error => {
-      
-      this.showHttpErrorDailog(error);
-    });
+    if(selectedChambersFromLocal != null && selectedChambersFromLocal.length > 0) {
+
+      this.selectedChambersList = selectedChambersFromLocal;
+      console.log("ngOnInit selectedChambersList:", this.selectedChambersList);
+
+      this.findCompatibilityInfoForChamberIds();
+    } else {
+
+      this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
+
+        console.log("ngOnInit getChambersByPlatformID response: ", response);
+        
+        this.chambersList = JSON.parse(JSON.stringify(response));
+        this.dropDownChambersList = this.chambersList;
+      }, error => {
+        
+        this.showHttpErrorDailog(error);
+      });
+    }
   }
 
   chambersRemove(chamber: string): void {
@@ -434,6 +447,8 @@ export class ChamberComponent implements OnInit {
 
   backButton() {
 
+    localStorage.clear();
+    
     this.location.back();
   }
 
@@ -441,14 +456,14 @@ export class ChamberComponent implements OnInit {
 
     this.router.navigate(['product'], { relativeTo: this.route });
 
-    var selectedChamberIDs: any = [];
+    // var selectedChamberIDs: any = [];
 
-    for (let i = 0; i < this.selectedChambersList.length; i++) {
+    // for (let i = 0; i < this.selectedChambersList.length; i++) {
 
-      selectedChamberIDs.push(this.selectedChambersList[i].id);
-    }
+    //   selectedChamberIDs.push(this.selectedChambersList[i].id);
+    // }
 
-    localStorage.setItem("SelectedChambersIDObject", JSON.stringify(selectedChamberIDs));
+    localStorage.setItem("SelectedChambersList", JSON.stringify(this.selectedChambersList));
   }
 }
 

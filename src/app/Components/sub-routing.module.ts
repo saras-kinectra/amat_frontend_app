@@ -21,9 +21,9 @@ const routes: Routes = [
 
       { path: 'platform/chambers', component: ChamberMainComponent,
       /* For Dev evnt*/
-      // loadChildren: () => ChamberMainModule
+      loadChildren: () => ChamberMainModule
       /* For Prod evnt*/
-      loadChildren:'../Components/Chambers/chamber.module#ChamberMainModule'
+      // loadChildren:'../Components/Chambers/chamber.module#ChamberMainModule'
     },
     ]
   }
