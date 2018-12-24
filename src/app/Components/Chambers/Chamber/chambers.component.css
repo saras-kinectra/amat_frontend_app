@@ -3,17 +3,9 @@
     color: #4599C3;;
     font-size: 14px;
 } 
-/* 
-.mat-form-field {
-
-    margin-bottom: -20px;
-} */
 
 .mat_chip {
 
-    /* background-color: #aec67d; */
-    /* padding: 5px; */
-    /* padding: 58px; */
     font-size: 12px;
     border-radius: 17px;
     min-height: 26px;
@@ -69,30 +61,6 @@
     width: 100%;
 }
 
-/* .label {
-
-    font-size: 14px;
-} */
-
-/* .card {
-
-    padding: 20px;
-} */
-
-.btn {
-  
-/* background-color: #4e90ac;
-width: 14%;
-margin-top: 2%;
-margin-right: 15px; */
-}
-
-/* .toggle {
-
-    margin-top: 2%;
-    margin-bottom: 2%;
-} */
-
 .isRnDChambersTopMarginLow{
 
 margin-top: 10px;
@@ -106,8 +74,6 @@ margin-top: -23px;
 
 .incompatableChambers {
 
-    /* padding-left:  8px; */
-    /* padding-top: 30px; */
     margin-top: 20px;
     font-size: 14px;
     margin-bottom: 10px;
@@ -145,8 +111,6 @@ hr {
 
 .errorLabel {
 
-    /* position: absolute;
-    display: contents; */
     position: absolute;
     display: table-caption;
     margin-bottom: 0px;
@@ -212,13 +176,7 @@ hr {
 .formFiledUnderLineColor .mat-form-field-underline {
 
    background-color: red !important; 
-    /* border: 1.5px solid #D22630; */
-  }
-
-/* .mat-card-content>:last-child:not(.mat-card-footer), .mat-card>:last-child:not(.mat-card-footer) {
-    margin-bottom: 0;
-    display: -webkit-box;
-} */
+}
 
 .mat-card-actions {
     

@@ -39,8 +39,15 @@ export class ProductComponent implements OnInit {
     console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
     console.log("ngOnInit selectedPlatformname:", this.selectedPlatform.id);
 
-    this.selectedChamberIDs = JSON.parse(localStorage.getItem('SelectedChambersIDObject'));
-    console.log("Products_Onint_ChamberIDList", localStorage.getItem('SelectedChambersIDObject'));
+    var selectedChambersList: any[] = JSON.parse(localStorage.getItem('SelectedChambersList'));
+
+    // this.selectedChamberIDs = JSON.parse(localStorage.getItem('SelectedChambersList'));
+    for (let i = 0; i < selectedChambersList.length; i++) {
+
+      this.selectedChamberIDs.push(selectedChambersList[i].id);
+    }
+    console.log("Products_Onint_ChamberIDList", localStorage.getItem('SelectedChambersList'));
+    console.log("Products_Onint_ChamberIDList", this.selectedChamberIDs);
 
     this.dummyConfigurationArray = [
       {number:"1"}, {number:"2"}, {number:"3"}, {number:"4"}, {number:"5"},
@@ -70,7 +77,7 @@ export class ProductComponent implements OnInit {
       this.selectedTab = 0;
 
       this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura2.svg";
-      // this.imageURL = "../../../../assets/endura.svg";
+      // this.imageURL = "../../../../assets/endura2.svg";
       // this.imageURL = "../../../../assets/charger.svg";
 
       this.iconRegistry.addSvgIcon('productImageIcon', this.sanitizer.bypassSecurityTrustResourceUrl(this.imageURL));
@@ -161,10 +168,10 @@ export class ProductComponent implements OnInit {
           if(isMouseOver) {
 
             this.domIDsList[i].style.visibility = 'visible';
-            this.domIDsList[i].style.visibility = 'visible';
+
+            this.domIDsList[i].children[0].children[0].style.fill = '#c7e2ef';
           } else {
 
-            this.domIDsList[i].style.visibility = 'hidden';
             this.domIDsList[i].style.visibility = 'hidden';
           }
         } else {
@@ -176,6 +183,28 @@ export class ProductComponent implements OnInit {
 
             this.domIDsList[i].style.visibility = 'visible';
           }
+        }
+      } else {
+
+      }
+
+      if(this.domIDsList[i].id === configuration.facet_name + '-hover') {
+
+        if(configuration.chamber_name == '') {
+
+          if(isMouseOver) {
+
+            this.domIDsList[i].style.visibility ='visible';
+            
+            this.domIDsList[i].children[0].children[0].style.fill = '#c7e2ef';
+            this.domIDsList[i].children[0].children[1].style.fill = '#c7e2ef';
+            console.log("this.domIDsList[i].children[0].children[1]", this.domIDsList[i].children[0].children[1]);
+          } else {
+
+            this.domIDsList[i].style.visibility = 'hidden';
+          }
+        } else {
+
         }
       } else {
 

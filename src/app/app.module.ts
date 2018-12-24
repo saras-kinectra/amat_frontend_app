@@ -32,7 +32,11 @@ import { MatChipsModule } from '@angular/material/chips';
   ],
 
   providers: [],
-  bootstrap: [AppComponent]
+  
+  bootstrap: [
+    
+    AppComponent
+  ]
 })
 
 export class AppModule { }
