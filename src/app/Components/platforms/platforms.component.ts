@@ -31,6 +31,8 @@ export class PlatFormsComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.clear();
+
     this.form = this.formBuilder.group({
 
       platform: [null, [Validators.required]],
@@ -104,6 +106,8 @@ export class PlatFormsComponent implements OnInit {
   }
 
   next() {
+
+    localStorage.clear();
 
     console.log("next selectedPosition: ", this.selectedPosition);
     console.log("next opID: ", this.opIdInput.nativeElement.value);

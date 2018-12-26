@@ -71,7 +71,7 @@ export class ChamberComponent implements OnInit {
       chamberInputForm: [null, [Validators.required ]],
     });
 
-    this.chamberInput.nativeElement.focus();
+    // this.chamberInput.nativeElement.focus();
 
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
     console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));

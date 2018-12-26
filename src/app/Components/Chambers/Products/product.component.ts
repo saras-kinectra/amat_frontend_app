@@ -25,6 +25,7 @@ export class ProductComponent implements OnInit {
   dummyConfigurationArray:any[] = [];
 
   selectedTab: any;
+  selectedProduct: any;
 
   imageURL: string = "";
   selectedOPID: string = "";
@@ -76,13 +77,15 @@ export class ProductComponent implements OnInit {
 
       this.selectedTab = 0;
 
-      this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura2.svg";
-      // this.imageURL = "../../../../assets/endura2.svg";
-      // this.imageURL = "../../../../assets/charger.svg";
+      this.selectedProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
+      console.log("getSelectedTab selectedProduct: ", this.selectedProduct);
 
+      this.imageURL = JSON.parse(JSON.stringify(this.selectedProduct.model_svg_url));
+      console.log("getSelectedTab imageURL: ", this.imageURL);
+      
       this.iconRegistry.addSvgIcon('productImageIcon', this.sanitizer.bypassSecurityTrustResourceUrl(this.imageURL));
 
-      this.configurationArray = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab].configuration));
+      this.configurationArray = JSON.parse(JSON.stringify(this.selectedProduct.configuration));
       console.log("getSelectedTab configurationArray: ", this.configurationArray.length);
 
       this.loadSVGImage();
@@ -144,6 +147,12 @@ export class ProductComponent implements OnInit {
 
     this.selectedTab = tabPosition.index;
     console.log("getSelectedTab selectedTab: ", this.selectedTab);
+
+    this.selectedProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
+    console.log("getSelectedTab selectedProduct: ", this.selectedProduct);
+
+    this.imageURL = JSON.parse(JSON.stringify(this.selectedProduct.model_svg_url));
+    console.log("getSelectedTab imageURL: ", this.imageURL);
 
     this.configurationArray = this.finalProductsList[this.selectedTab].configuration;
     console.log("getSelectedTab configurationArray: ", this.configurationArray);

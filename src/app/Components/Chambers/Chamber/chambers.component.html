@@ -6,7 +6,6 @@
       <mat-form-field class="chip-list  mat-form-field-custom " [ngClass]="{'formFiledUnderLineColor': !formFiledUnderLine}">
 
         <div *ngIf="showSelectChamberTitle; else enable">
-
           <label class="selectChambersName">Select Chambers</label>
         </div>
 
@@ -27,7 +26,6 @@
             <mat-icon [ngClass]="{'red' : isCrossLabelCondition == true, 'blue' : isCrossLabelCondition == false }"
               class="matIcon">close</mat-icon>
           </span>
-
         </mat-chip-list>
 
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="chamberOptionSelected($event)">
@@ -77,16 +75,10 @@
     <div class="row matActions">
       <mat-card-actions class="text-right col-md-12 mat-card-actions">
 
-
         <button class="btn  col-sm-2" style="margin-right: 25px;" type="button" (click)="backButton()">BACK</button>
         <button class="btn custom-button-width col-sm-2" style="margin-right: 25px;" [disabled]="!isButtonLabelCondition"
           [ngClass]="{'submitButtonEnableColor' : isButtonLabelCondition == true, 'submitButtonDisabledColor' : isButtonLabelCondition == false }"
           type="button" (click)="submitButton()">SUBMIT</button>
-
-        <!-- <button class="btn custom-button-width col-sm-2"
-          style="background-color:#d3e5ec ; color: #2e849e; margin-right: 25px;"
-            type="button" (click)="nextButton()">SUBMIT</button>  -->
-
       </mat-card-actions>
     </div>
   </mat-card>
