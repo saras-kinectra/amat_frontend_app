@@ -77,14 +77,8 @@ export class ProductComponent implements OnInit {
 
       this.selectedTab = 0;
 
-<<<<<<< HEAD
-      this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura3.svg";
-      // this.imageURL = "../../../../assets/endura2.svg";
-      // this.imageURL = "../../../../assets/charger.svg";
-=======
       this.selectedProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
       console.log("getSelectedTab selectedProduct: ", this.selectedProduct);
->>>>>>> 4fdc973b0fcad6ae09ebb92cf783b8817a7c3f8a
 
       this.imageURL = JSON.parse(JSON.stringify(this.selectedProduct.model_svg_url));
       console.log("getSelectedTab imageURL: ", this.imageURL);
