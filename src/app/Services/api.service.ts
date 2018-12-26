@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { String, StringBuilder } from 'typescript-string-operations';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class ApiService {
    
@@ -10,27 +12,30 @@ export class ApiService {
     /* 13-12-2018*/
     // public static BASE_URL: string = "http://ec2-18-209-103-144.compute-1.amazonaws.com:3000/";
     /* 14-12-2018*/
-    public static BASE_URL: string = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/api/";   
+    //public static BASE_URL: string = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/api/";   
+
+    //'Authorization': 'Basic OWFlMGYzMmY2NjRkNWYxOGFiMjExZmE2NTlkYzIzNjc6ODZlNmVjYzA3NWNiNmZhYjc0NDE4NjhjZDhmZTllMmM='
+
 
     public httpHeaders = new HttpHeaders({
 
         'Content-Type': 'application/json',
-        'Authorization': 'Basic OWFlMGYzMmY2NjRkNWYxOGFiMjExZmE2NTlkYzIzNjc6ODZlNmVjYzA3NWNiNmZhYjc0NDE4NjhjZDhmZTllMmM='
+        'Authorization': 'Basic ' + btoa(environment.apiBasicAuthUsername+':'+environment.apiBasicAuthPassword)
     });
 
 
     //GET METHODS
-    private GET_PLATFORMS: string = ApiService.BASE_URL + "Platforms";
+    private GET_PLATFORMS: string = environment.apiUrl + "Platforms";
 
-    public GET_CHAMBERS_BY_PLATFORM_ID: string = ApiService.BASE_URL + "Platforms/{0}/Chambers";
+    public GET_CHAMBERS_BY_PLATFORM_ID: string = environment.apiUrl + "Platforms/{0}/Chambers";
 
 
     //POST METHODS
-    public FIND_PRODUCTS_FOR_CHAMBERS: string = ApiService.BASE_URL + "Chambers/FindProductsForChambers";
+    public FIND_PRODUCTS_FOR_CHAMBERS: string = environment.apiUrl + "Chambers/FindProductsForChambers";
 
-    public FIND_COMPATABILITY_INFO_FOR_CHAMBERS: string = ApiService.BASE_URL + "Chambers/FindCompatibilityInfoForChambers";
+    public FIND_COMPATABILITY_INFO_FOR_CHAMBERS: string = environment.apiUrl + "Chambers/FindCompatibilityInfoForChambers";
 
-    public ADD_OPPORTUNITIES: string = ApiService.BASE_URL + "Opportunities";
+    public ADD_OPPORTUNITIES: string = environment.apiUrl + "Opportunities";
 
 
     constructor(private httpClient: HttpClient, private storageService: StorageService) { }

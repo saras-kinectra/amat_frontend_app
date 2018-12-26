@@ -76,7 +76,7 @@ export class ProductComponent implements OnInit {
 
       this.selectedTab = 0;
 
-      this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura2.svg";
+      this.imageURL = "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura3.svg";
       // this.imageURL = "../../../../assets/endura2.svg";
       // this.imageURL = "../../../../assets/charger.svg";
 
