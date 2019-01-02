@@ -88,12 +88,9 @@ body .ui-tooltip .ui-tooltip-text {
 
   background-color: #ffffff;
   color: #000000;
-  padding: 0.429em;
-  width: 205px;
-  height: 72px;
-  margin-top: 2px;
-  margin-left: 4px;
-  width: 248px;
+  padding: 15px;
+  height: 91px;
+  width: 236px;
   box-shadow: 0 0 17px 0 rgb(58, 60, 63);
 } 
 

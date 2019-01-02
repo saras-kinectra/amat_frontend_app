@@ -72,6 +72,7 @@ export class ChamberComponent implements OnInit {
     });
 
     // this.chamberInput.nativeElement.focus();
+    this.formFiledUnderLine = true;
 
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
     console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
@@ -101,6 +102,11 @@ export class ChamberComponent implements OnInit {
         this.showHttpErrorDailog(error);
       });
     }
+  }
+
+  ngAfterViewInit() {
+            
+    this.chamberInput.nativeElement.focus();
   }
 
   chambersRemove(chamber: string): void {

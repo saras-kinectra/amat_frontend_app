@@ -5,15 +5,16 @@
                 <mat-form-field class="opIDField example-full-width col-md-5">
                     <label class="inputOPIDLabel" for="postal-code">Input OP ID</label>
 
-                    <input class="opId" #opIdInput matInput><span class="info" pInputText
-                        maxlength="35" pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged."
-                        tooltipPosition="right" hideDelay="200"><img class="info_icon" [src]="toolTipIcon" (mouseover)="onToolTipMouseOver()" (mouseout)="onToolTipMouseOut()"></span>
+                    <input class="opId" #opIdInput matInput tooltipEvent="focus">
+                        <span class="info" pInputText maxlength="35" pTooltip="Without an OP ID input, this will be treated as a test case scenario and will not be logged." tooltipPosition="right" hideDelay="200">
+                            <img class="info_icon" [src]="toolTipIcon" (mouseover)="onToolTipMouseOver()" (mouseout)="onToolTipMouseOut()">
+                        </span>
                 </mat-form-field>
 
                 <br>
 
                 <mat-form-field class="platformField col-md-5" style="margin-top: 1.5%;">
-                    <label class="selectPlatformLabel" for="postal-code">Select PlatForm</label>
+                    <label class="selectPlatformLabel" for="postal-code">Select Platform</label>
 
                     <mat-select class="selectPlatform" [(value)]="selectedPosition" (ngValueChange)="onPlatFormListChange($event, selectedPosition)" formControlName="platform">
                         <!-- <mat-option [value]="undefined" selected [disabled]="true">--Select Platform--</mat-option> -->
