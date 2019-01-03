@@ -20,6 +20,7 @@ export class PlatFormsComponent implements OnInit {
   public platformsList: any[];
   selectedPosition;
   public form: FormGroup;
+  isShowToolTip:boolean = true;
 
   toolTipIcon: string = "assets/Icon-Info-Inactive@1x.png";
 
@@ -95,14 +96,33 @@ export class PlatFormsComponent implements OnInit {
     console.log("onPlatFormListChange", event._id, index);
   }
 
-  onToolTipMouseOver(): void {
+  // onToolTipMouseOver(): void {
 
-    this.toolTipIcon = "assets/info_icon@1x.png";
+  //   this.toolTipIcon = "assets/info_icon@1x.png";
+  // }
+
+  // onToolTipMouseOut(): void {
+
+  //   this.toolTipIcon = "assets/Icon-Info-Inactive@1x.png";
+  // }
+
+  focusFunction() {
+
+    this.isShowToolTip = true;
+    this.toolTipIcon = "assets/Icon-Info-Inactive@1x.png";
   }
 
-  onToolTipMouseOut(): void {
+  focusOutFunction() {
 
-    this.toolTipIcon = "assets/Icon-Info-Inactive@1x.png";
+    if(this.opIdInput.nativeElement.value == '' ){
+
+      this.isShowToolTip = false;
+      this.toolTipIcon = "assets/info_icon@1x.png";
+    } else {
+
+      this.isShowToolTip = true;
+      this.toolTipIcon = "assets/Icon-Info-Inactive@1x.png";
+    }
   }
 
   next() {

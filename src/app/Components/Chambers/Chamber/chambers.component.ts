@@ -96,7 +96,7 @@ export class ChamberComponent implements OnInit {
         console.log("ngOnInit getChambersByPlatformID response: ", response);
         
         this.chambersList = JSON.parse(JSON.stringify(response));
-        this.dropDownChambersList = this.chambersList;
+        // this.dropDownChambersList = this.chambersList;
       }, error => {
         
         this.showHttpErrorDailog(error);
@@ -327,13 +327,11 @@ export class ChamberComponent implements OnInit {
         // if(this.isRnDChambersEnabled) {
         if(this.compatibilityChambersList.length > 0) {
 
-          this.dropDownChambersList = this.compatibilityChambersList;
-
+          // this.dropDownChambersList = this.compatibilityChambersList;
           this.isRnDChambersEnabled = false;
         } else {
 
-          this.dropDownChambersList = this.rndOnlyChambersList;
-
+          // this.dropDownChambersList = this.rndOnlyChambersList;
           this.isRnDChambersEnabled = true;
         }
       }
@@ -402,7 +400,7 @@ export class ChamberComponent implements OnInit {
       console.log("clearAllSelectedChambers getChambersByPlatformID response: ", response);
 
       this.chambersList = JSON.parse(JSON.stringify(response));
-      this.dropDownChambersList = this.chambersList;
+      // this.dropDownChambersList = this.chambersList;
     }, error => {
       
       this.showHttpErrorDailog(error);
@@ -449,6 +447,54 @@ export class ChamberComponent implements OnInit {
   
       console.log('showPlatialog dialogRef.afterClosed isFrom');
     });
+  }
+
+  onKeyPress(event: any) {
+
+    if(event.target.value === '') {
+
+      this.dropDownChambersList = [];
+    } else {
+
+      if (this.isChamberSelected) {
+
+        if(this.compatibilityChambersList.length > 0) {
+
+          this.dropDownChambersList = this.filterKeyPressedValue(event.target.value, this.compatibilityChambersList);
+        } else {
+
+          this.dropDownChambersList = this.filterKeyPressedValue(event.target.value, this.rndOnlyChambersList);
+        }
+      } else {
+
+        this.dropDownChambersList = this.filterKeyPressedValue(event.target.value, this.chambersList);
+      }
+    }
+  };
+
+  filterKeyPressedValue(searchValue, mChambersList) {
+
+    var mDropDownChambersList: any[] = [];
+
+    for (var i = 0; i < mChambersList.length; i++) {
+
+      if (mChambersList[i].name.toLowerCase().includes(searchValue.toLowerCase())) {
+        
+        mDropDownChambersList.push(mChambersList[i]);
+      }
+    }
+
+    return mDropDownChambersList;
+  }
+
+  onSearchChamberfocus() {
+
+    this.dropDownChambersList = [];
+  }
+
+  outSearchChamberfocus() {
+
+    // this.dropDownChambersList = [];
   }
 
   backButton() {
