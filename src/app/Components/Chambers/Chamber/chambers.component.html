@@ -21,7 +21,7 @@
           </mat-chip>
 
           <input #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term">
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term" (keyup)="onKeyPress($event)" (focus)="onSearchChamberfocus()" (focusout)="outSearchChamberfocus()">
           <span class="errorLabelClose" [hidden]="!showSelectedChambersClearButton" (click)="clearAllSelectedChambers()">
             <mat-icon [ngClass]="{'red' : isCrossLabelCondition == true, 'blue' : isCrossLabelCondition == false }"
               class="matIcon">close</mat-icon>
@@ -29,7 +29,7 @@
         </mat-chip-list>
 
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="chamberOptionSelected($event)">
-          <mat-option *ngFor="let chamber of dropDownChambersList | filter:term;let i = index" [value]="chamber">
+          <mat-option *ngFor="let chamber of dropDownChambersList;let i = index" [value]="chamber">
             {{chamber.name}}
           </mat-option>
         </mat-autocomplete>

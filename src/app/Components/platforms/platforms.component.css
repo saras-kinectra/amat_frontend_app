@@ -88,12 +88,9 @@ body .ui-tooltip .ui-tooltip-text {
 
   background-color: #ffffff;
   color: #000000;
-  padding: 0.429em;
-  width: 205px;
-  height: 72px;
-  margin-top: 2px;
-  margin-left: 4px;
-  width: 248px;
+  padding: 15px;
+  height: 91px;
+  width: 236px;
   box-shadow: 0 0 17px 0 rgb(58, 60, 63);
 } 
 
@@ -109,6 +106,34 @@ body .ui-tooltip.ui-tooltip-right .ui-tooltip-arrow {
   
   display: block;
 } */
+
+.toolText {
+
+  background:rgb(255, 255, 255); 
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 0px;
+  width: 223px;
+  height: 80px;
+  border-radius: 10px;
+}
+  
+#arrowPointer {
+
+  border:solid 10px transparent;
+  border-right-color:rgb(255, 255, 255);
+  position:absolute;
+  margin: -52px 0 0 -20px;
+}
+
+.toolTipStyles {
+
+  margin-left: 15px;
+  margin-top: 0px;
+  box-shadow: 0px 1px 10px 5px #ccc;
+  position: absolute;
+}
 
 @media screen and (max-width: 550px) {
 
