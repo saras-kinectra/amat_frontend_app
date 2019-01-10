@@ -50,7 +50,7 @@
                       {{configuration.facet_name}}
                     </div>
 
-                    <div style="color: #65A7C4;">
+                    <div [ngStyle]="{'color':getSVGItemColor(configuration.chamber_name)}">
                       {{configuration.chamber_name}}
                     </div>
                     <mat-divider></mat-divider>
@@ -74,7 +74,12 @@
     <hr class="borderLine">
 
     <div class="row matActions">
-      <mat-card-actions class="text-right col-md-12 mat-card-actions">
+
+      <mat-card-actions class= "mat-card-actions col-md-2" style="margin-left: 8px; margin-right: 8px; padding: 8px;">
+          <button class="btn col-sm-12" style="margin-right: 25px;background: rgba(69,153,195,0.20); border-radius: 3px;color: #4599C3" type="button" (click)="print()">PRINT</button>
+      </mat-card-actions>
+
+      <mat-card-actions class="text-right col-md-10 mat-card-actions">
         <button class="btn  col-sm-2" style="margin-right: 25px;background: #EAEAEA; border-radius: 3px;" type="button" (click)="backButton()">BACK</button>
         <button class="btn  col-sm-2" style="margin-right: 25px;background: rgba(69,153,195,0.20); border-radius: 3px;color: #4599C3"(click)="submitButton()" type="button">DONE</button>
       </mat-card-actions>

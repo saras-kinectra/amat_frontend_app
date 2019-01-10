@@ -34,6 +34,8 @@ export class ProductComponent implements OnInit {
 
   showSVGImage: boolean = true;
 
+  svgColorArray: Array<ColorModel> = [];
+
   constructor( private apiService: ApiService, private location: Location, public iconRegistry: MatIconRegistry, public sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
 
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
@@ -88,7 +90,7 @@ export class ProductComponent implements OnInit {
       this.configurationArray = JSON.parse(JSON.stringify(this.selectedProduct.configuration));
       console.log("getSelectedTab configurationArray: ", this.configurationArray.length);
 
-      this.loadSVGImage();
+      // this.loadSVGImage();
     }, error => {
       
       this.showHttpErrorDailog(error);
@@ -100,9 +102,10 @@ export class ProductComponent implements OnInit {
     var configurationArray2: any[] = this.configurationArray;
     console.log("getSelectedTab configurationArray2: ", configurationArray2);
 
+    this.svgColorArray = [];
     this.showSVGImage = true;
 
-    setTimeout(()=> { 
+    setTimeout(()=> {
 
       this.domIDsList = document.querySelector('object').ownerDocument.documentElement.querySelectorAll('g');
       console.log("setTimeout querySelector domIDsList: ", this.domIDsList);
@@ -133,7 +136,57 @@ export class ProductComponent implements OnInit {
             }
           }
         } else {
-  
+
+          let colorModel = new ColorModel();
+          colorModel.productName = configurationArray2[i].chamber_name;
+          colorModel.productColor = this.getRandomColor();
+          this.svgColorArray.push(colorModel);
+        }
+      }
+
+      this.svgColorArray.forEach((item, index) => {
+
+        if (index !== this.svgColorArray.findIndex(i => i.productName === item.productName)) {
+
+          this.svgColorArray.splice(index, 1);
+        }
+      });
+
+      console.log("setTimeout configurationArray svgColorArray after length: ", this.svgColorArray);
+
+      for(var i = 0; i < configurationArray2.length; i++) {
+
+        console.log("setTimeout configurationArray chamber_name: ", configurationArray2[i].chamber_name);
+
+        if(configurationArray2[i].chamber_name == '') {
+
+
+        } else {
+
+          for(var j = 0; j < this.svgColorArray.length; j++) {
+
+            if(configurationArray2[i].chamber_name == this.svgColorArray[j].productName) {
+            
+              for(var k = 0; k < this.domIDsList.length; k++) {
+            
+                if(this.domIDsList[k].id === configurationArray2[i].facet_name + '-active') {
+    
+                  this.domIDsList[k].children[0].children[0].style.fill = this.svgColorArray[j].productColor;
+                  this.domIDsList[k].children[0].children[1].style.fill = this.svgColorArray[j].productColor;
+                } else {
+    
+                }
+    
+                if(this.domIDsList[k].id === configurationArray2[i].facet_name + '-hover') {
+    
+                  this.domIDsList[k].children[0].children[0].style.fill = this.svgColorArray[j].productColor;
+                  this.domIDsList[k].children[0].children[1].style.fill = this.svgColorArray[j].productColor;
+                } else {
+    
+                }
+              }
+            }
+          }
         }
       }
 
@@ -263,8 +316,44 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  backButton() {
+  getRandomColor2() {
 
+    var length = 6;
+    var chars = '0123456789ABCDEF';
+    var hex = '#';
+    while(length--) hex += chars[(Math.random() * 16) | 0];
+
+    return hex;
+  }
+
+  getRandomColor() {
+
+    var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    var hex = '#' + ('000000' + color).slice(-6);
+    
+    return hex;
+  }
+
+  getSVGItemColor(chamberName) {
+
+    console.log("getSVGItemColor chamberName: ", chamberName);
+
+    for(var i = 0; i < this.svgColorArray.length; i++) {
+
+      if(chamberName === this.svgColorArray[i].productName) {
+
+        return this.svgColorArray[i].productColor;
+      }
+    }
+  }
+
+  print() {
+    
+    window.print();
+  }
+
+  backButton() {
+    
     this.location.back();
   }
 
@@ -351,4 +440,10 @@ export class ProductHttpErrorDialog {
 export interface DialogData {
 
   errorMessage: string;
+}
+
+export class ColorModel {
+
+  productName: string;
+  productColor: string;
 }
