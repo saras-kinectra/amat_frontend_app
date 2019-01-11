@@ -59,8 +59,8 @@ export class ProductComponent implements OnInit {
     ];
 
     this.svgDummyColorCodes = [
-      {"ColorCode": "#FF0000"}, {"ColorCode": "#008000"}, {"ColorCode": "#0000FF"}, {"ColorCode": "#800080"}, {"ColorCode": "#800000"},
-      {"ColorCode": "#808080"}, {"ColorCode": "#008080"}, {"ColorCode": "#808000"}, {"ColorCode": "#FF8000"}
+      {"ColorCode": "#EC7063"}, {"ColorCode": "#AF7AC5"}, {"ColorCode": "#58D68D"}, {"ColorCode": "#008080"}, {"ColorCode": "#F4D03F"},
+      {"ColorCode": "#99A3A4"}, {"ColorCode": "#5D6D7E"}, {"ColorCode": "#DC7633"}, {"ColorCode": "#A569BD"}
     ];
   }
 
