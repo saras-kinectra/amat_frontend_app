@@ -35,6 +35,7 @@ export class ProductComponent implements OnInit {
   showSVGImage: boolean = true;
 
   svgColorArray: Array<ColorModel> = [];
+  svgDummyColorCodes: any[] = [];
 
   constructor( private apiService: ApiService, private location: Location, public iconRegistry: MatIconRegistry, public sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
 
@@ -55,6 +56,11 @@ export class ProductComponent implements OnInit {
     this.dummyConfigurationArray = [
       {number:"1"}, {number:"2"}, {number:"3"}, {number:"4"}, {number:"5"},
       {number:"C"}, {number:"D"}, {number:"E"}, {number:"F"}
+    ];
+
+    this.svgDummyColorCodes = [
+      {"ColorCode": "#FF0000"}, {"ColorCode": "#008000"}, {"ColorCode": "#0000FF"}, {"ColorCode": "#800080"}, {"ColorCode": "#800000"},
+      {"ColorCode": "#808080"}, {"ColorCode": "#008080"}, {"ColorCode": "#808000"}, {"ColorCode": "#FF8000"}
     ];
   }
 
@@ -139,7 +145,7 @@ export class ProductComponent implements OnInit {
 
           let colorModel = new ColorModel();
           colorModel.productName = configurationArray2[i].chamber_name;
-          colorModel.productColor = this.getRandomColor();
+          colorModel.productColor = this.svgDummyColorCodes[i].ColorCode;
           this.svgColorArray.push(colorModel);
         }
       }
@@ -336,9 +342,11 @@ export class ProductComponent implements OnInit {
 
   getSVGItemColor(chamberName) {
 
-    console.log("getSVGItemColor chamberName: ", chamberName);
-
     for(var i = 0; i < this.svgColorArray.length; i++) {
+
+      console.log("getSVGItemColor chamberName: ", chamberName);
+      console.log("getSVGItemColor productName: ", this.svgColorArray[i].productName);
+      console.log("getSVGItemColor productColor: ", this.svgColorArray[i].productColor);
 
       if(chamberName === this.svgColorArray[i].productName) {
 
