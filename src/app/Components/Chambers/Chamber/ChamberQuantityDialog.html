@@ -1,0 +1,21 @@
+<div class="dialog_container" style="text-align:center">
+    <div style="float: left; word-wrap: break-word">
+        <p style="text-align: start; float:left; font-size: 18px;color: #000000; font-weight: bold;">{{data.chamber.name}}</p>
+        <br>
+        <p style="margin-top: -10px; float:left; font-size: 16px; color: rgba(0,0,0,0.87);">Select quantity of chambers.</p> 
+    </div>
+
+    <div class="btn-group" style="margin-top: 10px; width: 50%; height: 40px; background: #979797; border-radius: 20px">
+        <button type="button" [disabled]="disabledMinusButton" class="btn col fa fa-minus" style="color:#4E4E56; border-top-left-radius: 20px; border-bottom-left-radius: 20px;box-shadow: none; background: rgba(241, 241, 241, 0.88); width: 50%;" (click)="decrementQty()"></button>
+        <button type="button" class="btn  col" style="font-size: 18px; font-weight:bold; color: #000000; box-shadow: none; cursor: default; margin-left: 1px; margin-right: 2px; background: rgba(241, 241, 241, 0.88);"> {{count}}</button>
+        <button type="button" [disabled]="disabledPlusButton" class="btn col fa fa-plus" style="color:#4E4E56; border-top-right-radius: 20px; border-bottom-right-radius: 20px; box-shadow: none; background: rgba(241, 241, 241, 0.88); width: 50%;" (click)="incrementQty()"></button> 
+    </div>
+
+    <br>
+
+    <div style="margin-top: 20px">
+        <span style="float: left; font-size: 16px; color: rgba(0,0,0,0.87);" [hidden]="showDelete" (click)=qtyDialogDelete()>DELETE</span>
+        <span style="float: right; font-size: 16px; color: #328AFB;" (click)=qtyDialogContinue()>CONTINUE</span>
+        <span style="float: right; margin-right: 12px; font-size: 16px; color: rgba(0,0,0,0.87);" (click)=qtyDialogCancel()>CANCEL</span>
+    </div>
+</div>

@@ -193,3 +193,18 @@ hr {
     
     background-color:#4599C3 !important;
 }
+
+.chamberQtyCircle {
+
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+    line-height: 20px;
+    text-align: center;
+    background: rgb(255, 255, 255);
+    margin-left: 10px;
+    margin-right: -5px;
+    margin-bottom: 3px;
+}

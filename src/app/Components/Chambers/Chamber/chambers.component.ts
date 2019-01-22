@@ -35,7 +35,7 @@ export class ChamberComponent implements OnInit {
   compatibilityChambersList: any = [];
   rndOnlyChambersList: any = [];
   
-  selectedChambersList: any[] = [];
+  selectedChambersList: Array<ChamberModel> = [];
 
   isRnDChambersEnabled: boolean = false;
 
@@ -109,13 +109,14 @@ export class ChamberComponent implements OnInit {
     this.chamberInput.nativeElement.focus();
   }
 
-  chambersRemove(chamber: string): void {
+  chambersRemove(chamber): void {
 
     console.log("chambersRemove isCalledServiceAPI: ", this.isCalledServiceAPI);
 
     if(this.isCalledServiceAPI) {
 
     } else {
+
       const index = this.selectedChambersList.indexOf(chamber);
 
       this.selectedChambersList.splice(index, 1);
@@ -179,20 +180,16 @@ export class ChamberComponent implements OnInit {
     }
   }
 
+  updateChambersByID(chamber) {
+
+    this.showChamberQtyDialog(chamber, true);
+  }
+
   filterChambersByID(chamber) {
 
     console.log("filterChambersByID isCalledServiceAPI: ", this.isCalledServiceAPI);
 
-    if(this.isCalledServiceAPI) {
-
-    } else {
-      
-      console.log('filterChambersByID selectedChamber: ', chamber);
-
-      this.selectedChambersList.push(chamber);
-
-      this.findCompatibilityInfoForChamberIds();
-    }
+    this.showChamberQtyDialog(chamber, false);
   }
 
   filterRnDChambersByID(rnDChamber) {
@@ -247,7 +244,8 @@ export class ChamberComponent implements OnInit {
     
     console.log('filterRnDChambers selectedChamber: ', rnDChamber);
 
-    this.selectedChambersList.push(rnDChamber);
+    // this.selectedChambersList.push(rnDChamber);
+    this.showChamberQtyDialog(rnDChamber, false);
     this.findCompatibilityInfoForChamberIds();
   }
 
@@ -293,7 +291,10 @@ export class ChamberComponent implements OnInit {
     var selectedChamberIDs: any = [];
     for (let i = 0; i < this.selectedChambersList.length; i++) {
 
-      selectedChamberIDs.push(this.selectedChambersList[i].id);
+      for(let j = 0; j < this.selectedChambersList[i].qty; j++) {
+
+        selectedChamberIDs.push(this.selectedChambersList[i].id);
+      }
     }
 
     console.log("filterRnDChambers Selected Ids", selectedChamberIDs);
@@ -404,6 +405,120 @@ export class ChamberComponent implements OnInit {
     }, error => {
       
       this.showHttpErrorDailog(error);
+    });
+  }
+
+  showChamberQtyDialog(selectedChamber, wantToUpdate) {
+
+    const dialogRef = this.dialog.open(ChamberQuantityDialog, {
+
+      width: '391px',
+      height: 'auto',
+      data:{chamber: selectedChamber, wantToUpdate: wantToUpdate}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+      var isFrom = localStorage.getItem('IsQtyDialogFrom');
+      var qtyCount: any = localStorage.getItem('QtyDialogCount');
+      var selectedDialogChamber = JSON.parse(localStorage.getItem('QtyDialogSelectedChamber'));
+
+      console.log('showChamberQtyDialog afterClosed isFrom: ', isFrom);
+      console.log('showChamberQtyDialog afterClosed qtyCount: ', qtyCount);
+      console.log('showChamberQtyDialog afterClosed selectedDialogChamber: ', selectedDialogChamber);
+      
+      if(isFrom == 'Delelte') {
+
+        if(wantToUpdate) {
+
+          let index = -1;
+
+          for (let i = 0; i < this.selectedChambersList.length; i++) {
+
+            if(this.selectedChambersList[i].id == selectedDialogChamber.id) {
+
+              index = i;
+            }
+          }
+          // const index = this.selectedChambersList.indexOf(selectedDialogChamber);
+          console.log('showChamberQtyDialog afterClosed index: ', index);
+          console.log('showChamberQtyDialog afterClosed qtyCount: ', qtyCount);
+
+          this.selectedChambersList.splice(index, 1);
+          console.log("showChamberQtyDialog afterClosed qty = 0 selectedChambersList", this.selectedChambersList.length);
+
+          if (this.selectedChambersList.length === 0) {
+
+            this.clearAllSelectedChambers();
+          } else {
+
+            this.findCompatibilityInfoForChamberIds();
+          }
+        } else {
+
+        }
+      } else if(isFrom == 'Cancel') {
+
+      } else {
+
+        if(this.isCalledServiceAPI) {
+
+        } else {
+
+          if(wantToUpdate) {
+
+            console.log('showChamberQtyDialog afterClosed wantToUpdate: ', wantToUpdate);
+
+            let index = -1;
+
+            for (let i = 0; i < this.selectedChambersList.length; i++) {
+
+              if(this.selectedChambersList[i].id == selectedDialogChamber.id) {
+
+                index = i;
+              }
+            }
+            // const index = this.selectedChambersList.indexOf(selectedDialogChamber);
+            console.log('showChamberQtyDialog afterClosed index: ', index);
+            console.log('showChamberQtyDialog afterClosed qtyCount: ', qtyCount);
+
+            if(qtyCount == 0) {
+
+              this.selectedChambersList.splice(index, 1);
+              console.log("showChamberQtyDialog afterClosed qty = 0 selectedChambersList", this.selectedChambersList.length);
+
+              if (this.selectedChambersList.length === 0) {
+
+                this.clearAllSelectedChambers();
+              } else {
+
+                this.findCompatibilityInfoForChamberIds();
+              }
+            } else {
+  
+              this.selectedChambersList[index].qty = qtyCount;
+              
+              this.findCompatibilityInfoForChamberIds();
+            }
+          } else {
+
+            if(qtyCount <= 0) {
+
+            } else {
+  
+              let chamberModel = new ChamberModel();
+              chamberModel.id = selectedDialogChamber.id;
+              chamberModel.name = selectedDialogChamber.name;
+              chamberModel.got_code = selectedDialogChamber.got_code;
+              chamberModel.qty = qtyCount;
+  
+              this.selectedChambersList.push(chamberModel);
+  
+              this.findCompatibilityInfoForChamberIds();
+            }
+          }
+        }
+      }
     });
   }
 
@@ -571,4 +686,107 @@ export class ChamberHttpErrorDialog {
 export interface DialogData {
 
   errorMessage: string;
+}
+
+@Component({
+
+  selector: 'ChamberQuantityDialog',
+  templateUrl: 'ChamberQuantityDialog.html',
+})
+
+export class ChamberQuantityDialog implements OnInit {
+
+  public count : number;
+  disabledPlusButton: boolean;
+  disabledMinusButton: boolean;
+  showDelete: boolean;
+
+  constructor(public dialogRef: MatDialogRef<ChamberQuantityDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
+
+    if(data.wantToUpdate) {
+      
+      this.count = data.chamber.qty;
+      this.showDelete = false;
+
+      if(this.count == 3) {
+
+        this.disabledPlusButton = true;
+        this.disabledMinusButton = false;
+      }
+    } else {
+
+      this.count = 1;
+      this.showDelete = true;
+    }
+  }
+
+  ngOnInit() {
+
+  }
+
+  decrementQty() {
+
+    this.count = this.count > 0 ? --this.count : 0;
+
+    if(this.count == 0) {
+
+      this.disabledMinusButton = true;
+      this.disabledPlusButton = false;
+    } else if(this.count <= 3) {
+
+      this.disabledMinusButton = false;
+      this.disabledPlusButton = false;
+    }
+  }
+
+  incrementQty() {
+
+    ++this.count;
+
+    if(this.count >= 3) {
+
+      this.disabledPlusButton = true;
+      this.disabledMinusButton = false;
+    } else if(this.count <= 3) {
+
+      this.disabledPlusButton = false;
+      this.disabledMinusButton = false;
+    }
+  }
+
+  qtyDialogDelete() {
+    
+    localStorage.setItem('IsQtyDialogFrom', 'Delelte');
+    localStorage.setItem('QtyDialogCount', JSON.parse(JSON.stringify(this.count)));
+    localStorage.setItem('QtyDialogSelectedChamber', JSON.stringify(this.data.chamber));
+    this.dialogRef.close();
+  }
+
+  qtyDialogCancel() {
+    
+    localStorage.setItem('IsQtyDialogFrom', 'Cancel');
+    this.dialogRef.close();
+  }
+
+  qtyDialogContinue() {
+    
+    localStorage.setItem('IsQtyDialogFrom', 'Continue');
+    localStorage.setItem('QtyDialogCount', JSON.parse(JSON.stringify(this.count)));
+    localStorage.setItem('QtyDialogSelectedChamber', JSON.stringify(this.data.chamber));
+    this.dialogRef.close();
+  }
+}
+
+export interface DialogData {
+
+  chamber;
+  wantToUpdate;
+}
+
+export class ChamberModel {
+
+  id: string;
+  name: string;
+  got_code: string;
+  qty: number;
 }

@@ -15,9 +15,10 @@
 
         <mat-chip-list #chipList>
           <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="chamberSelectable"
-            [removable]="removable" (removed)="chambersRemove(chamber)">
+            [removable]="removable" (removed)="chambersRemove(chamber)" (click)="updateChambersByID(chamber)">
             {{chamber.name}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            <!-- <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon> -->
+            <div class="chamberQtyCircle">{{chamber.qty}}</div>
           </mat-chip>
 
           <input #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"

@@ -48,7 +48,10 @@ export class ProductComponent implements OnInit {
     // this.selectedChamberIDs = JSON.parse(localStorage.getItem('SelectedChambersList'));
     for (let i = 0; i < selectedChambersList.length; i++) {
 
-      this.selectedChamberIDs.push(selectedChambersList[i].id);
+      for(let j = 0; j < selectedChambersList[i].qty; j++) {
+
+        this.selectedChamberIDs.push(selectedChambersList[i].id);
+      }
     }
     console.log("Products_Onint_ChamberIDList", localStorage.getItem('SelectedChambersList'));
     console.log("Products_Onint_ChamberIDList", this.selectedChamberIDs);
@@ -177,16 +180,16 @@ export class ProductComponent implements OnInit {
             
                 if(this.domIDsList[k].id === configurationArray2[i].facet_name + '-active') {
     
-                  this.domIDsList[k].children[0].children[0].style.fill = this.svgColorArray[j].productColor;
-                  this.domIDsList[k].children[0].children[1].style.fill = this.svgColorArray[j].productColor;
+                  // this.domIDsList[k].children[0].children[0].style.fill = this.svgColorArray[j].productColor;
+                  // this.domIDsList[k].children[0].children[1].style.fill = this.svgColorArray[j].productColor;
                 } else {
     
                 }
     
                 if(this.domIDsList[k].id === configurationArray2[i].facet_name + '-hover') {
     
-                  this.domIDsList[k].children[0].children[0].style.fill = this.svgColorArray[j].productColor;
-                  this.domIDsList[k].children[0].children[1].style.fill = this.svgColorArray[j].productColor;
+                  // this.domIDsList[k].children[0].children[0].style.fill = this.svgColorArray[j].productColor;
+                  // this.domIDsList[k].children[0].children[1].style.fill = this.svgColorArray[j].productColor;
                 } else {
     
                 }
@@ -347,7 +350,7 @@ export class ProductComponent implements OnInit {
       console.log("getSVGItemColor chamberName: ", chamberName);
       console.log("getSVGItemColor productName: ", this.svgColorArray[i].productName);
       console.log("getSVGItemColor productColor: ", this.svgColorArray[i].productColor);
-
+      
       if(chamberName === this.svgColorArray[i].productName) {
 
         return this.svgColorArray[i].productColor;

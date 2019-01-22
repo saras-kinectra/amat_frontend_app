@@ -1,5 +1,5 @@
 import { StorageService } from './../../Services/storage.service';
-import { DialogOverviewExampleDialog, ChamberHttpErrorDialog } from './Chamber/chambers.component';
+import { DialogOverviewExampleDialog, ChamberHttpErrorDialog, ChamberQuantityDialog } from './Chamber/chambers.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ApiService } from 'src/app/Services/api.service';
@@ -43,7 +43,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ProductComponent,
     OPIDDialog,
     ChamberHttpErrorDialog,
-    ProductHttpErrorDialog
+    ProductHttpErrorDialog,
+    ChamberQuantityDialog
   ],
 
   imports: [
@@ -87,7 +88,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     DialogOverviewExampleDialog,
     OPIDDialog,
     ChamberHttpErrorDialog,
-    ProductHttpErrorDialog
+    ProductHttpErrorDialog,
+    ChamberQuantityDialog
   ],
 
   bootstrap: []
