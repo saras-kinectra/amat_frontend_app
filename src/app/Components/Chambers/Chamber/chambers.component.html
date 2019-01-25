@@ -3,15 +3,16 @@
 <div class="container">
   <mat-card class="card"  style="padding:16px">
     <div class="matContainer">
-      <mat-form-field class="chip-list  mat-form-field-custom " [ngClass]="{'formFiledUnderLineColor': !formFiledUnderLine}">
+      <mat-form-field class="chip-list  mat-form-field-custom">
 
-        <div *ngIf="showSelectChamberTitle; else enable">
+        <label class="selectChambersName">Select Chambers</label>
+        <!-- <div *ngIf="showSelectChamberTitle; else enable">
           <label class="selectChambersName">Select Chambers</label>
         </div>
 
         <ng-template #enable>
           <label class="selectChambersName" style="color:#D22630;;">Select Chambers</label>
-        </ng-template>
+        </ng-template> -->
 
         <mat-chip-list #chipList>
           <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="chamberSelectable"
@@ -24,8 +25,7 @@
           <input #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term" (keyup)="onKeyPress($event)" (focus)="onSearchChamberfocus()" (focusout)="outSearchChamberfocus()">
           <span class="errorLabelClose" [hidden]="!showSelectedChambersClearButton" (click)="clearAllSelectedChambers()">
-            <mat-icon [ngClass]="{'red' : isCrossLabelCondition == true, 'blue' : isCrossLabelCondition == false }"
-              class="matIcon">close</mat-icon>
+            <mat-icon class="blue">close</mat-icon>
           </span>
         </mat-chip-list>
 
@@ -36,7 +36,7 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <label [hidden]="showErrorLabelCondition" class="errorLabel">You've exceeded the maximum number of chambers by {{extraSelectedChamberCount}}</label>
+      <label [hidden]="showErrorLabelCondition" class="errorLabel">You have reached the maximum amount of chambers.</label>
 
       <div class="matContainer comapatableChambersList">
 
