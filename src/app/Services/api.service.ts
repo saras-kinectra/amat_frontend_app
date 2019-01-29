@@ -41,11 +41,11 @@ export class ApiService {
 
     constructor(private httpClient: HttpClient, private storageService: StorageService, private env : EnvService) { 
 
-        this.GET_PLATFORMS = this.env.apiUrl + "Platforms";
-        this.GET_CHAMBERS_BY_PLATFORM_ID = this.env.apiUrl + "Platforms/{0}/Chambers";
-        this.FIND_PRODUCTS_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindProductsForChambers";
-        this.FIND_COMPATABILITY_INFO_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindCompatibilityInfoForChambers";
-        this.ADD_OPPORTUNITIES = this.env.apiUrl + "Opportunities";
+        // this.GET_PLATFORMS = this.env.apiUrl + "Platforms";
+        // this.GET_CHAMBERS_BY_PLATFORM_ID = this.env.apiUrl + "Platforms/{0}/Chambers";
+        // this.FIND_PRODUCTS_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindProductsForChambers";
+        // this.FIND_COMPATABILITY_INFO_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindCompatibilityInfoForChambers";
+        // this.ADD_OPPORTUNITIES = this.env.apiUrl + "Opportunities";
 
     }
 

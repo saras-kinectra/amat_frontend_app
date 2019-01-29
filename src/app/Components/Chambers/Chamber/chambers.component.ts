@@ -270,7 +270,7 @@ export class ChamberComponent implements OnInit {
       this.isButtonLabelCondition = false;
       this.formFiledUnderLine = false;
 
-      this.extraSelectedChamberCount = this.selectedChambersList.length-this.selectedPlatform.facets_count;
+      this.extraSelectedChamberCount = this.selectedChambersList.length - this.selectedPlatform.facets_count;
     } else {
       
       this.showErrorLabelCondition = true;
@@ -279,7 +279,7 @@ export class ChamberComponent implements OnInit {
       // this.isButtonLabelCondition = true;
       this.formFiledUnderLine = true;
 
-      if(this.selectedChambersList.length > 3) {
+      if(this.selectedChambersList.length >= this.selectedPlatform.min_facetgroups_count) {
 
         this.isButtonLabelCondition = true;
       } else {
