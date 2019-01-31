@@ -97,6 +97,7 @@ export class ProductComponent implements OnInit {
       // this.imageURL = "../../../../assets/endura3.svg";
       // this.imageURL = "../../../../assets/SingleProducer2.svg";
       // this.imageURL = "../../../../assets/Charger2.svg";
+      // this.imageURL = "../../../../assets/Centura2.svg";
       
       this.iconRegistry.addSvgIcon('productImageIcon', this.sanitizer.bypassSecurityTrustResourceUrl(this.imageURL));
 
