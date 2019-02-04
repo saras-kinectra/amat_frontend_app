@@ -20,8 +20,9 @@ export class ApiService {
 
     public httpHeaders = new HttpHeaders({
 
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(environment.apiBasicAuthUsername+':'+environment.apiBasicAuthPassword)
+        'Content-Type': 'application/json'
+        /*,
+        'Authorization': 'Basic ' + btoa(environment.apiBasicAuthUsername+':'+environment.apiBasicAuthPassword)*/
     });
 
 

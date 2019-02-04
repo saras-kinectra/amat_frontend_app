@@ -9,7 +9,7 @@ export class EnvService {
   // be overridden by env.js
 
   // API url
-  public apiUrl = 'http://localhost/amatg3mapper/api/';
+  public apiUrl = 'http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/api/';
 
 
   constructor() {

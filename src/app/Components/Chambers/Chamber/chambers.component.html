@@ -57,7 +57,7 @@
     <div class="matContainer">
 
       <div [ngClass]="{'isRnDChambersTopMarginHigh' : isRnDChambersEnabled == true, 'isRnDChambersTopMarginLow' : isRnDChambersEnabled == false }">
-        <p class="incompatableChambers" [hidden]="!showRnDChamberTitle">R&D Only Chambers</p>
+        <p class="incompatableChambers" [hidden]="!showRnDChamberTitle">R&D Configurations</p>
 
         <p class="inCompatableChamberNames" [hidden]="!showRnDChamberList" *ngFor="let chambers of rndOnlyChambersList; let i = index"
           [class.active]="selectedIndex === i" (click)="filterRnDChambersByID(chambers)">
