@@ -93,8 +93,8 @@ export class ProductComponent implements OnInit {
 
       this.imageURL = JSON.parse(JSON.stringify(this.selectedProduct.model_svg_url));
       console.log("getSelectedTab imageURL: ", this.imageURL);
-
-      // this.imageURL = "../../../../assets/endura3.svg";
+      // this.imageURL =  "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura4.svg";
+    // this.imageURL = "../../../../assets/endura2.svg";
       // this.imageURL = "../../../../assets/SingleProducer2.svg";
       // this.imageURL = "../../../../assets/Charger2.svg";
       // this.imageURL = "../../../../assets/Centura2.svg";
@@ -123,7 +123,7 @@ export class ProductComponent implements OnInit {
     setTimeout(()=> {
 
       this.domIDsList = document.querySelector('object').ownerDocument.documentElement.querySelectorAll('g');
-      console.log("setTimeout querySelector domIDsList: ", this.domIDsList);
+      console.log("setTimeout querySelector domIDsList: ", Array.prototype.slice.call(this.domIDsList));
       
       for(var i = 0; i < configurationArray2.length; i++) {
 
@@ -177,35 +177,40 @@ export class ProductComponent implements OnInit {
             
                 if(this.domIDsList[k].id === configurationArray2[i].facet_name + '-ACTIVE') {
     
-                  this.domIDsList[k].children[0].style.fill = this.svgColorArray[j].productColor;
-                  this.domIDsList[k].children[1].style.fill = this.svgColorArray[j].productColor;
+                  this.domIDsList[k].childNodes[1].style.fill = this.svgColorArray[j].productColor;
+                  this.domIDsList[k].childNodes[3].style.fill = this.svgColorArray[j].productColor;
+
 
                   if(configurationArray2[i].facet_name == '1') {
 
-                    if(this.domIDsList[k].children[2]) {
+                    if(this.domIDsList[k].childNodes[2]) {
 
-                      if(this.domIDsList[k].children[2].children[1]) {
+                      if(this.domIDsList[k].childNodes[2].childNodes[1]) {
 
-                        this.domIDsList[k].children[2].children[1].style.fill = this.svgColorArray[j].productColor;
+                        this.domIDsList[k].childNodes[2].childNodes[1].style.fill = this.svgColorArray[j].productColor;
                       }
                     }
                   }
+
+
                 } else {
 
                 }
     
                 if(this.domIDsList[k].id === configurationArray2[i].facet_name + '-HOVER') {
     
-                  this.domIDsList[k].children[0].style.fill = this.svgColorArray[j].productColor;
-                  this.domIDsList[k].children[1].style.fill = this.svgColorArray[j].productColor;
 
-                  if(this.domIDsList[k].children[2]) {
+                  this.domIDsList[k].childNodes[1].style.fill = this.svgColorArray[j].productColor;
+                  this.domIDsList[k].childNodes[3].style.fill = this.svgColorArray[j].productColor;
 
-                    if(this.domIDsList[k].children[2].children[1]) {
+                  if(this.domIDsList[k].childNodes[5]) {
 
-                      this.domIDsList[k].children[2].children[1].style.fill = this.svgColorArray[j].productColor;
+                    if(this.domIDsList[k].childNodes[5].childNodes[3]) {
+
+                      this.domIDsList[k].childNodes[5].childNodes[3].style.fill = this.svgColorArray[j].productColor;
                     }
                   }
+
                 } else {
     
                 }
@@ -265,12 +270,14 @@ export class ProductComponent implements OnInit {
 
             this.domIDsList[i].style.visibility = 'visible';
 
-            this.domIDsList[i].children[0].style.fill = '#c7e2ef';
-            this.domIDsList[i].children[1].style.fill = '#c7e2ef';
+
+            this.domIDsList[i].childNodes[1].style.fill = '#c7e2ef';
+            this.domIDsList[i].childNodes[3].style.fill = '#c7e2ef';
+
 
             if(configuration.facet_name == '1') {
 
-              this.domIDsList[i].children[2].children[1].style.fill = "#c7e2ef";
+              this.domIDsList[i].childNodes[5].childNodes[3].style.fill = "#c7e2ef";
             }
           } else {
 
@@ -280,10 +287,10 @@ export class ProductComponent implements OnInit {
 
           if(isMouseOver) {
 
-            this.domIDsList[i].children[0].style.visibility = 'hidden';
+            this.domIDsList[i].childNodes[1].style.visibility = 'hidden';
           } else {
 
-            this.domIDsList[i].children[0].style.visibility = 'visible';
+            this.domIDsList[i].childNodes[1].style.visibility = 'visible';
           }
         }
       } else {
@@ -298,8 +305,9 @@ export class ProductComponent implements OnInit {
 
             this.domIDsList[i].style.visibility ='visible';
             
-            this.domIDsList[i].children[0].style.fill = '#c7e2ef';
-            this.domIDsList[i].children[1].style.fill = '#c7e2ef';
+            this.domIDsList[i].childNodes[1].style.fill =  '#c7e2ef';
+            this.domIDsList[i].childNodes[3].style.fill =  '#c7e2ef';
+
           } else {
 
             this.domIDsList[i].style.visibility = 'hidden';
