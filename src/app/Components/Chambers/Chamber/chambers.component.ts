@@ -432,7 +432,7 @@ export class ChamberComponent implements OnInit {
 
       width: '391px',
       height: 'auto',
-      data:{chamber: selectedChamber, wantToUpdate: wantToUpdate}
+      data:{chamber: selectedChamber, wantToUpdate: wantToUpdate, facetsCount: this.selectedPlatform.facets_count}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -718,15 +718,18 @@ export class ChamberQuantityDialog implements OnInit {
   disabledPlusButton: boolean;
   disabledMinusButton: boolean;
   showDelete: boolean;
+  facetsCount;
 
   constructor(public dialogRef: MatDialogRef<ChamberQuantityDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
+
+    this.facetsCount = data.facetsCount;
 
     if(data.wantToUpdate) {
       
       this.count = data.chamber.qty;
       this.showDelete = false;
 
-      if(this.count == 3) {
+      if(this.count == this.facetsCount) {
 
         this.disabledPlusButton = true;
         this.disabledMinusButton = false;
@@ -750,7 +753,7 @@ export class ChamberQuantityDialog implements OnInit {
 
       this.disabledMinusButton = true;
       this.disabledPlusButton = false;
-    } else if(this.count <= 3) {
+    } else if(this.count <= this.facetsCount) {
 
       this.disabledMinusButton = false;
       this.disabledPlusButton = false;
@@ -761,11 +764,11 @@ export class ChamberQuantityDialog implements OnInit {
 
     ++this.count;
 
-    if(this.count >= 3) {
+    if(this.count >= this.facetsCount) {
 
       this.disabledPlusButton = true;
       this.disabledMinusButton = false;
-    } else if(this.count <= 3) {
+    } else if(this.count <= this.facetsCount) {
 
       this.disabledPlusButton = false;
       this.disabledMinusButton = false;
@@ -799,6 +802,7 @@ export interface DialogData {
 
   chamber;
   wantToUpdate;
+  facetsCount;
 }
 
 export class ChamberModel {
