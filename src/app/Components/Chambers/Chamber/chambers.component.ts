@@ -611,7 +611,7 @@ export class ChamberComponent implements OnInit {
 
     for (var i = 0; i < mChambersList.length; i++) {
 
-      if (mChambersList[i].name.toLowerCase().includes(searchValue.toLowerCase())) {
+      if (mChambersList[i].name.toLowerCase().includes(searchValue.toLowerCase()) || mChambersList[i].got_code.toLowerCase().includes(searchValue.toLowerCase())) {
         
         mDropDownChambersList.push(mChambersList[i]);
       }
