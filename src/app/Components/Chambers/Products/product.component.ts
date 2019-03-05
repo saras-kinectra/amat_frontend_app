@@ -105,6 +105,23 @@ export class ProductComponent implements OnInit {
       console.log("getSelectedTab configurationArray: ", this.configurationArray.length);
 
       // this.loadSVGImage();
+
+      if(this.finalProductsList.length > 1) {
+        
+        var message: string = 'We got ' + this.finalProductsList.length + " products";
+    
+        const dialogRef = this.dialog.open(MultipleProducDialog, {
+    
+          width: '460px',
+          height: 'auto',
+          data: {message: message}
+        });
+      
+        dialogRef.afterClosed().subscribe(result => {
+      
+          console.log('showPlatialog dialogRef.afterClosed isFrom');
+        });
+      }
     }, error => {
       
       this.showHttpErrorDailog(error);
@@ -491,4 +508,30 @@ export class ColorModel {
 
   productName: string;
   productColor: string;
+}
+
+@Component({
+
+  selector: 'multiple-product-dialog',
+  templateUrl: 'multipleProducDialog.html',
+})
+
+export class MultipleProducDialog {
+
+  constructor(public dialogRef: MatDialogRef<MultipleProducDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
+  }
+
+  dialogOK() {
+    
+    console.log("Dialog Exit");
+    this.dialogRef.close();
+
+    // localStorage.clear();
+    // this.router.navigate(['/dashboard']);
+  }
+}
+
+export interface DialogData {
+
+  message: string;
 }
