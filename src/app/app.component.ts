@@ -1,7 +1,9 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { TokenResponse } from '@openid/appauth';
+import { UserInfo } from './userinfo';
+import { AuthorizationService } from './authorization.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -9,11 +11,23 @@ import { Component, OnInit,HostListener } from '@angular/core';
 
 export class AppComponent implements OnInit {
 
-  constructor(){
+  public userInfo: UserInfo | null;
+  public authorized: boolean;
 
+  constructor(public authorizationService: AuthorizationService) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
 
+    this.authorizationService.tokenResponse().subscribe((tokenResponse: TokenResponse) => {
+
+        if(tokenResponse != null) {
+
+          localStorage.setItem('isAuthorized', 'true');
+        } else {
+
+          localStorage.setItem('isAuthorized', 'false');
+        }
+    });
   }
 }

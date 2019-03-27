@@ -1,44 +1,42 @@
+import { AuthGuardService } from './Services/authguard.service';
+import { LoginComponent } from './Components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { SubModule } from './Components/sub.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IntroDisplayService } from './intro-display.service';
+import { Requestor, FetchRequestor } from '@openid/appauth';
+import { environment } from './../environments/environment.prod';
+import { AuthorizationService } from './authorization.service';
+import { CallbackComponent } from './callback/callback.component';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SubModule } from './Components/sub.module';
-import { SubRoutingModule} from './Components/sub-routing.module';
-
-import { SelectModule } from 'ng2-select';
-import { MatChipsModule } from '@angular/material/chips';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EnvServiceProvider } from './env.service.provider';
 
 @NgModule({
-
   declarations: [
-
-    AppComponent
+    AppComponent,
+    CallbackComponent,
   ],
-
   imports: [
-    
-    BrowserModule, 
-    ReactiveFormsModule, 
-    FormsModule, 
-    SelectModule, 
-    BrowserAnimationsModule, 
-    MatChipsModule,
-    AppRoutingModule, 
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
     SubModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
+  providers: [
+    AuthGuardService,
+    EnvServiceProvider,
+    AuthorizationService,
+    { provide: Requestor, useValue: new FetchRequestor()},
+    { provide: 'AuthorizationConfig', useValue: environment}
 
-  providers: [EnvServiceProvider],
-  
-  bootstrap: [
-    
-    AppComponent
-  ]
+  ],
+  bootstrap: [AppComponent]
 })
-
 export class AppModule { }

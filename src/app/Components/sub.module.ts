@@ -1,3 +1,7 @@
+import { AuthInterceptor } from './../Services/auth-interceptor';
+import { AuthorizationService } from './../authorization.service';
+import { AuthGuardService } from './../Services/authguard.service';
+import { Requestor, FetchRequestor } from '@openid/appauth';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SubRoutingModule } from './sub-routing.module';
 import { StorageService } from '../Services/storage.service';
@@ -5,7 +9,7 @@ import { ApiService } from 'src/app/Services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -74,6 +78,13 @@ import { ChamberMainModule } from '../Components/Chambers/chamber.module';
     
     ApiService, 
     StorageService,
+    AuthGuardService,
+    AuthorizationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+  }
   ],
 
   entryComponents: [
