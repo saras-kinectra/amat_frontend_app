@@ -1,4 +1,3 @@
-import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { String, StringBuilder } from 'typescript-string-operations';
@@ -20,14 +19,16 @@ export class ApiService {
 
     public httpHeaders = new HttpHeaders({
 
-        'Content-Type': 'application/json'
-        /*,
-        'Authorization': 'Basic ' + btoa(environment.apiBasicAuthUsername+':'+environment.apiBasicAuthPassword)*/
+        'Content-Type': 'application/json',
+        //  'Authorization': 'bearer' + ' ' + localStorage.getItem('accessToken')
+    //    'Authorization': `Bearer ${localStorage.getItem('token')}`
+        // 'Authorization': 'Basic ' + btoa(environment.apiBasicAuthUsername+':'+environment.apiBasicAuthPassword)
     });
 
 
     //GET METHODS
     private GET_PLATFORMS: string = environment.apiUrl + "Platforms";
+    private GET_USER_INFO: string = environment.apiUrl + "me";
 
     public GET_CHAMBERS_BY_PLATFORM_ID: string = environment.apiUrl + "Platforms/{0}/Chambers";
 
@@ -40,23 +41,26 @@ export class ApiService {
     public ADD_OPPORTUNITIES: string = environment.apiUrl + "Opportunities";
 
 
-    constructor(private httpClient: HttpClient, private storageService: StorageService, private env : EnvService) { 
+    constructor(private httpClient: HttpClient, private env : EnvService) { 
 
-        this.GET_PLATFORMS = this.env.apiUrl + "Platforms";
-        this.GET_CHAMBERS_BY_PLATFORM_ID = this.env.apiUrl + "Platforms/{0}/Chambers";
-        this.FIND_PRODUCTS_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindProductsForChambers";
-        this.FIND_COMPATABILITY_INFO_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindCompatibilityInfoForChambers";
-        this.ADD_OPPORTUNITIES = this.env.apiUrl + "Opportunities";
 
+        // this.GET_PLATFORMS = this.env.apiUrl + "Platforms";
+        // this.GET_CHAMBERS_BY_PLATFORM_ID = this.env.apiUrl + "Platforms/{0}/Chambers";
+        // this.FIND_PRODUCTS_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindProductsForChambers";
+        // this.FIND_COMPATABILITY_INFO_FOR_CHAMBERS = this.env.apiUrl + "Chambers/FindCompatibilityInfoForChambers";
+        // this.ADD_OPPORTUNITIES = this.env.apiUrl + "Opportunities";
     }
 
     getPlatforms() {
 
         console.log("ApiService getPlatforms");
-
         return this.httpClient.get(this.GET_PLATFORMS, { headers: this.httpHeaders });
     }
 
+    getUserInfo(){
+
+        return this.httpClient.get(this.GET_USER_INFO, { headers: this.httpHeaders });
+    }
     getChambersByPlatformID(platformID: string) {
 
         console.log("ApiService getChambersByPlatformID");

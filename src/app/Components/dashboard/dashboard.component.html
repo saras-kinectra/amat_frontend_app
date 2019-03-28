@@ -10,12 +10,13 @@
 
                 <div class="col-md-6 ">
 
-                    <button class="menuButton" mat-icon-button [matMenuTriggerFor]="menu">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-
+                <div  style="float:right">
+                  <span style="float:left;margin-top: 4px;">{{currentUser}}</span><button class="menuButton" mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button> 
+                  </div>
+            
                     <mat-menu #menu="matMenu" xPosition ="before">
-
                         <label mat-menu-item style="text-align: center;margin-top: -7px;margin-bottom: -8px;" (click)="showExitDialog();">Exit</label>
                     </mat-menu>
                 </div>

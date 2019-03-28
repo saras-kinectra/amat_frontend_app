@@ -15,17 +15,16 @@ export class AppComponent implements OnInit {
   public authorized: boolean;
 
   constructor(public authorizationService: AuthorizationService) {
+
   }
 
   ngOnInit() {
 
     this.authorizationService.tokenResponse().subscribe((tokenResponse: TokenResponse) => {
-
+      console.log("tokenResponse",tokenResponse);
         if(tokenResponse != null) {
-
           localStorage.setItem('isAuthorized', 'true');
         } else {
-
           localStorage.setItem('isAuthorized', 'false');
         }
     });

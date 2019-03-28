@@ -11,9 +11,10 @@ export const environment = {
     issuer_uri: 'https://myloginqa.amat.com:8080',
     client_id: 'G3Mobile_Dev',
     redirect_uri: 'http://localhost:4200/callback',
+    scope:'openid profile',
     extras: {
-      'prompt': 'consent',
-      'access_type': 'offline'
+     
+      'access_type': 'offline',
     }
 };
 

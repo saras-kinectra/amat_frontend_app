@@ -1,6 +1,4 @@
-import { StorageService } from './../../Services/storage.service';
 import { ApiService } from './../../Services/api.service';
-
 import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -23,7 +21,7 @@ export class LoginComponent implements OnInit {
   showLoginErrorMessage: boolean = false;
   labelError: boolean = false;
   submitted: boolean = false;
-  constructor(private apiService: ApiService, private storageService: StorageService, private router: Router, private route: ActivatedRoute) {
+  constructor(private apiService: ApiService, private router: Router, private route: ActivatedRoute) {
 
   }
 

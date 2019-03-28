@@ -33,9 +33,7 @@ export class CallbackComponent implements OnInit {
         window.location.assign(new URL(path, window.location.href).toString());
       } else if (new URLSearchParams(window.location.hash).has('#code')) {
         this.authorizationService.completeAuthorizationRequest().then((tokenResponse) => {
-          console.log('recieved token response: ' + tokenResponse);
           this.router.navigate(['/dashboard'])
-      
         });
       } else {
 

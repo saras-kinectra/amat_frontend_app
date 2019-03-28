@@ -36,6 +36,8 @@ const LS_ISSUER_URI     = 'authorization.service.issuer_uri';
 const LS_USER_INFO      = 'authorization.service.user_info';
 const LS_OPENID_CONFIG  = 'authorization.service.parsed_openid_configuration';
 const LS_TOKEN_RESPONSE = 'authorization.service.token_response';
+
+
 @Injectable()
 export class AuthorizationService {
 
@@ -168,8 +170,8 @@ export class AuthorizationService {
     .pipe(take(1))
     .subscribe((configuration: AuthorizationServiceConfiguration) => {
       const scope = this.environment.scope || 'openid';
-
       // create a request
+      console.log("scope",scope);
       const request = new AuthorizationRequest({
         client_id: this.environment.client_id,
         redirect_uri: this.environment.redirect_uri,
@@ -220,7 +222,7 @@ export class AuthorizationService {
             console.log('making token request:' + JSON.stringify(tokenRequest.toStringMap()));
             tokenHandler.performTokenRequest(configuration, tokenRequest)
               .then((tokenResponse) => {
-                console.log('received token response ', tokenResponse);
+                console.log('received token response', tokenResponse);
                 this._tokenResponses.next(tokenResponse);
                 resolve(tokenResponse);
               });

@@ -1,4 +1,3 @@
-import { StorageService } from './../../Services/storage.service';
 import { DialogOverviewExampleDialog, ChamberHttpErrorDialog, ChamberQuantityDialog } from './Chamber/chambers.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -80,8 +79,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 
   providers: [
     
-    ApiService, 
-    StorageService
+    ApiService,
   ],
 
   entryComponents: [

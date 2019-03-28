@@ -4,7 +4,6 @@ import { AuthGuardService } from './../Services/authguard.service';
 import { Requestor, FetchRequestor } from '@openid/appauth';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SubRoutingModule } from './sub-routing.module';
-import { StorageService } from '../Services/storage.service';
 import { ApiService } from 'src/app/Services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -77,7 +76,6 @@ import { ChamberMainModule } from '../Components/Chambers/chamber.module';
   providers: [
     
     ApiService, 
-    StorageService,
     AuthGuardService,
     AuthorizationService,
     {

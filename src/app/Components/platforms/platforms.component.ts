@@ -2,8 +2,6 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { StorageService } from './../../Services/storage.service';
 import { ApiService } from './../../Services/api.service';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -26,7 +24,7 @@ export class PlatFormsComponent implements OnInit {
 
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
 
-  constructor(private apiService: ApiService, private storageService: StorageService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog) {
+  constructor(private apiService: ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog) {
 
   }
 

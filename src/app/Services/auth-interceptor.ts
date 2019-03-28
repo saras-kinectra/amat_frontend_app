@@ -7,39 +7,23 @@ import {mergeMap} from 'rxjs/operators';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
+    public token:string;
     constructor (private authService : AuthorizationService) {}
     
     intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-     this.authService.completeAuthorizationRequest().then((tokenResponse) => {
-           
-        if (tokenResponse) {
-                    // clone and modify the request
-                    request = request.clone({
-                        setHeaders: {
-                            Authorization: `Bearer ${tokenResponse}`
-                        }
-                    });
-                }
-        
-          });
-
-          return next.handle(request);
-        // return this.authService.getAccessTokenObservable()
-        // .pipe(mergeMap(token => {
-
-        //     if (token) {
-        //         // clone and modify the request
-        //         request = request.clone({
-        //             setHeaders: {
-        //                 Authorization: `Bearer ${token}`
-        //             }
-        //         });
-        //     }
-
-        //     return next.handle(request);
-                
-        // })
-        // );      
-    }
+        return this.authService.tokenResponse()
+        .pipe(mergeMap(token => {
+            if (token) {
+                // clone and modify the request
+                request = request.clone({
+                    setHeaders: {
+                        Authorization: `Bearer ${token.accessToken}`
+                    }
+                });
+            }
+            return next.handle(request);    
+        })
+        );       
+}
 }

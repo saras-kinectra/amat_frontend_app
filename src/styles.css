@@ -147,7 +147,7 @@ body .ui-tooltip .ui-tooltip-text {
 button.menuButton.mat-icon-button {
     
     outline: none;
-    margin-right: -3%;
+    margin-right: -12px;
 }
 
 .mat-menu-panel {
