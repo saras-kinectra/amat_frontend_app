@@ -1,3 +1,4 @@
+import { CallbackComponent } from './../callback/callback.component';
 import { AuthInterceptor } from './../Services/auth-interceptor';
 import { AuthorizationService } from './../authorization.service';
 import { AuthGuardService } from './../Services/authguard.service';
@@ -32,7 +33,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { LoginComponent } from '../Components/login/login.component';
 import { ChamberMainModule } from '../Components/Chambers/chamber.module';
 
 @NgModule({
@@ -40,8 +40,8 @@ import { ChamberMainModule } from '../Components/Chambers/chamber.module';
 
     DashboardComponent,
     PlatFormsComponent,
-    LoginComponent,
     ExitDialog,
+    CallbackComponent,
     PlatformHttpErrorDialog
   ],
 

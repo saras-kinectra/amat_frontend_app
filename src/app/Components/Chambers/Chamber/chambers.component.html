@@ -6,19 +6,10 @@
       <mat-form-field class="chip-list  mat-form-field-custom">
 
         <label class="selectChambersName">Select Chambers</label>
-        <!-- <div *ngIf="showSelectChamberTitle; else enable">
-          <label class="selectChambersName">Select Chambers</label>
-        </div>
-
-        <ng-template #enable>
-          <label class="selectChambersName" style="color:#D22630;;">Select Chambers</label>
-        </ng-template> -->
-
         <mat-chip-list #chipList>
           <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="chamberSelectable"
             [removable]="removable" (removed)="chambersRemove(chamber)" (click)="updateChambersByID(chamber)">
             {{chamber.name}} ({{chamber.got_code}})
-            <!-- <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon> -->
             <div class="chamberQtyCircle">{{chamber.qty}}</div>
           </mat-chip>
 

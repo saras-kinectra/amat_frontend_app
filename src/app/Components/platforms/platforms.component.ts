@@ -24,34 +24,23 @@ export class PlatFormsComponent implements OnInit {
 
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
 
-  constructor(private apiService: ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog) {
-
-  }
+  constructor(private apiService: ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog) {}
 
   ngOnInit() {
 
     localStorage.clear();
-
     this.form = this.formBuilder.group({
-
       platform: [null, [Validators.required]],
     });
 
     this.opIdInput.nativeElement.focus();
-
     this.apiService.getPlatforms().subscribe(response => {
-
+      
       console.log("Response - getPlatforms: ", response);
-
       this.platformsList = JSON.parse(JSON.stringify(response));
-
-      console.log("Response - getPlatforms: json: ", this.platformsList);
     }, error => {
-      
+
       console.log("error response", error);
-      console.log("error status: ", error.status);
-      console.log("error message: ", error.message);
-      
       var errorCode = error.status;
       var errorMessage: string = '';
 
@@ -72,9 +61,6 @@ export class PlatFormsComponent implements OnInit {
         errorMessage = 'Something went wrong and we couldn\'t process your request';
       }
 
-      console.log("error status after if: ", error.status);
-      console.log("error message after if: ", error.message);
-
       const dialogRef = this.dialog.open(PlatformHttpErrorDialog, {
 
         width: '460px',
@@ -83,26 +69,12 @@ export class PlatFormsComponent implements OnInit {
       });
     
       dialogRef.afterClosed().subscribe(result => {
-    
-        console.log('showPlatialog dialogRef.afterClosed isFrom');
+
       });
     });
   }
 
-  onPlatFormListChange(event, index) {
-
-    console.log("onPlatFormListChange", event._id, index);
-  }
-
-  // onToolTipMouseOver(): void {
-
-  //   this.toolTipIcon = "assets/info_icon@1x.png";
-  // }
-
-  // onToolTipMouseOut(): void {
-
-  //   this.toolTipIcon = "assets/Icon-Info-Inactive@1x.png";
-  // }
+  onPlatFormListChange(event, index) {}
 
   focusFunction() {
 
@@ -126,15 +98,8 @@ export class PlatFormsComponent implements OnInit {
   next() {
 
     localStorage.clear();
-
-    console.log("next selectedPosition: ", this.selectedPosition);
-    console.log("next opID: ", this.opIdInput.nativeElement.value);
-
     localStorage.setItem("SelectedPlatform", JSON.stringify(this.platformsList[this.selectedPosition]));
     localStorage.setItem("SelectedOPID", this.opIdInput.nativeElement.value);
-
-    console.log("next selected platform: ", this.platformsList[this.selectedPosition]);
-
     this.router.navigate(['platform/chambers'], { relativeTo: this.route });
   }
 }
@@ -147,20 +112,14 @@ export class PlatFormsComponent implements OnInit {
 
 export class PlatformHttpErrorDialog {
 
-  constructor(public dialogRef: MatDialogRef<PlatformHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
-  }
+  constructor(public dialogRef: MatDialogRef<PlatformHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   dialogOK() {
-    
-    console.log("Dialog Exit");
+  
     this.dialogRef.close();
-
-    // localStorage.clear();
-    // this.router.navigate(['/dashboard']);
   }
 }
 
 export interface DialogData {
-
   errorMessage: string;
 }

@@ -2,29 +2,20 @@ import { AuthGuardService } from './../Services/authguard.service';
 import { NgModule, isDevMode } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
- 
 import { PlatFormsComponent } from './platforms/platforms.component';
-import { LoginComponent } from './login/login.component';
-import { ChamberMainModule } from '../Components/Chambers/chamber.module';
 import { ChamberMainComponent } from '../Components/Chambers/chambermain.component';
+import { CallbackComponent } from '../callback/callback.component';
 
 const routes: Routes = [
 
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  
-  {
-    path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuardService],
+  { path: 'callback',  component: CallbackComponent },
+  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuardService],
 
     children: [
-
       { path: '', component: PlatFormsComponent },
-
       { path: 'platform/chambers', component: ChamberMainComponent,
-      /* For Dev evnt*/
-      // loadChildren: () => ChamberMainModule
-      /* For Prod evnt*/
-      loadChildren:'../Components/Chambers/chamber.module#ChamberMainModule'
-    },
+      loadChildren:'../Components/Chambers/chamber.module#ChamberMainModule'},
     ]
   }
 ];

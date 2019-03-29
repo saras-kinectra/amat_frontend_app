@@ -40,12 +40,8 @@ export class ProductComponent implements OnInit {
   constructor( private apiService: ApiService, private location: Location, public iconRegistry: MatIconRegistry, public sanitizer: DomSanitizer, private elem: ElementRef, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) {
 
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
-    console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
-    console.log("ngOnInit selectedPlatformname:", this.selectedPlatform.id);
-
     var selectedChambersList: any[] = JSON.parse(localStorage.getItem('SelectedChambersList'));
 
-    // this.selectedChamberIDs = JSON.parse(localStorage.getItem('SelectedChambersList'));
     for (let i = 0; i < selectedChambersList.length; i++) {
 
       for(let j = 0; j < selectedChambersList[i].qty; j++) {
@@ -53,8 +49,6 @@ export class ProductComponent implements OnInit {
         this.selectedChamberIDs.push(selectedChambersList[i].id);
       }
     }
-    console.log("Products_Onint_ChamberIDList", localStorage.getItem('SelectedChambersList'));
-    console.log("Products_Onint_ChamberIDList", this.selectedChamberIDs);
 
     this.dummyConfigurationArray = [
       {number:"1"}, {number:"2"}, {number:"3"}, {number:"4"}, {number:"5"},
@@ -72,15 +66,8 @@ export class ProductComponent implements OnInit {
     this.apiService.findProductsForChambers(this.selectedPlatform.id, this.selectedChamberIDs).subscribe(response => {
 
       console.log("Response - findProductsForChambers: ", response);
-
       this.finalProductsList = JSON.parse(JSON.stringify(response));
-
-      console.log("Response - findProductsForChambers: length: ", this.finalProductsList.length);
-      console.log("Response - findProductsForChambers: json: ", this.finalProductsList);
-
       this.selectedOPID = localStorage.getItem('SelectedOPID');
-      console.log("getSelectedTab opID: ", this.selectedOPID);
-
       if(this.selectedOPID === '') {
 
         this.selectedOPID = '----';
@@ -89,29 +76,14 @@ export class ProductComponent implements OnInit {
       this.selectedTab = 0;
 
       this.selectedProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
-      console.log("getSelectedTab selectedProduct: ", this.selectedProduct);
-
       this.imageURL = JSON.parse(JSON.stringify(this.selectedProduct.model_svg_url));
-      console.log("getSelectedTab imageURL: ", this.imageURL);
-      // this.imageURL =  "http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/client-assets/endura4.svg";
-    // this.imageURL = "../../../../assets/endura2.svg";
-      // this.imageURL = "../../../../assets/SingleProducer2.svg";
-      // this.imageURL = "../../../../assets/Charger2.svg";
-      // this.imageURL = "../../../../assets/Centura2.svg";
-      
       this.iconRegistry.addSvgIcon('productImageIcon', this.sanitizer.bypassSecurityTrustResourceUrl(this.imageURL));
-
       this.configurationArray = JSON.parse(JSON.stringify(this.selectedProduct.configuration));
-      console.log("getSelectedTab configurationArray: ", this.configurationArray.length);
-
       // this.loadSVGImage();
-
       if(this.finalProductsList.length > 1) {
         
         var message: string = 'We got ' + this.finalProductsList.length + " products";
-    
         const dialogRef = this.dialog.open(MultipleProducDialog, {
-    
           width: '460px',
           height: 'auto',
           data: {message: message}
@@ -119,7 +91,6 @@ export class ProductComponent implements OnInit {
       
         dialogRef.afterClosed().subscribe(result => {
       
-          console.log('showPlatialog dialogRef.afterClosed isFrom');
         });
       }
     }, error => {
@@ -131,8 +102,6 @@ export class ProductComponent implements OnInit {
   loadSVGImage() {
 
     var configurationArray2: any[] = this.configurationArray;
-    console.log("getSelectedTab configurationArray2: ", configurationArray2);
-
     this.svgColorArray = [];
     let dummySVGColorArray = [];
     this.showSVGImage = true;
@@ -140,8 +109,7 @@ export class ProductComponent implements OnInit {
     setTimeout(()=> {
 
       this.domIDsList = document.querySelector('object').ownerDocument.documentElement.querySelectorAll('g');
-      console.log("setTimeout querySelector domIDsList: ", Array.prototype.slice.call(this.domIDsList));
-      
+
       for(var i = 0; i < configurationArray2.length; i++) {
 
         if(configurationArray2[i].chamber_name == '') {
@@ -154,7 +122,6 @@ export class ProductComponent implements OnInit {
             } else {
 
             }
-
             if(this.domIDsList[j].id === configurationArray2[i].facet_name + '-HOVER') {
 
               this.domIDsList[j].style.visibility = 'hidden';
@@ -176,14 +143,10 @@ export class ProductComponent implements OnInit {
         this.checkDiplicateSVGColors(dummySVGColorArray[i]);
       }
 
-      console.log("setTimeout configurationArray svgColorArray after length dummySVGColorArray: ", dummySVGColorArray);
-      console.log("setTimeout configurationArray svgColorArray after length svgColorArray: ", this.svgColorArray);
-
       for(var i = 0; i < configurationArray2.length; i++) {
 
         if(configurationArray2[i].chamber_name == '') {
 
-          
         } else {
 
           for(var j = 0; j < this.svgColorArray.length; j++) {
@@ -197,7 +160,6 @@ export class ProductComponent implements OnInit {
                   this.domIDsList[k].childNodes[1].style.fill = this.svgColorArray[j].productColor;
                   this.domIDsList[k].childNodes[3].style.fill = this.svgColorArray[j].productColor;
 
-
                   if(configurationArray2[i].facet_name == '1') {
 
                     if(this.domIDsList[k].childNodes[2]) {
@@ -208,15 +170,9 @@ export class ProductComponent implements OnInit {
                       }
                     }
                   }
-
-
                 } else {
-
                 }
-    
                 if(this.domIDsList[k].id === configurationArray2[i].facet_name + '-HOVER') {
-    
-
                   this.domIDsList[k].childNodes[1].style.fill = this.svgColorArray[j].productColor;
                   this.domIDsList[k].childNodes[3].style.fill = this.svgColorArray[j].productColor;
 
@@ -229,14 +185,12 @@ export class ProductComponent implements OnInit {
                   }
 
                 } else {
-    
                 }
               }
             }
           }
         }
       }
-
       this.showSVGImage = false;
     }, 1000);
   }
@@ -250,31 +204,20 @@ export class ProductComponent implements OnInit {
           return;
       }
     }
-
     this.svgColorArray.push(svgColorItem);
   }
 
   getSelectedTab(tabPosition) {
 
-    console.log("getSelectedTab tabPosition: ", tabPosition.index);
-
     this.selectedTab = tabPosition.index;
-    console.log("getSelectedTab selectedTab: ", this.selectedTab);
-
     this.selectedProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
-    console.log("getSelectedTab selectedProduct: ", this.selectedProduct);
-
     this.imageURL = JSON.parse(JSON.stringify(this.selectedProduct.model_svg_url));
-    console.log("getSelectedTab imageURL: ", this.imageURL);
-
     this.configurationArray = this.finalProductsList[this.selectedTab].configuration;
-    console.log("getSelectedTab configurationArray: ", this.configurationArray);
-
     this.loadSVGImage();
   }
 
   productItemMouseOver(configuration, isMouseOver) {
-  
+
     this.domIDsList = document.querySelector('object').ownerDocument.documentElement.querySelectorAll('g');
 
     for(var i = 0; i < this.domIDsList.length; i++) {
@@ -286,11 +229,8 @@ export class ProductComponent implements OnInit {
           if(isMouseOver) {
 
             this.domIDsList[i].style.visibility = 'visible';
-
-
             this.domIDsList[i].childNodes[1].style.fill = '#c7e2ef';
             this.domIDsList[i].childNodes[3].style.fill = '#c7e2ef';
-
 
             if(configuration.facet_name == '1') {
 
@@ -311,7 +251,6 @@ export class ProductComponent implements OnInit {
           }
         }
       } else {
-
       }
 
       if(this.domIDsList[i].id === configuration.facet_name + '-HOVER') {
@@ -321,7 +260,6 @@ export class ProductComponent implements OnInit {
           if(isMouseOver) {
 
             this.domIDsList[i].style.visibility ='visible';
-            
             this.domIDsList[i].childNodes[1].style.fill =  '#c7e2ef';
             this.domIDsList[i].childNodes[3].style.fill =  '#c7e2ef';
 
@@ -340,10 +278,6 @@ export class ProductComponent implements OnInit {
 
   showHttpErrorDailog(error) {
 
-    console.log("error response", error);
-    console.log("error status: ", error.status);
-    console.log("error message: ", error.message);
-    
     var errorCode = error.status;
     var errorMessage: string = '';
 
@@ -364,9 +298,6 @@ export class ProductComponent implements OnInit {
       errorMessage = 'Something went wrong and we couldn\'t process your request';
     }
 
-    console.log("error status after if: ", error.status);
-    console.log("error message after if: ", error.message);
-
     const dialogRef = this.dialog.open(ProductHttpErrorDialog, {
 
       width: '460px',
@@ -376,7 +307,6 @@ export class ProductComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
   
-      console.log('showPlatialog dialogRef.afterClosed isFrom');
     });
   }
 
@@ -421,32 +351,22 @@ export class ProductComponent implements OnInit {
 
   submitButton() {
 
-    console.log("getSelectedTab selectedTab: ", this.selectedTab);
-    console.log("getSelectedTab finalProductsList: ", this.finalProductsList[this.selectedTab]);
-
     var opportunityProduct = JSON.parse(JSON.stringify(this.finalProductsList[this.selectedTab]));
-    console.log("getSelectedTab opportunitiProduct: ", opportunityProduct);
-
+  
     if(this.selectedOPID === '' || this.selectedOPID === '----') {
 
-      console.log('showOPIDDialog');
-
       const dialogRef = this.dialog.open(OPIDDialog, {
-
         width: '350px',
         height: '170px',
       });
 
       dialogRef.afterClosed().subscribe(result => {
 
-        console.log('showOPIDDialog dialogRef.afterClosed isFrom');
       });
     } else {
 
       this.apiService.addOpportunities(this.selectedOPID, opportunityProduct).subscribe(response => {
 
-        console.log("Response - addOpportunities: ", response);
-  
         localStorage.clear();
         this.router.navigate(['/dashboard']);
       }, error => {
@@ -465,16 +385,11 @@ export class ProductComponent implements OnInit {
 
 export class OPIDDialog {
 
-  constructor(public dialogRef: MatDialogRef<OPIDDialog>) { 
-  }
+  constructor(public dialogRef: MatDialogRef<OPIDDialog>) { }
 
   dialogOK() {
-    
-    console.log("Dialog Exit");
+  
     this.dialogRef.close();
-
-    // localStorage.clear();
-    // this.router.navigate(['/dashboard']);
   }
 }
 
@@ -491,11 +406,7 @@ export class ProductHttpErrorDialog {
 
   dialogOK() {
     
-    console.log("Dialog Exit");
     this.dialogRef.close();
-
-    // localStorage.clear();
-    // this.router.navigate(['/dashboard']);
   }
 }
 
@@ -518,16 +429,11 @@ export class ColorModel {
 
 export class MultipleProducDialog {
 
-  constructor(public dialogRef: MatDialogRef<MultipleProducDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
-  }
+  constructor(public dialogRef: MatDialogRef<MultipleProducDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   dialogOK() {
     
-    console.log("Dialog Exit");
     this.dialogRef.close();
-
-    // localStorage.clear();
-    // this.router.navigate(['/dashboard']);
   }
 }
 

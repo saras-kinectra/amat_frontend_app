@@ -1,15 +1,3 @@
-// Copyright 2018 Ping Identity
-//
-// Licensed under the MIT License (the "License"); you may not use this file
-// except in compliance with the License.
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-
 import { Injectable, Inject } from '@angular/core';
 import {
   AuthorizationNotifier,
@@ -43,7 +31,6 @@ export class AuthorizationService {
 
   private notifier = new AuthorizationNotifier();
   private authorizationHandler = new RedirectRequestHandler();
-
   private _tokenResponses: BehaviorSubject<TokenResponse>;
   private _userInfos:      BehaviorSubject<UserInfo>;
   private _serviceConfigs: BehaviorSubject<AuthorizationServiceConfiguration>;
@@ -126,7 +113,6 @@ export class AuthorizationService {
 
         // if we don't have a user info endpoint, we can't fetch user info
         if (configuration.userInfoEndpoint == null) {
-          console.log('userinfo cannot be emitted - userinfo endpoint not specified by metadata');
           this._userInfos.next(null);
           return;
         }
@@ -145,7 +131,6 @@ export class AuthorizationService {
         }
     });
   
-
     // start fetching metadata
     if (authorizationServiceConfiguration == null) {
       this.fetchServiceConfiguration(environment);
@@ -171,7 +156,6 @@ export class AuthorizationService {
     .subscribe((configuration: AuthorizationServiceConfiguration) => {
       const scope = this.environment.scope || 'openid';
       // create a request
-      console.log("scope",scope);
       const request = new AuthorizationRequest({
         client_id: this.environment.client_id,
         redirect_uri: this.environment.redirect_uri,
@@ -189,7 +173,6 @@ export class AuthorizationService {
   }
 
   signOut(): void {
-    console.log('signing out');
     this._tokenResponses.next(null);
   }
 
@@ -199,9 +182,8 @@ export class AuthorizationService {
       .pipe(filter((value: any) => value != null))
       .pipe(take(1))
       .subscribe((configuration: AuthorizationServiceConfiguration) => {
-        console.log('setting listener');
         this.notifier.setAuthorizationListener((request, response, error) => {
-          console.log('Authorization request complete ', request, response, error);
+      
           if (response && response.code) {
             const tokenHandler = new BaseTokenRequestHandler(this.requestor);
 
@@ -218,11 +200,8 @@ export class AuthorizationService {
               code: response.code,
               extras: extras
             });
-
-            console.log('making token request:' + JSON.stringify(tokenRequest.toStringMap()));
             tokenHandler.performTokenRequest(configuration, tokenRequest)
               .then((tokenResponse) => {
-                console.log('received token response', tokenResponse);
                 this._tokenResponses.next(tokenResponse);
                 resolve(tokenResponse);
               });
@@ -230,7 +209,6 @@ export class AuthorizationService {
             reject(error);
           }
         });
-        console.log('attempt to complete request');
         this.authorizationHandler.completeAuthorizationRequestIfPossible();
       }, reject);
     });

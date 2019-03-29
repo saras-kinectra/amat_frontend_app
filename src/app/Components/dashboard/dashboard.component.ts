@@ -19,36 +19,28 @@ export class DashboardComponent implements OnInit {
   currentUser;
 
   constructor(public dialog: MatDialog,public authorizationService: AuthorizationService,
-    public apiService:ApiService) {
-  }
+    public apiService:ApiService) {}
 
   ngOnInit() {
-
     this.authorizationService.tokenResponse().subscribe((tokenResponse: TokenResponse) => {
-
         if(tokenResponse != null) {
           this.apiService.getUserInfo().subscribe((userInfo => {
             this.currentUserInfo  = userInfo;
             this.currentUser = this.currentUserInfo.logonUser
-            console.log("userINformation",this.currentUserInfo.logonUser);
           }));
-        } else {
-
-        }
+        } else {}
     });
 
   }
 
   showExitDialog() {
 
-    console.log('showExitDialog');
     const dialogRef = this.dialog.open(ExitDialog, {
       width: '350px',
       height: '170px',
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('showExitDialog dialogRef.afterClosed isFrom');
+
     });
   }
 }
@@ -61,20 +53,16 @@ export class DashboardComponent implements OnInit {
 
 export class ExitDialog {
 
-  constructor(public dialogRef: MatDialogRef<ExitDialog>, private router: Router, private route: ActivatedRoute) { 
-  }
+  constructor(public dialogRef: MatDialogRef<ExitDialog>, private router: Router, private route: ActivatedRoute) { }
 
   dialogCancel(): void {
 
-    console.log("Dialog Exit");
     this.dialogRef.close();
   }
 
   dialogExit() {
 
-    console.log("Dialog Exit");
     this.dialogRef.close();
-
     localStorage.clear();
     this.router.navigate(['/dashboard']);
   }

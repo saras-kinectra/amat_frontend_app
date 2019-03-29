@@ -11,8 +11,6 @@ export class EnvService {
   // API url
   public apiUrl = 'http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/api/';
 
-
-  constructor() {
-  }
+  constructor() {}
 
 }

@@ -8,10 +8,8 @@ import { Component, OnInit, NgModule } from '@angular/core';
 
 export class ChamberMainComponent implements OnInit {
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() { 
+  ngOnInit() {}
 
-  }
 }

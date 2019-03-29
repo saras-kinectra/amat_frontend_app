@@ -71,39 +71,24 @@ export class ChamberComponent implements OnInit {
       chamberInputForm: [null, [Validators.required ]],
     });
 
-    // this.chamberInput.nativeElement.focus();
     this.formFiledUnderLine = true;
-
     this.selectedPlatform = JSON.parse(localStorage.getItem('SelectedPlatform'));
-    console.log("ngOnInit selectedPlatformparse: ", JSON.parse(localStorage.getItem('SelectedPlatform')));
-
-    console.log("ngOnInit selectedPlatformname:", this.selectedPlatform.id);
-
-    console.log("ngOnInit json selectedChambersList:", JSON.parse(localStorage.getItem('SelectedChambersList')));
     var selectedChambersFromLocal: any[] = JSON.parse(localStorage.getItem('SelectedChambersList'));
-    console.log("ngOnInit selectedChambersFromLocal:", selectedChambersFromLocal);
-
     if(selectedChambersFromLocal != null && selectedChambersFromLocal.length > 0) {
 
       this.selectedChambersList = selectedChambersFromLocal;
-      console.log("ngOnInit selectedChambersList:", this.selectedChambersList);
-
       this.findCompatibilityInfoForChamberIds();
     } else {
 
       this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
-
         console.log("ngOnInit getChambersByPlatformID response: ", response);
         
         this.chambersList = JSON.parse(JSON.stringify(response));
-        // this.dropDownChambersList = this.chambersList;
-
         if(this.chambersList.length > 0) {
 
         } else {
 
           const dialogRef = this.dialog.open(ChamberHttpErrorDialog, {
-
             panelClass: 'chamberHttpErrorDialogBorderRadius',
             width: '460px',
             // height: 'auto',
@@ -112,7 +97,6 @@ export class ChamberComponent implements OnInit {
         
           dialogRef.afterClosed().subscribe(result => {
         
-            console.log('showPlatialog dialogRef.afterClosed isFrom');
           });
         }
       }, error => {
@@ -129,16 +113,11 @@ export class ChamberComponent implements OnInit {
 
   chambersRemove(chamber): void {
 
-    console.log("chambersRemove isCalledServiceAPI: ", this.isCalledServiceAPI);
-
     if(this.isCalledServiceAPI) {
 
     } else {
-
       const index = this.selectedChambersList.indexOf(chamber);
-
       this.selectedChambersList.splice(index, 1);
-      console.log("chambersRemove SelectedChambers", this.selectedChambersList.length);
 
       if (this.selectedChambersList.length === 0) {
 
@@ -152,20 +131,12 @@ export class ChamberComponent implements OnInit {
 
   chamberOptionSelected(event) {
 
-    console.log("chamberOptionSelected isCalledServiceAPI: ", this.isCalledServiceAPI);
-
     if(this.isCalledServiceAPI) {
 
     } else {
 
-      console.log("chamberOptionSelected event.option.value.id: ", event.option.value.id);
-      console.log("chamberOptionSelected this.isChamberSelected: ", this.isChamberSelected);
-      console.log("chamberOptionSelected this.isRnDChambersEnabled: ", this.isRnDChambersEnabled);
-
       var chamber;
-
       if (this.isChamberSelected) {
-
         if(this.isRnDChambersEnabled) {
 
           chamber = this.getChamberByID(event.option.value.id, this.rndOnlyChambersList);
@@ -179,7 +150,6 @@ export class ChamberComponent implements OnInit {
       }
 
       console.log("getChamberByID selectedChamber: ", chamber);
-
       this.filterChambersByID(chamber);
     }
   }
@@ -187,10 +157,6 @@ export class ChamberComponent implements OnInit {
   getChamberByID(chamberID, chamberList) {
 
     for (let i = 0; i < chamberList.length; i++) {
-
-      console.log("getChamberByID chamberID: ", chamberID);
-      console.log("getChamberByID chamberList: ", i,  chamberList[i]);
-
       if (chamberList[i].id === chamberID) {
 
         return chamberList[i];
@@ -205,47 +171,34 @@ export class ChamberComponent implements OnInit {
 
   filterChambersByID(chamber) {
 
-    console.log("filterChambersByID isCalledServiceAPI: ", this.isCalledServiceAPI);
-
     this.showChamberQtyDialog(chamber, false);
   }
 
   filterRnDChambersByID(rnDChamber) {
 
     console.log("filterRnDChambersByID isCalledServiceAPI: ", this.isCalledServiceAPI);
-
     if(this.isCalledServiceAPI) {
 
     } else {
 
       console.log('filterRndChambersByID selectedChamber: ', rnDChamber);
-
       if (this.isRnDChambersEnabled) {
 
         this.filterRnDChambers(rnDChamber);
       } else {
-
         const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-
           width: '350px',
           height: '215px',
           data: { isEnable: this.isRnDChambersEnabled }
         });
 
         dialogRef.afterClosed().subscribe(result => {
-
           var isFrom = localStorage.getItem('IsFrom');
-
-          console.log('filterRnDChambersByID dialogRef.afterClosed isFrom', isFrom);
-          console.log('filterRnDChambersByID dialogRef.afterClosed', this.isRnDChambersEnabled);
-
           if (isFrom === "EnableButton") {
 
             this.isRnDChambersEnabled = JSON.parse(localStorage.getItem('IsRnDEnable'));
-
             this.showCompatibilityChambersTitle = false;
             this.showCompatibilityChambersList = false;
-
             this.filterRnDChambers(rnDChamber);
           } else {
 
@@ -253,24 +206,17 @@ export class ChamberComponent implements OnInit {
         });
       }
     }
-
     this.chamberInput.nativeElement.value = '';
     this.chamberFormControl.setValue(null);
   }
 
   filterRnDChambers(rnDChamber) {
     
-    console.log('filterRnDChambers selectedChamber: ', rnDChamber);
-
-    // this.selectedChambersList.push(rnDChamber);
     this.showChamberQtyDialog(rnDChamber, false);
     this.findCompatibilityInfoForChamberIds();
   }
 
   findCompatibilityInfoForChamberIds() {
-
-    console.log('findCompatibilityInfoForChamberIds facetsCount: ', this.selectedPlatform.facetsCount);
-    console.log('findCompatibilityInfoForChamberIds selectedChambersList.length: ', this.selectedChambersList.length);
 
     if(this.selectedChambersList.length > 0) {
 
@@ -288,9 +234,6 @@ export class ChamberComponent implements OnInit {
         selectedChamberIDs.push(this.selectedChambersList[i].id);
       }
     }
-
-    console.log("filterRnDChambers Selected Ids", selectedChamberIDs);
-    console.log("filterRnDChambers SelectedChambersList:", this.selectedChambersList);
 
     if (selectedChamberIDs.length > this.selectedPlatform.facets_count) {
 
@@ -323,34 +266,24 @@ export class ChamberComponent implements OnInit {
     this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.selectedPlatform.id).subscribe(response => {
 
       console.log("filterCompatibleChambersByID response: ", response);
-
       var responseList: any = JSON.parse(JSON.stringify(response));
-
       this.compatibilityChambersList = responseList.compatibleChambers;
       this.rndOnlyChambersList = responseList.rndOnlyChambers;
-
-      console.log("filterCompatibleChambersByID compatibilityChambersList: ", this.compatibilityChambersList);
-      console.log("filterCompatibleChambersByID incompatibilityChambersList: ", this.rndOnlyChambersList);
-
       this.showChambersList = false;
       this.showCompatibilityChambersTitle = true;
       this.showCompatibilityChambersList = true;
       this.showRnDChamberTitle = true;
       this.showRnDChamberList = true;
       this.isChamberSelected = true;
-
       this.isCalledServiceAPI = false;
       
       if (this.isChamberSelected) {
 
-        // if(this.isRnDChambersEnabled) {
         if(this.compatibilityChambersList.length > 0) {
 
-          // this.dropDownChambersList = this.compatibilityChambersList;
           this.isRnDChambersEnabled = false;
         } else {
 
-          // this.dropDownChambersList = this.rndOnlyChambersList;
           this.isRnDChambersEnabled = true;
         }
       }
@@ -409,17 +342,11 @@ export class ChamberComponent implements OnInit {
     this.showSelectedChambersClearButton = false;
 
     this.isRnDChambersEnabled = false;
-
     this.isButtonLabelCondition = false;
-
-    console.log("clearAllSelectedChambers Platform ID:", this.selectedPlatform.id);
 
     this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
 
-      console.log("clearAllSelectedChambers getChambersByPlatformID response: ", response);
-
       this.chambersList = JSON.parse(JSON.stringify(response));
-      // this.dropDownChambersList = this.chambersList;
     }, error => {
       
       this.showHttpErrorDailog(error);
@@ -429,7 +356,6 @@ export class ChamberComponent implements OnInit {
   showChamberQtyDialog(selectedChamber, wantToUpdate) {
 
     const dialogRef = this.dialog.open(ChamberQuantityDialog, {
-
       width: '391px',
       height: 'auto',
       data:{chamber: selectedChamber, wantToUpdate: wantToUpdate, facetsCount: this.selectedPlatform.facets_count}
@@ -441,16 +367,11 @@ export class ChamberComponent implements OnInit {
       var qtyCount: any = localStorage.getItem('QtyDialogCount');
       var selectedDialogChamber = JSON.parse(localStorage.getItem('QtyDialogSelectedChamber'));
 
-      console.log('showChamberQtyDialog afterClosed isFrom: ', isFrom);
-      console.log('showChamberQtyDialog afterClosed qtyCount: ', qtyCount);
-      console.log('showChamberQtyDialog afterClosed selectedDialogChamber: ', selectedDialogChamber);
-      
       if(isFrom == 'Delelte') {
 
         if(wantToUpdate) {
 
           let index = -1;
-
           for (let i = 0; i < this.selectedChambersList.length; i++) {
 
             if(this.selectedChambersList[i].id == selectedDialogChamber.id) {
@@ -458,13 +379,9 @@ export class ChamberComponent implements OnInit {
               index = i;
             }
           }
-          // const index = this.selectedChambersList.indexOf(selectedDialogChamber);
-          console.log('showChamberQtyDialog afterClosed index: ', index);
-          console.log('showChamberQtyDialog afterClosed qtyCount: ', qtyCount);
-
+  
           this.selectedChambersList.splice(index, 1);
-          console.log("showChamberQtyDialog afterClosed qty = 0 selectedChambersList", this.selectedChambersList.length);
-
+    
           if (this.selectedChambersList.length === 0) {
 
             this.clearAllSelectedChambers();
@@ -472,9 +389,7 @@ export class ChamberComponent implements OnInit {
 
             this.findCompatibilityInfoForChamberIds();
           }
-        } else {
-
-        }
+        } else {}
       } else if(isFrom == 'Cancel') {
 
       } else {
@@ -485,8 +400,6 @@ export class ChamberComponent implements OnInit {
 
           if(wantToUpdate) {
 
-            console.log('showChamberQtyDialog afterClosed wantToUpdate: ', wantToUpdate);
-
             let index = -1;
 
             for (let i = 0; i < this.selectedChambersList.length; i++) {
@@ -496,15 +409,11 @@ export class ChamberComponent implements OnInit {
                 index = i;
               }
             }
-            // const index = this.selectedChambersList.indexOf(selectedDialogChamber);
-            console.log('showChamberQtyDialog afterClosed index: ', index);
-            console.log('showChamberQtyDialog afterClosed qtyCount: ', qtyCount);
-
+          
             if(qtyCount == 0) {
 
               this.selectedChambersList.splice(index, 1);
-              console.log("showChamberQtyDialog afterClosed qty = 0 selectedChambersList", this.selectedChambersList.length);
-
+        
               if (this.selectedChambersList.length === 0) {
 
                 this.clearAllSelectedChambers();
@@ -515,7 +424,6 @@ export class ChamberComponent implements OnInit {
             } else {
   
               this.selectedChambersList[index].qty = qtyCount;
-              
               this.findCompatibilityInfoForChamberIds();
             }
           } else {
@@ -529,9 +437,7 @@ export class ChamberComponent implements OnInit {
               chamberModel.name = selectedDialogChamber.name;
               chamberModel.got_code = selectedDialogChamber.got_code;
               chamberModel.qty = qtyCount;
-  
               this.selectedChambersList.push(chamberModel);
-  
               this.findCompatibilityInfoForChamberIds();
             }
           }
@@ -543,9 +449,7 @@ export class ChamberComponent implements OnInit {
   showHttpErrorDailog(error) {
 
     console.log("error response", error);
-    console.log("error status: ", error.status);
-    console.log("error message: ", error.message);
-    
+
     var errorCode = error.status;
     var errorMessage: string = '';
 
@@ -566,19 +470,14 @@ export class ChamberComponent implements OnInit {
       errorMessage = 'Something went wrong and we couldn\'t process your request';
     }
 
-    console.log("error status after if: ", error.status);
-    console.log("error message after if: ", error.message);
-
     const dialogRef = this.dialog.open(ChamberHttpErrorDialog, {
-
       width: '460px',
       height: 'auto',
       data: {errorMessage: errorMessage}
     });
   
     dialogRef.afterClosed().subscribe(result => {
-  
-      console.log('showPlatialog dialogRef.afterClosed isFrom');
+
     });
   }
 
@@ -627,27 +526,17 @@ export class ChamberComponent implements OnInit {
 
   outSearchChamberfocus() {
 
-    // this.dropDownChambersList = [];
   }
 
   backButton() {
 
     localStorage.clear();
-    
     this.location.back();
   }
 
   submitButton() {
 
     this.router.navigate(['product'], { relativeTo: this.route });
-
-    // var selectedChamberIDs: any = [];
-
-    // for (let i = 0; i < this.selectedChambersList.length; i++) {
-
-    //   selectedChamberIDs.push(this.selectedChambersList[i].id);
-    // }
-
     localStorage.setItem("SelectedChambersList", JSON.stringify(this.selectedChambersList));
   }
 }
@@ -675,7 +564,6 @@ export class DialogOverviewExampleDialog {
 
     localStorage.setItem('IsFrom', 'EnableButton');
     localStorage.setItem('IsRnDEnable', 'true');
-    console.log("rndEnableClose");
     this.dialogRef.close();
   }
 }
@@ -688,16 +576,11 @@ export class DialogOverviewExampleDialog {
 
 export class ChamberHttpErrorDialog {
 
-  constructor(public dialogRef: MatDialogRef<ChamberHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
-  }
+  constructor(public dialogRef: MatDialogRef<ChamberHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   dialogOK() {
     
-    console.log("Dialog Exit");
     this.dialogRef.close();
-
-    // localStorage.clear();
-    // this.router.navigate(['/dashboard']);
   }
 }
 

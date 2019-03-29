@@ -78,7 +78,6 @@ import {MatTabsModule} from '@angular/material/tabs';
   ],
 
   providers: [
-    
     ApiService,
   ],
 

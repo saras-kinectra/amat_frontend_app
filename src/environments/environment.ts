@@ -13,7 +13,6 @@ export const environment = {
     redirect_uri: 'http://localhost:4200/callback',
     scope:'openid profile',
     extras: {
-     
       'access_type': 'offline',
     }
 };
