@@ -6,7 +6,7 @@ export const environment = {
   apiBasicAuthPassword  : '86e6ecc075cb6fab7441868cd8fe9e2c',
   issuer_uri: 'https://myloginqa.amat.com:8080',
   client_id: 'G3Mobile_Dev',
-  redirect_uri: 'http://localhost:4200/callback',
+  redirect_uri: 'http://ec2-34-229-95-172.compute-1.amazonaws.com/amatg3mapper/app/callback',
   scope:'openid profile',
   extras: {
     'access_type': 'offline'
