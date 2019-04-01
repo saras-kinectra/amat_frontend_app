@@ -24,7 +24,7 @@ export class ChamberComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   chamberFormControl = new FormControl();
-
+  isRnDChamberLoading:boolean = false;
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @ViewChild('chamberInput') chamberInput: ElementRef<HTMLInputElement>;
@@ -80,11 +80,14 @@ export class ChamberComponent implements OnInit {
       this.findCompatibilityInfoForChamberIds();
     } else {
 
+      this.isRnDChamberLoading = false;
       this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
         console.log("ngOnInit getChambersByPlatformID response: ", response);
         
         this.chambersList = JSON.parse(JSON.stringify(response));
         if(this.chambersList.length > 0) {
+
+          this.isRnDChamberLoading = true;
 
         } else {
 
@@ -262,7 +265,7 @@ export class ChamberComponent implements OnInit {
     }
 
     this.isCalledServiceAPI = true;
-
+    this.isRnDChamberLoading = false;
     this.apiService.findCompatibilityInfoForChamberIds(selectedChamberIDs, this.selectedPlatform.id).subscribe(response => {
 
       console.log("filterCompatibleChambersByID response: ", response);
@@ -281,19 +284,23 @@ export class ChamberComponent implements OnInit {
 
         if(this.compatibilityChambersList.length > 0) {
 
+         
           this.isRnDChambersEnabled = false;
         } else {
 
+          
           this.isRnDChambersEnabled = true;
         }
       }
 
       if(this.compatibilityChambersList.length > 0) {
 
+      
         this.showCompatibilityChambersTitle = true;
         this.showCompatibilityChambersList = true;
       } else {
 
+       
         this.showCompatibilityChambersTitle = false;
         this.showCompatibilityChambersList = false;
       }
@@ -310,10 +317,12 @@ export class ChamberComponent implements OnInit {
 
       if(this.rndOnlyChambersList.length > 0) {
 
+        this.isRnDChamberLoading = true;
         this.showRnDChamberTitle = true;
         this.showRnDChamberList = true;
       } else {
 
+        this.isRnDChamberLoading = false;
         this.showRnDChamberTitle = false;
         this.showRnDChamberList = false;
       }
@@ -343,10 +352,18 @@ export class ChamberComponent implements OnInit {
 
     this.isRnDChambersEnabled = false;
     this.isButtonLabelCondition = false;
-
+    this.isRnDChamberLoading = false;
     this.apiService.getChambersByPlatformID(this.selectedPlatform.id).subscribe(response => {
 
       this.chambersList = JSON.parse(JSON.stringify(response));
+
+      if(this.chambersList.length > 0){
+
+        this.isRnDChamberLoading = true;
+      }else{
+        this.isRnDChamberLoading = false;
+      }
+
     }, error => {
       
       this.showHttpErrorDailog(error);

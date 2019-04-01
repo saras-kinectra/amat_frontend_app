@@ -203,3 +203,14 @@ hr {
     margin-right: -5px;
     margin-bottom: 3px;
 }
+
+.RnDChamberSelect {
+
+    cursor: pointer;
+}
+
+.RnDChamberDisabled {
+
+    pointer-events: none;
+    cursor: not-allowed;  
+}

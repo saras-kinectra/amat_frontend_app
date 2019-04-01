@@ -7,7 +7,7 @@
 
         <label class="selectChambersName">Select Chambers</label>
         <mat-chip-list #chipList>
-          <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="chamberSelectable"
+          <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="false"
             [removable]="removable" (removed)="chambersRemove(chamber)" (click)="updateChambersByID(chamber)">
             {{chamber.name}} ({{chamber.got_code}})
             <div class="chamberQtyCircle">{{chamber.qty}}</div>
@@ -50,7 +50,11 @@
       <div [ngClass]="{'isRnDChambersTopMarginHigh' : isRnDChambersEnabled == true, 'isRnDChambersTopMarginLow' : isRnDChambersEnabled == false }">
         <p class="incompatableChambers" [hidden]="!showRnDChamberTitle">R&D Configurations</p>
 
-        <p class="inCompatableChamberNames" [hidden]="!showRnDChamberList" *ngFor="let chambers of rndOnlyChambersList; let i = index"
+        <p class="inCompatableChamberNames" 
+
+        [ngClass]="{'RnDChamberSelect' : isRnDChamberLoading == true, 'RnDChamberDisabled' : isRnDChamberLoading == false }"
+
+        [hidden]="!showRnDChamberList" *ngFor="let chambers of rndOnlyChambersList; let i = index"
           [class.active]="selectedIndex === i" (click)="filterRnDChambersByID(chambers)">
           <a style="padding:5px">{{ chambers.name }} ({{chambers.got_code}})</a>
         </p>
