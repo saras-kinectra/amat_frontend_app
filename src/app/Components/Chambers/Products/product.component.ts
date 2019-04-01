@@ -82,7 +82,7 @@ export class ProductComponent implements OnInit {
       // this.loadSVGImage();
       if(this.finalProductsList.length > 1) {
         
-        var message: string = 'We got ' + this.finalProductsList.length + " products";
+        var message: string = "The result contains multiple possible product IDs for the selected chambers.";
         const dialogRef = this.dialog.open(MultipleProducDialog, {
           width: '460px',
           height: 'auto',

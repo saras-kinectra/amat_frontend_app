@@ -1,9 +1,11 @@
+import { AuthorizationService } from './../../authorization.service';
 
 import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from './../../Services/api.service';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { TokenResponse } from '@openid/appauth';
 
 @Component({
 
@@ -24,7 +26,8 @@ export class PlatFormsComponent implements OnInit {
 
   @ViewChild('opIdInput') opIdInput: ElementRef<HTMLInputElement>;
 
-  constructor(private apiService: ApiService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog) {}
+  constructor(private apiService: ApiService, private router: Router, private route: ActivatedRoute, 
+    private formBuilder: FormBuilder, public dialog: MatDialog,public authorizationService:AuthorizationService) {}
 
   ngOnInit() {
 
@@ -33,26 +36,35 @@ export class PlatFormsComponent implements OnInit {
       platform: [null, [Validators.required]],
     });
 
+    this.getPlatforms();
     this.opIdInput.nativeElement.focus();
+  }
+
+  getPlatforms() {
+
     this.apiService.getPlatforms().subscribe(response => {
-      
+
       console.log("Response - getPlatforms: ", response);
       this.platformsList = JSON.parse(JSON.stringify(response));
+      console.log("Response - getPlatforms: json: ", this.platformsList);
     }, error => {
-
+      
       console.log("error response", error);
+      console.log("error status: ", error.status);
+      console.log("error message: ", error.message);
+      
       var errorCode = error.status;
       var errorMessage: string = '';
-
+      
       if(errorCode == '0') {
 
         errorMessage = 'The server encountered an error. Please try again later';
       } else if(errorCode == '401') {
-
-        errorMessage = 'You’re not authorized to access the resource that you requested';
+  
+        errorMessage = 'Youâ€™re not authorized to access the resource that you requested. Please login with ok button';
       } else if(errorCode == '404') {
 
-        errorMessage = 'The resource you’re looking for was not found';
+        errorMessage = 'The resource youâ€™re looking for was not found';
       } else if(errorCode == '500') {
 
         errorMessage = 'The server encountered an error. Please try again later';
@@ -61,17 +73,39 @@ export class PlatFormsComponent implements OnInit {
         errorMessage = 'Something went wrong and we couldn\'t process your request';
       }
 
+      console.log("error status after if: ", error.status);
+      console.log("error message after if: ", error.message);
+
       const dialogRef = this.dialog.open(PlatformHttpErrorDialog, {
 
+        panelClass: 'platformHttpErrorDialogBorderRadius',
         width: '460px',
-        height: 'auto',
-        data: {errorMessage: errorMessage}
+        // height: 'auto',
+        data: {errorMessage: errorMessage, errorCode: errorCode}
       });
     
       dialogRef.afterClosed().subscribe(result => {
+    
+        var fetchPlatform = localStorage.getItem('PlatformHttpDialogFrom');
+        
+        if (fetchPlatform === 'true') {
 
+        } else {
+       
+          // this.authorizationService.authorize();
+        }
       });
     });
+  }
+
+  fetchPlatforms() {
+
+    if(this.platformsList.length > 0) {
+
+    }else{
+
+      this.getPlatforms();
+    }
   }
 
   onPlatFormListChange(event, index) {}
@@ -112,14 +146,27 @@ export class PlatFormsComponent implements OnInit {
 
 export class PlatformHttpErrorDialog {
 
-  constructor(public dialogRef: MatDialogRef<PlatformHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  errorCode: any; 
+  constructor(public dialogRef: MatDialogRef<PlatformHttpErrorDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+    this.errorCode = data.errorCode;
+  }
 
   dialogOK() {
   
+    // if (this.errorCode == '401') {
+
+    //   localStorage.setItem('PlatformHttpDialogFrom', 'true');
+    // } else{
+
+    //   localStorage.setItem('PlatformHttpDialogFrom', 'false');
+    // }
+    
     this.dialogRef.close();
   }
 }
 
 export interface DialogData {
   errorMessage: string;
+  errorCode: any;
 }
