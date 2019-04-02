@@ -39,7 +39,8 @@
         <p class="matchingChambersLabel" [hidden]="!showCompatibilityChambersTitle">Known Matching Chambers</p>
 
         <p class="chamberNames" [hidden]="!showCompatibilityChambersList" *ngFor="let chambers of compatibilityChambersList; let i = index"
-          [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
+        [ngClass]="{'RnDChamberSelect' : isRnDChamberLoading == true, 'RnDChamberDisabled' : isRnDChamberLoading == false }"
+        [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
           <a style="padding:5px">{{ chambers.name }} ({{chambers.got_code}})</a>
         </p>
       </div>

@@ -31,6 +31,7 @@ export class PlatFormsComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.setItem("ExitButtonVisibility", 'false');
     localStorage.clear();
     this.form = this.formBuilder.group({
       platform: [null, [Validators.required]],
@@ -61,10 +62,13 @@ export class PlatFormsComponent implements OnInit {
         errorMessage = 'The server encountered an error. Please try again later';
       } else if(errorCode == '401') {
   
-        errorMessage = 'Youâ€™re not authorized to access the resource that you requested. Please login with ok button';
+        errorMessage = 'You’re not authorized to access the resource that you requested. Please login with ok button';
+      } else if(errorCode == '403') {
+
+        errorMessage = 'Sorry, You don’t have permission to access this application';
       } else if(errorCode == '404') {
 
-        errorMessage = 'The resource youâ€™re looking for was not found';
+        errorMessage = 'The resource you’re looking for was not found';
       } else if(errorCode == '500') {
 
         errorMessage = 'The server encountered an error. Please try again later';
@@ -90,9 +94,9 @@ export class PlatFormsComponent implements OnInit {
         
         if (fetchPlatform === 'true') {
 
+        this.authorizationService.authorize();
         } else {
-       
-          // this.authorizationService.authorize();
+      
         }
       });
     });
@@ -154,13 +158,13 @@ export class PlatformHttpErrorDialog {
 
   dialogOK() {
   
-    // if (this.errorCode == '401') {
+    if (this.errorCode == '401') {
 
-    //   localStorage.setItem('PlatformHttpDialogFrom', 'true');
-    // } else{
+      localStorage.setItem('PlatformHttpDialogFrom', 'true');
+    } else{
 
-    //   localStorage.setItem('PlatformHttpDialogFrom', 'false');
-    // }
+      localStorage.setItem('PlatformHttpDialogFrom', 'false');
+    }
     
     this.dialogRef.close();
   }

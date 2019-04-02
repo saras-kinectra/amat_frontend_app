@@ -66,6 +66,8 @@ export class ChamberComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.setItem("ExitButtonVisibility", 'true');
+
     this.form = this.fb.group({
 
       chamberInputForm: [null, [Validators.required ]],
@@ -476,6 +478,9 @@ export class ChamberComponent implements OnInit {
     } else if(errorCode == '401') {
 
       errorMessage = 'You’re not authorized to access the resource that you requested';
+    } else if(errorCode == '403') {
+
+      errorMessage = 'Sorry, You don’t have permission to access this application';
     } else if(errorCode == '404') {
 
       errorMessage = 'The resource you’re looking for was not found';

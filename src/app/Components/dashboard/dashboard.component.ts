@@ -17,11 +17,12 @@ export class DashboardComponent implements OnInit {
 
   currentUserInfo:any= {}
   currentUser;
-
+  showExitButton: boolean = false;
   constructor(public dialog: MatDialog,public authorizationService: AuthorizationService,
     public apiService:ApiService) {}
 
   ngOnInit() {
+   
     this.authorizationService.tokenResponse().subscribe((tokenResponse: TokenResponse) => {
         if(tokenResponse != null) {
           this.apiService.getUserInfo().subscribe((userInfo => {
@@ -31,6 +32,17 @@ export class DashboardComponent implements OnInit {
         } else {}
     });
 
+  }
+
+  ngDoCheck() {
+
+    if (localStorage.getItem('ExitButtonVisibility') == 'true') {
+
+      this.showExitButton = true;
+    } else {
+
+      this.showExitButton = false;
+    }
   }
 
   showExitDialog() {
@@ -52,6 +64,7 @@ export class DashboardComponent implements OnInit {
 })
 
 export class ExitDialog {
+
 
   constructor(public dialogRef: MatDialogRef<ExitDialog>, private router: Router, private route: ActivatedRoute) { }
 

@@ -63,6 +63,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
 
+    localStorage.setItem("ExitButtonVisibility", 'true');
+
     this.apiService.findProductsForChambers(this.selectedPlatform.id, this.selectedChamberIDs).subscribe(response => {
 
       console.log("Response - findProductsForChambers: ", response);
@@ -287,6 +289,9 @@ export class ProductComponent implements OnInit {
     } else if(errorCode == '401') {
 
       errorMessage = 'You’re not authorized to access the resource that you requested';
+    } else if(errorCode == '403') {
+
+      errorMessage = 'Sorry, You don’t have permission to access this application';
     } else if(errorCode == '404') {
 
       errorMessage = 'The resource you’re looking for was not found';
