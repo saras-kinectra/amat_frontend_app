@@ -15,12 +15,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-    this.authorizationService.tokenResponse().subscribe((tokenResponse: TokenResponse) => {
-        if(tokenResponse != null) {
-          localStorage.setItem('isAuthorized', 'true');
-        } else {
-          localStorage.setItem('isAuthorized', 'false');
-        }
-    });
+    // this.authorizationService.tokenResponse().subscribe((tokenResponse: TokenResponse) => {
+    //     if(tokenResponse != null) {
+    //       localStorage.setItem('isAuthorized', 'true');
+    //     } else {
+    //       localStorage.setItem('isAuthorized', 'false');
+    //     }
+    // });
   }
 }
