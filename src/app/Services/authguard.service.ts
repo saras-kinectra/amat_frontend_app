@@ -1,17 +1,18 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { mergeMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthorizationService } from './../authorization.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { JwtHelper } from 'angular2-jwt';
+
+const jwtHelperService = new JwtHelperService()
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
 
     public tokenResponse;
     
-    constructor( public authorizationService: AuthorizationService, 
-                public jwtHelperService: JwtHelper,public router: Router) {}
+    constructor( public authorizationService: AuthorizationService,public router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
@@ -22,13 +23,13 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
             if (token) {
 
                 // console.log('authenticated: ', token.accessToken);
-                // const decodedToken =  this.jwtHelperService.decodeToken(token.accessToken);
-               const decodedToken =  this.jwtHelperService.decodeToken(token.accessToken);
-
+               const decodedToken =  jwtHelperService.decodeToken(token.accessToken);
+               console.log('decodedToken: ',decodedToken,decodedToken);
                 if(decodedToken.role) {
 
                     if (decodedToken.role == 'user' || decodedToken.role == 'admin'){
 
+                        
                         return true;
                     } else {
 
@@ -43,8 +44,8 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
                
             } else {
 
-                console.log('not authenticated');
-                this.authorizationService.authorize();
+                console.log('not-authenticated');
+                 this.authorizationService.authorize();
                 return false;
             }
         }));

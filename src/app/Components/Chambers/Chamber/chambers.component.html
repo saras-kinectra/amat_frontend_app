@@ -32,7 +32,8 @@
       <div class="matContainer comapatableChambersList">
 
         <p class="chamberNames" [hidden]="!showChambersList" *ngFor="let chambers of chambersList; let i = index"
-          [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
+        [ngClass]="{'RnDChamberSelect' : isRnDChamberLoading == true, 'RnDChamberDisabled' : isRnDChamberLoading == false }"
+        [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
           <a style="padding:5px">{{ chambers.name }} ({{chambers.got_code}})</a>
         </p>
 

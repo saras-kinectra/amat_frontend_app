@@ -34,14 +34,9 @@ import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChamberMainModule } from '../Components/Chambers/chamber.module';
-import { AuthHttp, AuthConfig, JwtHelper } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
 import { UnAuthorizedComponent } from './unAuthorized/unAuthorizedcomponent';
 
-
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig(), http, options);
-}
 
 @NgModule({
   declarations: [
@@ -84,20 +79,14 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 
   providers: [
     
-    JwtHelper,
     ApiService, 
     AuthGuardService,
     AuthorizationService,
-    
-    {
+
+  {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-  },
-  {
-    provide: AuthHttp,
-    useFactory: authHttpServiceFactory,
-    deps: [Http, RequestOptions]
   }
   ],
 
