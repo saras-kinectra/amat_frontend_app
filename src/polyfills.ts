@@ -35,6 +35,9 @@ import 'core-js/es6/regexp';
 import 'core-js/es6/map';
 import 'core-js/es6/weak-map';
 import 'core-js/es6/set';
+import "es6-promise/auto";
+import "es6-promise";
+import "isomorphic-fetch";
 
 /**
  * If the application will be indexed by Google Search, the following is required.
