@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   apiUrl: 'https://g3mapper.amat.com/api/',
   baseHref : '/app/',
-  issuer_uri: 'https://mylogin.amat.com:8080',
-  client_id: 'G3Mobile',
+  issuer_uri: 'https://myloginqa.amat.com:8080',
+  client_id: 'G3Mobile_Dev',
   redirect_uri: 'https://g3mapper.amat.com/app/callback',
   scope:'openid profile',
   extras: {

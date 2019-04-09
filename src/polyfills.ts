@@ -35,9 +35,7 @@ import 'core-js/es6/regexp';
 import 'core-js/es6/map';
 import 'core-js/es6/weak-map';
 import 'core-js/es6/set';
-import "es6-promise/auto";
-import "es6-promise";
-import "isomorphic-fetch";
+
 
 /**
  * If the application will be indexed by Google Search, the following is required.
@@ -77,9 +75,25 @@ import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
+
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+
+ 
+import "es6-promise/auto";
+import "es6-promise";
+import "isomorphic-fetch";
+
+/*
+* in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
+* with the following flag, it will bypass `zone.js` patch for IE/Edge
+*/
+//(window as any).__Zone_enable_cross_context_check = true;
+if (document['documentMode'] || /Edge/.test(navigator.userAgent)) {
+    (window as any).__Zone_enable_cross_context_check = true;
+}
