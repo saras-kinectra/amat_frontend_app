@@ -28,6 +28,7 @@
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
     "es6-promise": "^4.2.6",
+    "es6-shim": "^0.35.5",
     "hammerjs": "^2.0.8",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^1.9.1",
@@ -40,6 +41,7 @@
     "typescript-string-operations": "^1.3.1",
     "url-polyfill": "^1.1.5",
     "web-animations-js": "^2.3.1",
+    "webcrypto-shim": "^0.1.4",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
