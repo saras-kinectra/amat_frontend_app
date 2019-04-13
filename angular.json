@@ -33,9 +33,9 @@
               "node_modules/primeng/resources/primeng.min.css"
 
             ],
-            "scripts": [
-              "node_modules/url-polyfill/url-polyfill.js"
-            ]
+            "scripts": ["node_modules/es6-shim/es6-shim.min.js",
+              "node_modules/url-polyfill/url-polyfill.js",
+              "node_modules/webcrypto-shim/webcrypto-shim.js"]
           },
           "configurations": {
             "production": {
