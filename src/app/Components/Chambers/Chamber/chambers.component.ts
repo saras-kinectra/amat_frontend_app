@@ -319,14 +319,22 @@ export class ChamberComponent implements OnInit {
 
       if(this.rndOnlyChambersList.length > 0) {
 
-        this.isRnDChamberLoading = true;
+        // this.isRnDChamberLoading = true;
         this.showRnDChamberTitle = true;
         this.showRnDChamberList = true;
       } else {
 
-        this.isRnDChamberLoading = false;
+        // this.isRnDChamberLoading = false;
         this.showRnDChamberTitle = false;
         this.showRnDChamberList = false;
+      }
+
+      if(this.compatibilityChambersList.length > 0 || this.rndOnlyChambersList.length > 0) {
+
+        this.isRnDChamberLoading = true;
+      } else {
+
+        this.isRnDChamberLoading = false;
       }
     }, error => {
 
