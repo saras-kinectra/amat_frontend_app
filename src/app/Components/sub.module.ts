@@ -36,6 +36,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ChamberMainModule } from '../Components/Chambers/chamber.module';
 import { Http, RequestOptions } from '@angular/http';
 import { UnAuthorizedComponent } from './unAuthorized/unAuthorizedcomponent';
+import { LaunchPageComponent } from './LaunchPage/launch-page.component';
+import { HomePageComponent } from './HomePage/home-page.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { UnAuthorizedComponent } from './unAuthorized/unAuthorizedcomponent';
     ExitDialog,
     CallbackComponent,
     PlatformHttpErrorDialog,
-    UnAuthorizedComponent
+    UnAuthorizedComponent,
+    LaunchPageComponent,
+    HomePageComponent
   ],
 
   imports: [

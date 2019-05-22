@@ -6,10 +6,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PlatFormsComponent } from './platforms/platforms.component';
 import { ChamberMainComponent } from '../Components/Chambers/chambermain.component';
 import { CallbackComponent } from '../callback/callback.component';
+import { LaunchPageComponent } from './LaunchPage/launch-page.component';
+import { HomePageComponent } from './HomePage/home-page.component';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: '', redirectTo: '/launch', pathMatch: 'full'},
+  { path: 'launch',  component: LaunchPageComponent },
+  { path: 'home',  component: HomePageComponent },
+  // { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   { path: 'callback',  component: CallbackComponent },
   { path: 'unauthorized', component: UnAuthorizedComponent },
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuardService],
@@ -29,5 +34,3 @@ const routes: Routes = [
 })
 
 export class SubRoutingModule { }
-
-
