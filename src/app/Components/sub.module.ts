@@ -1,3 +1,4 @@
+import { LaunchPageComponent } from './LaunchPage/launch-page.component';
 import { CallbackComponent } from './../callback/callback.component';
 import { AuthInterceptor } from './../Services/auth-interceptor';
 import { AuthorizationService } from './../authorization.service';
@@ -36,9 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ChamberMainModule } from '../Components/Chambers/chamber.module';
 import { Http, RequestOptions } from '@angular/http';
 import { UnAuthorizedComponent } from './unAuthorized/unAuthorizedcomponent';
-import { LaunchPageComponent } from './LaunchPage/launch-page.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 import { HomePageComponent } from './HomePage/home-page.component';
-
 
 @NgModule({
   declarations: [
@@ -78,7 +78,8 @@ import { HomePageComponent } from './HomePage/home-page.component';
     Ng2SearchPipeModule, 
     MatMenuModule,
     MatDialogModule,
-    ChamberMainModule
+    ChamberMainModule,
+    MatGridListModule
   ],
 
   providers: [
